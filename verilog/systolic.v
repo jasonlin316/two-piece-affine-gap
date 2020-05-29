@@ -13,7 +13,11 @@ module systolic(
     busy,
     ack,
     valid, //input is valid
-    new_seq
+    new_seq,
+    mem_block_num,
+    row_num,
+    row_k0,
+    row_k1
 );
 
 genvar    j;
@@ -35,6 +39,11 @@ output reg busy;
 input ack;
 input valid;
 input new_seq;
+
+input  [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
+input  [`ADDRESS_WIDTH-1:0] row_num;
+output [`N*`DIRECTION_WIDTH-1:0] row_k0;
+output [`N*`DIRECTION_WIDTH-1:0] row_k1;
 
 /* ======================= REG & wire ================================ */
 
@@ -67,7 +76,7 @@ wire signed [`CALC_WIDTH-1:0] F_hat_ram_read;
 wire [`DIRECTION_WIDTH-1:0] direction_val  [`N-1:0];
 
 wire [`DIRECTION_WIDTH-1:0] write_direction [`N-1:0];
-wire [`DIRECTION_WIDTH-1:0] read_direction  [`N-1:0];
+wire [`DIRECTION_WIDTH-1:0] read_direction  [`N*`MEM_AMOUNT-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_read_address [`N-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_write_address [`N-1:0];
 wire dir_we [`N-1:0];
@@ -116,8 +125,14 @@ generate
   begin
     assign write_direction[j]   = direction_val[j];
     assign dir_write_address[j] = (write_address[j] > 0)? write_address[j] - `ADDRESS_WIDTH'd1 : 0;
+    assign dir_read_address[j] = row_num;
+    assign row_k0[j*5+:5] = read_direction[mem_block_num*`N + j]; 
+    assign row_k1[j*5+:5] = (mem_block_num > 0)? read_direction[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : 0; 
   end
 endgenerate
+
+
+
 
 /* ====================Combinational Part================== */
 
@@ -155,7 +170,7 @@ generate
     for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
     begin
       direction_ram DR(
-        .q(read_direction[BLOCK_WIDTH]),
+        .q(read_direction[BLOCK_WIDTH+BLOCK_NUMBER*`N]),
         .d(write_direction[BLOCK_WIDTH]),
         .write_address(dir_write_address[BLOCK_WIDTH]),
         .read_address(dir_read_address[BLOCK_WIDTH]),

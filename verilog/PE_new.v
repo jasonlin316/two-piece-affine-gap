@@ -197,7 +197,7 @@ begin
         t_out <= t_in;
         s_reg <= s_signal;
         t_reg <= t_signal;
-        H_diag <= H_in;
+        H_diag <= (read_address_cnt_next == 0)? 0 : H_in ;
         H_out_reg <= (flag || valid_in)? result : 0;
         F_out <= F_result;
         F_hat_out <= F_hat_result;

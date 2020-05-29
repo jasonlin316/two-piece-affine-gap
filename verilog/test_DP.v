@@ -20,6 +20,14 @@ wire busy;
 reg valid;
 reg ack;
 reg new_seq;
+wire array_num;
+wire tb_valid;
+wire [`N*`DIRECTION_WIDTH-1:0] row_k0;
+wire [`N*`DIRECTION_WIDTH-1:0] row_k1;
+reg tb_busy;
+reg [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
+reg [`ADDRESS_WIDTH-1:0] row_num;
+
 
 reg [`SEQ_MAX_LEN*2-1:0] seq [0:7];
 reg [11:0] seq_len [0:7]; //sequence length
@@ -55,7 +63,7 @@ always #(`cycle/2) clk_i = ~clk_i;
 
 //systolic systolic( .clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid));
 DP DP(.clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid), .new_seq(new_seq),
-.tb_valid(), .array_num(), .tb_busy(0), .mem_block_num(), .row_num(), .row_k0(), .row_k1() );
+.tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1) );
 
 initial begin
 
@@ -65,6 +73,11 @@ s_update = 0;
 ack = 0;
 valid = 0;
 new_seq = 0;
+/*for tb testing only*/
+tb_busy = 0;
+mem_block_num = 0;
+row_num = 3;
+/*for tb testing only*/
 # `cycle;     
 	rst_n = 0;
 #(`cycle*2);

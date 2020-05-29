@@ -87,7 +87,11 @@ systolic s0(
     .busy(s0_busy),
     .ack(s0_ack),
     .valid(s0_valid), //input is valid
-    .new_seq(new_seq)
+    .new_seq(new_seq),
+    .mem_block_num(mem_block_num),
+    .row_num(row_num),
+    .row_k0(),
+    .row_k1()
 );
 
 systolic s1(
@@ -100,7 +104,11 @@ systolic s1(
     .busy(s1_busy),
     .ack(s1_ack),
     .valid(s1_valid), //input is valid
-    .new_seq(new_seq)
+    .new_seq(new_seq),
+    .mem_block_num(mem_block_num),
+    .row_num(row_num),
+    .row_k0(),
+    .row_k1()
 );
 
 always@(*)
@@ -112,11 +120,13 @@ begin
     case(state)
         IDLE:
         begin
+            tb_valid_next = 0;
             if(change == 1'b1) state_next = DPS0;
             else state_next = state;
         end
         DPS0:
         begin
+            tb_valid_next = 0;
             if(change == 1'b1 && tb_busy == 0)
             begin
                 use_s1_next = 1'b1;
@@ -127,6 +137,7 @@ begin
         end
         DPS1:
         begin
+            tb_valid_next = 0;
             if(change == 1'b1 && tb_busy == 0)
             begin
                 use_s1_next = 0;
