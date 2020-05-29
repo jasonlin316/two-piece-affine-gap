@@ -61,6 +61,11 @@ wire s0_update, s1_update;
 wire [`BP_WIDTH-1:0] s0_S, s1_S;
 wire [`BP_WIDTH-1:0] s0_T, s1_T;
 
+wire [`N*`DIRECTION_WIDTH-1:0] s0_row_k0;
+wire [`N*`DIRECTION_WIDTH-1:0] s0_row_k1;
+wire [`N*`DIRECTION_WIDTH-1:0] s1_row_k0;
+wire [`N*`DIRECTION_WIDTH-1:0] s1_row_k1;
+
 /* ====================Conti Assign================== */
 
 assign s0_valid = (use_s1)? 0 : valid;
@@ -74,6 +79,9 @@ assign s1_S     = (use_s1)? S : 0;
 assign s0_T     = (use_s1)? 0 : T;
 assign s1_T     = (use_s1)? T : 0;
 assign busy     = (use_s1)? s1_busy : s0_busy;
+
+assign row_k0 = (array_num)? s1_row_k0 : s0_row_k0;
+assign row_k1 = (array_num)? s1_row_k1 : s0_row_k1;
 
 /* ==================== Combinational Part ================== */
 
@@ -90,8 +98,8 @@ systolic s0(
     .new_seq(new_seq),
     .mem_block_num(mem_block_num),
     .row_num(row_num),
-    .row_k0(),
-    .row_k1()
+    .row_k0(s0_row_k0),
+    .row_k1(s0_row_k1)
 );
 
 systolic s1(
@@ -107,8 +115,8 @@ systolic s1(
     .new_seq(new_seq),
     .mem_block_num(mem_block_num),
     .row_num(row_num),
-    .row_k0(),
-    .row_k1()
+    .row_k0(s1_row_k0),
+    .row_k1(s1_row_k1)
 );
 
 always@(*)
