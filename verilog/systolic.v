@@ -2,6 +2,7 @@
 `include "define.v"
 `include "ram.v"
 `include "direction_ram.v"
+`include "pos_ram.v"
 
 module systolic(
     clk,
@@ -9,6 +10,7 @@ module systolic(
     S,
     T,
     s_update, // if true, update S value in PE
+    PE_end,
     max_o,
     busy,
     ack,
@@ -17,7 +19,9 @@ module systolic(
     mem_block_num,
     row_num,
     row_k0,
-    row_k1
+    row_k1,
+    tb_x,
+    tb_y
 );
 
 genvar    j;
@@ -39,11 +43,14 @@ output reg busy;
 input ack;
 input valid;
 input new_seq;
+input [`log_N-1:0] PE_end;
 
 input  [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
 input  [`ADDRESS_WIDTH-1:0] row_num;
 output [`N*`DIRECTION_WIDTH-1:0] row_k0;
 output [`N*`DIRECTION_WIDTH-1:0] row_k1;
+output [`ADDRESS_WIDTH-1:0] tb_x;
+output [`ADDRESS_WIDTH-1:0] tb_y;
 
 /* ======================= REG & wire ================================ */
 
@@ -70,6 +77,16 @@ wire valid_i [`N-1:0];
 wire valid_o [`N-1:0];
 wire [`ADDRESS_WIDTH-1:0] write_address [`N-1:0];
 wire [`ADDRESS_WIDTH-1:0] read_address  [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  XIn  [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  XOut [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  YIn  [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  YOut [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  ColIn  [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  ColOut [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0] X_ram_read;
+wire [`ADDRESS_WIDTH-1:0] Y_ram_read;
+wire [`ADDRESS_WIDTH-1:0] col_ram_read;
+wire signed [`CALC_WIDTH-1:0]    max_ram_read;
 wire signed [`CALC_WIDTH-1:0] H_ram_read;
 wire signed [`CALC_WIDTH-1:0] F_ram_read;
 wire signed [`CALC_WIDTH-1:0] F_hat_ram_read;
@@ -85,6 +102,10 @@ reg [`MEM_AMOUNT-1:0] block_we ;
 reg  signed [`CALC_WIDTH-1:0]  H_reg;
 reg  signed [`CALC_WIDTH-1:0]  Fi_reg;  
 reg  signed [`CALC_WIDTH-1:0]  Fi_h_reg;
+reg  signed [`CALC_WIDTH-1:0]  max_reg;
+reg [`ADDRESS_WIDTH-1:0]  Col_reg;
+reg [`ADDRESS_WIDTH-1:0]  X_reg;
+reg [`ADDRESS_WIDTH-1:0]  Y_reg;
 reg iter_flag, iter_flag_next;
 reg valid_delay, valid_delay_2;
 reg busy_detect, busy_detect_next; // detect valid_o[N-1] goes 0 -> 1 -> 0
@@ -96,16 +117,24 @@ reg first_row, first_row_next;
 reg [`MEM_AMOUNT_WIDTH-1:0] iter, iter_next; // the amount of iterations
 reg direction_valid [`N-1:0];
 
+reg [`ADDRESS_WIDTH-1:0] tb_x_reg, tb_x_reg_next;
+reg [`ADDRESS_WIDTH-1:0] tb_y_reg, tb_y_reg_next;
+
 /* ====================Conti Assign================== */
 
 assign Si[0]      =  s_reg;
 assign Ti[0]      =  t_reg;
 assign s_update_i[0] = s_update_reg;
-assign MaxIn[0]   = 0; // need to be modified when add SRAM
 assign Hi[0]      = H_reg;
 assign Fi[0]      = Fi_reg;
 assign Fi_h[0]    = Fi_h_reg;
 assign valid_i[0] = valid_delay;
+assign XIn[0] = X_reg;
+assign YIn[0] = Y_reg;
+assign ColIn[0] = Col_reg;
+assign MaxIn[0] = max_reg;
+assign tb_x = tb_x_reg;
+assign tb_y = tb_y_reg;
 
 generate
   for(j=1;j<`N;j=j+1)begin
@@ -117,6 +146,9 @@ generate
     assign s_update_i[j]=s_update_reg;
     assign MaxIn[j]    = MaxOu[j-1];
     assign valid_i[j]  = valid_o[j-1];
+    assign XIn[j]      = XOut[j-1];
+    assign YIn[j]      = YOut[j-1];
+    assign ColIn[j]    = ColOut[j-1];
   end
 endgenerate
 
@@ -145,6 +177,9 @@ generate
      .t_in(Ti[j]),
      .s_update_in(s_update_i[j]),
      .max_in(MaxIn[j]),
+     .col_in(ColIn[j]),
+     .x_in(XIn[j]),
+     .y_in(YIn[j]),
      .H_in(Hi[j]),
      .F_in(Fi[j]),
      .F_hat_in(Fi_h[j]),
@@ -153,6 +188,9 @@ generate
      .t_out(To[j]),
      .s_update_out(s_update_o[j]),
      .max_out(MaxOu[j]),
+     .col_out(ColOut[j]),
+     .x_out(XOut[j]),
+     .y_out(YOut[j]),
      .H_out(Ho[j]), 
      .F_out(Fo[j]),
      .F_hat_out(Fo_h[j]),
@@ -208,10 +246,53 @@ ram F_hat(
 .clk(clk)
 );
 
+ram max(
+.q(max_ram_read),
+.d(MaxOu[`N-1]),
+.write_address(write_address[`N-1]),
+.read_address(mem_cnt), 
+.we(valid_o[`N-1]), 
+.clk(clk)
+);
+
+pos_ram X_val(
+.q(X_ram_read),
+.d(XOut[`N-1]),
+.write_address(write_address[`N-1]),
+.read_address(mem_cnt), 
+.we(valid_o[`N-1]), 
+.clk(clk)
+);
+
+pos_ram Y_val(
+.q(Y_ram_read),
+.d(YOut[`N-1]),
+.write_address(write_address[`N-1]),
+.read_address(mem_cnt), 
+.we(valid_o[`N-1]), 
+.clk(clk)
+);
+
+pos_ram col_val(
+.q(col_ram_read),
+.d(ColOut[`N-1]),
+.write_address(write_address[`N-1]),
+.read_address(mem_cnt), 
+.we(valid_o[`N-1]), 
+.clk(clk)
+);
+
 always@(*)
 begin
   block_we = 0;
   block_we[iter] = 1'b1;
+  tb_x_reg_next = tb_x_reg;
+  tb_y_reg_next = tb_y_reg;
+  if(valid_o[PE_end])
+  begin
+    tb_x_reg_next = XOut[PE_end];
+    tb_y_reg_next = YOut[PE_end];
+  end
 end
 
 always@(*)
@@ -221,6 +302,10 @@ begin
   H_reg = 0;
   Fi_reg = 0;
   Fi_h_reg = 0;
+  X_reg = 0;
+  Y_reg = 0;
+  Col_reg = 0;
+  max_reg = 0;
   busy_detect_next = busy_detect;
   busy = 0;
   s_update_cnt_next = s_update_cnt;
@@ -254,9 +339,12 @@ begin
       H_reg = (iter_flag && (!first_row))? H_ram_read : 0 ;
       Fi_reg = (iter_flag && (!first_row))? F_ram_read : $signed(-`CALC_WIDTH'd`MIN);
       Fi_h_reg = (iter_flag && (!first_row))? F_hat_ram_read : $signed(-`CALC_WIDTH'd`MIN);
-
-      if(valid_o[`N-1] == 1'b1) busy_detect_next = 1'b1;
-      if(valid_o[`N-1] == 0 && busy_detect == 1'b1)
+      X_reg = (iter_flag && (!first_row))? X_ram_read : 0 ;
+      Y_reg = (iter_flag && (!first_row))? Y_ram_read : 0 ;
+      Col_reg = (iter_flag && (!first_row))? col_ram_read : 0 ;
+      max_reg = (iter_flag && (!first_row))? max_ram_read : 0 ;
+      if(valid_o[PE_end] == 1'b1) busy_detect_next = 1'b1;
+      if(valid_o[PE_end] == 0 && busy_detect == 1'b1)
       begin
         state_next = IDLE;
         PE_rst_next = 1'b0;
@@ -289,6 +377,8 @@ begin
       PE_rst <= 1'b1;
       first_row <= 1'b1;
       iter <= 0;
+      tb_x_reg <= 0;
+      tb_y_reg <= 0;
       for(i = 0; i < `N; i = i+1)
       begin
         direction_valid[i] = 0;
@@ -311,6 +401,8 @@ begin
       PE_rst <= PE_rst_next;
       first_row <= first_row_next;
       iter <= iter_next;
+      tb_x_reg <= tb_x_reg_next;
+      tb_y_reg <= tb_y_reg_next;
       for(i = 0; i < `N; i = i+1)
       begin
         direction_valid[i] = valid_o[i];

@@ -8,6 +8,9 @@ module PE(
         t_in,
         s_update_in,
         max_in,
+        col_in,
+        x_in,
+        y_in,
         H_in,
         F_in,
         F_hat_in,
@@ -16,6 +19,9 @@ module PE(
         t_out,
         s_update_out,
         max_out,
+        col_out,
+        x_out,
+        y_out,
         H_out,
         F_out,
         F_hat_out,
@@ -31,6 +37,9 @@ input      [`BP_WIDTH-1:0]  s_in;
 input      [`BP_WIDTH-1:0]  t_in;
 input                       s_update_in;
 input signed  [`CALC_WIDTH-1:0]  max_in;
+input   [`ADDRESS_WIDTH-1:0]  col_in;
+input   [`ADDRESS_WIDTH-1:0]  x_in;
+input   [`ADDRESS_WIDTH-1:0]  y_in;
 input signed  [`CALC_WIDTH-1:0]  H_in;
 input signed  [`CALC_WIDTH-1:0]  F_in;
 input signed  [`CALC_WIDTH-1:0]  F_hat_in;
@@ -39,6 +48,9 @@ output  reg   [`BP_WIDTH-1:0]  s_out;
 output  reg   [`BP_WIDTH-1:0]  t_out;
 output  reg                    s_update_out;
 output signed  [`CALC_WIDTH-1:0]  max_out;
+output   [`ADDRESS_WIDTH-1:0]  col_out;
+output   [`ADDRESS_WIDTH-1:0]  x_out;
+output   [`ADDRESS_WIDTH-1:0]  y_out;
 output signed  [`CALC_WIDTH-1:0]  H_out;
 output reg signed  [`CALC_WIDTH-1:0]  F_out;
 output reg signed  [`CALC_WIDTH-1:0]  F_hat_out;
@@ -76,10 +88,14 @@ wire signed [`CALC_WIDTH-1:0] Ho, Ho_hat, Ie, Ie_hat, De, De_hat;
 reg flag,flag_next; // flag that indicates a valid calculation
 reg [`ADDRESS_WIDTH-1:0] write_address_cnt, write_address_cnt_next;
 reg [`ADDRESS_WIDTH-1:0] read_address_cnt, read_address_cnt_next;
+reg [`ADDRESS_WIDTH-1:0] x_reg, x_reg_next;
+reg [`ADDRESS_WIDTH-1:0] y_reg, y_reg_next;
+reg [`ADDRESS_WIDTH-1:0] col_reg;
 reg s_update_PE;
 reg is_first_cycle, is_first_cycle_next;
 
 reg signed [`CALC_WIDTH-1:0] match_result;
+reg signed [`CALC_WIDTH-1:0] max_reg, max_reg_next;
 reg [`DIRECTION_WIDTH-1:0] direction, direction_next;
 /* ==================== Conti Assignment ================== */
 
@@ -111,6 +127,10 @@ assign De     = $signed(E_out - `CALC_WIDTH'd`E);
 assign De_hat = $signed(E_hat_out - `CALC_WIDTH'd`E_hat);
 
 assign direction_out = direction;
+assign col_out = col_reg;
+assign max_out = max_reg;
+assign x_out   = x_reg;
+assign y_out   = y_reg;
 
 /* ==================== Combinational Part ================== */
 
@@ -162,6 +182,30 @@ begin
 
 end
 
+always@(*)
+begin
+    max_reg_next = max_reg;
+    x_reg_next = x_in;
+    y_reg_next = y_in;
+    if(flag || valid_in)
+    begin
+        if (max_in >= max_reg && max_in >= result)max_reg_next = max_in;
+        else if (result >= max_reg && result >= max_in)
+        begin
+            max_reg_next = result;
+            x_reg_next = col_in;
+            y_reg_next = read_address_cnt;
+        end 
+        else
+        begin
+            max_reg_next = max_reg;
+            x_reg_next = x_reg;
+            y_reg_next = y_reg;
+        end
+        
+    end
+end
+
 /* ==================== Sequential Part =================== */
 
 always@(negedge reset_i or posedge clk)
@@ -189,6 +233,10 @@ begin
         is_first_cycle <= 1'b1;
         direction <= 0;
         match_result <= 0;
+        col_reg <= 0;
+        max_reg <= 0;
+        x_reg <= 0;
+        y_reg <= 0;
     end
     else
     begin
@@ -213,6 +261,11 @@ begin
         is_first_cycle <= is_first_cycle_next;
         direction <= direction_next;
         match_result <= $signed(H_diag + LuT_data_o);
+        //max_out <= (valid_out)? max_reg : 0 ;
+        col_reg <= col_in + `ADDRESS_WIDTH'd1;
+        max_reg <= max_reg_next;
+        x_reg <= x_reg_next;
+        y_reg <= y_reg_next;
     end
 end
 endmodule

@@ -24,9 +24,12 @@ wire array_num;
 wire tb_valid;
 wire [`N*`DIRECTION_WIDTH-1:0] row_k0;
 wire [`N*`DIRECTION_WIDTH-1:0] row_k1;
+wire [`ADDRESS_WIDTH-1:0] tb_x;
+wire [`ADDRESS_WIDTH-1:0] tb_y;
 reg tb_busy;
 reg [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
 reg [`ADDRESS_WIDTH-1:0] row_num;
+reg [`log_N-1:0] PE_end;
 
 
 reg [`SEQ_MAX_LEN*2-1:0] seq [0:7];
@@ -39,6 +42,7 @@ integer j;
 integer s_size;
 integer t_size;
 integer iter;
+integer cal;
 
 `ifdef SDF
 initial $sdf_annotate(`SDFFILE, top);
@@ -62,8 +66,8 @@ end
 always #(`cycle/2) clk_i = ~clk_i;
 
 //systolic systolic( .clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid));
-DP DP(.clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid), .new_seq(new_seq),
-.tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1) );
+DP DP(.clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
+.tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
 initial begin
 
@@ -89,6 +93,7 @@ row_num = 3;
         @(negedge clk_i);
         s_size = seq_len[k];
         t_size = seq_len[k+1];
+        cal = seq_len[k];
         new_seq = 1;
         # `cycle;
         new_seq = 0;
@@ -101,11 +106,14 @@ row_num = 3;
         for (j = 0 ; j < iter ; j = j + 1 )
         begin
             @(negedge clk_i);
+            if(cal <= `N) PE_end = cal-1;
+            else PE_end = `N-1;
             for (i = (`N - 1) * 2 ; i >= 0 ; i = i - 2 ) //S signal serial in
             begin
                 # `cycle;
                 S = seq[k][(j*2*`N+i)+:2];
             end
+            cal = cal - `N;
             ack = 0;
             s_update = 1;
             # `cycle; 

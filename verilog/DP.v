@@ -13,6 +13,7 @@ module DP(
     ack,
     valid, //input, indicate T signal is valid
     new_seq,
+    PE_end,
     /* I/O interact w/ tb module */
     tb_valid, // valid to do traceback
     array_num, // which array to be traced
@@ -20,7 +21,9 @@ module DP(
     mem_block_num, // which memory block to read
     row_num, // which row to read
     row_k0, // read row from memory block K
-    row_k1 // read row from memory block K-1
+    row_k1, // read row from memory block K-1
+    tb_x,
+    tb_y
 );
 
 input clk;
@@ -33,6 +36,7 @@ output busy;
 input ack;
 input valid;
 input new_seq;
+input [`log_N-1:0] PE_end;
 
 output tb_valid;
 output array_num;
@@ -41,6 +45,8 @@ input  [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
 input  [`ADDRESS_WIDTH-1:0] row_num;
 output [`N*`DIRECTION_WIDTH-1:0] row_k0;
 output [`N*`DIRECTION_WIDTH-1:0] row_k1;
+output [`ADDRESS_WIDTH-1:0] tb_x;
+output [`ADDRESS_WIDTH-1:0] tb_y;
 
 
 parameter IDLE = 2'b00;
@@ -65,6 +71,13 @@ wire [`N*`DIRECTION_WIDTH-1:0] s0_row_k0;
 wire [`N*`DIRECTION_WIDTH-1:0] s0_row_k1;
 wire [`N*`DIRECTION_WIDTH-1:0] s1_row_k0;
 wire [`N*`DIRECTION_WIDTH-1:0] s1_row_k1;
+wire [`ADDRESS_WIDTH-1:0] s0_tb_x;
+wire [`ADDRESS_WIDTH-1:0] s0_tb_y;
+wire [`ADDRESS_WIDTH-1:0] s1_tb_x;
+wire [`ADDRESS_WIDTH-1:0] s1_tb_y;
+
+wire [`log_N-1:0] s0_PE_end;
+wire [`log_N-1:0] s1_PE_end;
 
 /* ====================Conti Assign================== */
 
@@ -79,9 +92,14 @@ assign s1_S     = (use_s1)? S : 0;
 assign s0_T     = (use_s1)? 0 : T;
 assign s1_T     = (use_s1)? T : 0;
 assign busy     = (use_s1)? s1_busy : s0_busy;
+assign s0_PE_end= (use_s1)? 0 : PE_end;
+assign s1_PE_end= (use_s1)? PE_end : 0;
 
 assign row_k0 = (array_num)? s1_row_k0 : s0_row_k0;
 assign row_k1 = (array_num)? s1_row_k1 : s0_row_k1;
+
+assign tb_x = (array_num)? s1_tb_x : s0_tb_x;
+assign tb_y = (array_num)? s1_tb_y : s0_tb_y;
 
 /* ==================== Combinational Part ================== */
 
@@ -91,6 +109,7 @@ systolic s0(
     .S(s0_S),
     .T(s0_T),
     .s_update(s0_update), // if true, update S value in PE
+    .PE_end(s0_PE_end),
     .max_o(),
     .busy(s0_busy),
     .ack(s0_ack),
@@ -99,7 +118,9 @@ systolic s0(
     .mem_block_num(mem_block_num),
     .row_num(row_num),
     .row_k0(s0_row_k0),
-    .row_k1(s0_row_k1)
+    .row_k1(s0_row_k1),
+    .tb_x(s0_tb_x),
+    .tb_y(s0_tb_y)
 );
 
 systolic s1(
@@ -108,6 +129,7 @@ systolic s1(
     .S(s1_S),
     .T(s1_T),
     .s_update(s1_update), // if true, update S value in PE
+    .PE_end(s1_PE_end),
     .max_o(),
     .busy(s1_busy),
     .ack(s1_ack),
@@ -116,7 +138,9 @@ systolic s1(
     .mem_block_num(mem_block_num),
     .row_num(row_num),
     .row_k0(s1_row_k0),
-    .row_k1(s1_row_k1)
+    .row_k1(s1_row_k1),
+    .tb_x(s1_tb_x),
+    .tb_y(s1_tb_y)
 );
 
 always@(*)
