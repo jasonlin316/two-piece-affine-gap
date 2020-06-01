@@ -82,7 +82,7 @@ reg over;
 //reg [`SEQUENCE_ELEMENT_WIDTH-1:0] T_mem [0:`SEQ_MAX_LEN-1];//T
 //reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] S_cascade [0:`PREFETCH_TIMES-1];
 //reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] T_cascade [0:`PREFETCH_TIMES-1];
-//reg [`DIRECTION_WIDTH-1:0] direction_mem [0:`SEQ_MAX_LEN*`SEQ_MAX_LEN-1];//directions
+reg [`DIRECTION_WIDTH-1:0] direction_mem [0:`SEQ_MAX_LEN*`SEQ_MAX_LEN-1];//directions
 //reg [`POSITION_WIDTH-1:0] max_position_mem [0:1];//max position
 reg [`BP_WIDTH-1:0] alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer
 //reg [`SEQUENCE_ELEMENT_WIDTH-1:0] S_alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer_s
@@ -234,7 +234,7 @@ end*/
 //initial $sdf_annotate(`SDFFILE, top);
 //initial	$readmemh (`S_SEQUENCE, S_mem);
 //initial $readmemh (`T_SEQUENCE, T_mem);
-//initial	$readmemh (`DIRECTION, direction_mem);
+initial	$readmemh (`DIRECTION, direction_mem);
 //initial $readmemh (`POSITION, max_position_mem);
 //initial $readmemh (`S_GOLDEN, S_alignment_golden);
 //initial $readmemh (`T_GOLDEN, T_alignment_golden);
