@@ -1,4 +1,4 @@
-`include "LUT.v"
+//`include "LUT.v"
 `include "define.v"
 
 module PE(

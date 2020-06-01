@@ -10,7 +10,7 @@ module testfixture;
 `define sequence "../dat/BinaryInput.dat"
 `define data_size "../dat/data_size.dat"
 
-reg clk_i = 0;
+reg clk = 0;
 reg rst_n;
 reg  [`BP_WIDTH-1:0] S;
 reg  [`BP_WIDTH-1:0] T;
@@ -36,9 +36,9 @@ reg [`SEQ_MAX_LEN*2-1:0] seq [0:7];
 reg [11:0] seq_len [0:7]; //sequence length
 
 integer err_cnt;
-integer k;
-integer i;
-integer j;
+integer k_DP;
+integer i_DP;
+integer j_DP;
 integer s_size;
 integer t_size;
 integer iter;
@@ -63,10 +63,10 @@ end
 
 
 
-always #(`cycle/2) clk_i = ~clk_i;
+always #(`cycle/2) clk = ~clk;
 
-//systolic systolic( .clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid));
-DP DP(.clk(clk_i), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
+//systolic systolic( .clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid));
+DP DP(.clk_i(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
 .tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
 initial begin
@@ -74,7 +74,7 @@ initial begin
 rst_n = 1;
 err_cnt = 0;
 s_update = 0;
-ack = 0;
+ack_DP = 0;
 valid = 0;
 new_seq = 0;
 /*for tb testing only*/
@@ -88,12 +88,12 @@ row_num = 3;
 	rst_n = 1;
 #(`cycle/4)
 
-    for (k = 0; k < 8; k = k+2) // how much pair of sequence alignment
+    for (k_DP = 0; k_DP < 8; k_DP = k_DP+2) // how much pair of sequence alignment
     begin
-        @(negedge clk_i);
-        s_size = seq_len[k];
-        t_size = seq_len[k+1];
-        cal = seq_len[k];
+        @(negedge clk);
+        s_size = seq_len[k_DP];
+        t_size = seq_len[k_DP+1];
+        cal = seq_len[k_DP];
         new_seq = 1;
         # `cycle;
         new_seq = 0;
@@ -103,15 +103,15 @@ row_num = 3;
             if(s_size%`N != 0) iter = iter + 1;
         end
         ack = 1;
-        for (j = 0 ; j < iter ; j = j + 1 )
+        for (j_DP = 0 ; j_DP < iter ; j_DP = j_DP + 1 )
         begin
-            @(negedge clk_i);
+            @(negedge clk);
             if(cal <= `N) PE_end = cal-1;
             else PE_end = `N-1;
-            for (i = (`N - 1) * 2 ; i >= 0 ; i = i - 2 ) //S signal serial in
+            for (i_DP = (`N - 1) * 2 ; i_DP >= 0 ; i_DP = i_DP - 2 ) //S signal serial in
             begin
                 # `cycle;
-                S = seq[k][(j*2*`N+i)+:2];
+                S = seq[k_DP][(j_DP*2*`N+i_DP)+:2];
             end
             cal = cal - `N;
             ack = 0;
@@ -121,9 +121,9 @@ row_num = 3;
             ack = 1;
             # `cycle;
 
-            for (i = 0 ; i < t_size * 2 ; i = i +2) //T signal serial in
+            for (i_DP = 0 ; i_DP < t_size * 2 ; i_DP = i_DP +2) //T signal serial in
             begin
-                T = seq[k+1][i+:2];
+                T = seq[k_DP+1][i_DP+:2];
                 valid = 1;
                 # `cycle; 
             end

@@ -18,7 +18,7 @@ parameter IDLE = 0, RESET = 1, PRELOAD_QUERY = 2, PRELOAD_TARGET = 5, PRELOAD_BL
 input  clk;
 input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of where the traceback starts
 input  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_row;//prefech block input
-input  [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] sequence_in;//query sequence and target sequence
+input  [0:`PREFETCH_LENGTH*`BP_WIDTH-1] sequence_in;//query sequence and target sequence
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use
@@ -42,8 +42,8 @@ wire [2:0] nowTrace;//this clock's traceback symbol
 reg [`DIRECTION_WIDTH-1:0] block_prefetch[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==1
 reg [`DIRECTION_WIDTH-1:0] block_current[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==0
 reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
-reg [`SEQUENCE_ELEMENT_WIDTH-1:0] query_sequence_reg[0:`SEQ_MAX_LEN-1];//storing query
-reg [`SEQUENCE_ELEMENT_WIDTH-1:0] target_sequence_reg[0:`SEQ_MAX_LEN-1];//storing target
+reg [`BP_WIDTH-1:0] query_sequence_reg[0:`SEQ_MAX_LEN-1];//storing query
+reg [`BP_WIDTH-1:0] target_sequence_reg[0:`SEQ_MAX_LEN-1];//storing target
 reg [`PRELOAD_COUNT_WIDTH-1:0] preload_sequence_counter;//counter for preloading sequences
 //when prefetching new block, indexing is no more consistent, hence need extra FF to record in-block positions
 reg [`PREFETCH_WIDTH-1:0] in_block_x_bias, in_block_y_bias, prefetch_x_bias, prefetch_y_bias;
