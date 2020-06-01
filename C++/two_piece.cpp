@@ -46,11 +46,19 @@ void printMatrix(vector<vector<int> >& dp, string file_location)
      myfile<<"";
     int ROW = dp.size();
     int COL = dp[0].size();
+    /*
     for (int i=1; i< ROW; i++) 
     { 
         for (int j=1; j<COL; j++)myfile << dp[i][j] << "," ;
         myfile << "\n"; 
+    } */
+
+    for (int i=1; i< COL; i++) 
+    { 
+        for (int j=1; j< ROW; j++)myfile << dp[j][i] << "," ;
+        myfile << "\n"; 
     } 
+
     myfile.close();
 } 
 
