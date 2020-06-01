@@ -1,10 +1,11 @@
 `include "define.v"
 `include "traceback_LUT.v"
+`include "traceback_prefetch_row_dealer.v"
 
 module traceback(clk, max_position_x, max_position_y, prefetch_row, sequence_in,
 				 query_alignment_out, target_alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
-				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, row_num);
+				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, row_num, row_k0, row_k1);
 //direction params
 parameter THRESHOLD = 32;
 //traceback symbols
@@ -20,6 +21,7 @@ input  [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] sequence_in;//query sequen
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use
+input  [`N*`DIRECTION_WIDTH-1:0] row_k0, row_k1;//direction data input
 //outputs
 output reg [`SEQUENCE_ELEMENT_WIDTH-1:0] query_alignment_out, target_alignment_out;//the alignment results of current traceback stage
 output reg [1:0] prefetch_request;//01==update block_current, 10==update block_prefetch
@@ -57,6 +59,9 @@ reg array_num_reg;//store which array to access
 integer i, j;
 //instances
 traceback_LUT lut(.in_case(current_direction), .preTrace(preTrace), .outTrace(nowTrace));
+traceback_prefetch_row_dealer dealer(.row_k0(row_k0), .row_k1(row_k1), .prefetch_request(prefetch_request),
+									 .in_block_y_startpoint(in_block_y_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
+									 .prefetch_row(prefetch_row));
 //combinational
 //current direction logic
 assign current_direction = (switch)?block_prefetch[prefetch_x_bias*`PREFETCH_LENGTH+prefetch_y_bias]:

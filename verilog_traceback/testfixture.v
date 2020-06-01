@@ -103,11 +103,11 @@ traceback DUT(.clk(clk), .max_position_x(max_position_mem[0]), .max_position_y(m
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 			  .prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
 			  .done(done), .is_preload(is_preload), .tb_valid(tb_valid), .array_num(array_num), 
-			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num));
+			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1));
 
-traceback_prefetch_row_dealer dealer(.row_k1(row_k1), .row_k0(row_k0), .prefetch_request(prefetch_request), 
+/*traceback_prefetch_row_dealer dealer(.row_k1(row_k1), .row_k0(row_k0), .prefetch_request(prefetch_request), 
 									 .in_block_y_startpoint(in_block_y_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-									 .prefetch_row(prefetch_row));
+									 .prefetch_row(prefetch_row));*/
 
 wire [`N*`DIRECTION_WIDTH-1:0] memory_out [0:`MEM_AMOUNT-1];
 
