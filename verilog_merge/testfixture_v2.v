@@ -107,8 +107,8 @@ reg new_seq;
 //wire tb_valid;
 //wire [`N*`DIRECTION_WIDTH-1:0] row_k0;
 //wire [`N*`DIRECTION_WIDTH-1:0] row_k1;
-//wire [`ADDRESS_WIDTH-1:0] tb_x;
-//wire [`ADDRESS_WIDTH-1:0] tb_y;
+wire [`ADDRESS_WIDTH-1:0] tb_x;
+wire [`ADDRESS_WIDTH-1:0] tb_y;
 //reg tb_busy;
 //reg [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
 //reg [`ADDRESS_WIDTH-1:0] row_num;
@@ -138,12 +138,12 @@ integer cal;
 	end
 end*/
 
-DP DP(.clk_i(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
+DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
 	  .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
 	  .tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), 
 	  .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
-traceback DUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y), 
+traceback DUT(.clk(clk), .max_position_x(tb_y), .max_position_y(tb_x), 
 			  .prefetch_row(prefetch_row), .alignment_out(alignment_out), .alignment_valid(alignment_valid),
 			  .prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
@@ -417,7 +417,6 @@ end
 
 initial begin
    clk         = 1'b0;
-   tb_valid    = 1'b0;
    over	       = 1'b0;
    aux         = 1'b0;
    k           = 0;
@@ -430,11 +429,6 @@ initial begin
 end
 
 always #(`CYCLE/2) clk = ~clk; 
-initial begin
-   @(negedge clk)  tb_valid = 1'b1;
-   #`CYCLE         tb_valid = 1'b0;
-                                  
-end  
 
 //giving sequence_in
 /*always@(negedge clk)begin
@@ -466,22 +460,16 @@ initial begin
 end
 
 //systolic systolic( .clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid));
-DP DP(.clk_i(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
-.tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
 initial begin
 
 rst_n = 1;
 err_cnt = 0;
 s_update = 0;
-ack_DP = 0;
+ack = 0;
 valid = 0;
 new_seq = 0;
-/*for tb testing only*/
-tb_busy = 0;
-mem_block_num = 0;
-row_num = 3;
-/*for tb testing only*/
+
 # `CYCLE;     
 	rst_n = 0;
 #(`CYCLE*2);

@@ -113,7 +113,7 @@ systolic s0(
     .max_o(),
     .busy(s0_busy),
     .ack(s0_ack),
-    .valid(s0_valid), //input is valid
+    .valid(s0_valid), //input is valid
     .new_seq(new_seq),
     .mem_block_num(mem_block_num),
     .row_num(row_num),
