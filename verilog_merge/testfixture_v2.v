@@ -28,13 +28,13 @@
 `endif
 
 `ifdef piece2
-  `define S_SEQUENCE "../traceback_2piece_s_sequence_template2.dat"
-  `define T_SEQUENCE "../traceback_2piece_t_sequence_template2.dat"
-  `define POSITION "../traceback_2piece_max_position_template2.dat"
-  `define DIRECTION "../traceback_2piece_direction_array_template2.dat"
-  `define S_GOLDEN "../traceback_2piece_s_alignment_golden_template2.dat"
-  `define T_GOLDEN "../traceback_2piece_t_alignment_golden_template2.dat"
-  `define GOLDEN "../traceback_2piece_alignment_golden_template2.dat"
+  `define S_SEQUENCE "../dat_traceback/traceback_2piece_s_sequence_template2.dat"
+  `define T_SEQUENCE "../dat_traceback/traceback_2piece_t_sequence_template2.dat"
+  `define POSITION "../dat_traceback/traceback_2piece_max_position_template2.dat"
+  `define DIRECTION "../dat_traceback/traceback_2piece_direction_array_template2.dat"
+  `define S_GOLDEN "../dat_traceback/traceback_2piece_s_alignment_golden_template2.dat"
+  `define T_GOLDEN "../dat_traceback/traceback_2piece_t_alignment_golden_template2.dat"
+  `define GOLDEN "../dat_traceback/traceback_2piece_alignment_golden_template2.dat"
 `endif
 
 `ifdef piece3
@@ -78,12 +78,12 @@ genvar c;
 
 reg over;
 //reg aux;
-reg [`SEQUENCE_ELEMENT_WIDTH-1:0] S_mem [0:`SEQ_MAX_LEN-1];//S
-reg [`SEQUENCE_ELEMENT_WIDTH-1:0] T_mem [0:`SEQ_MAX_LEN-1];//T
-reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] S_cascade [0:`PREFETCH_TIMES-1];
-reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] T_cascade [0:`PREFETCH_TIMES-1];
-reg [`DIRECTION_WIDTH-1:0] direction_mem [0:`SEQ_MAX_LEN*`SEQ_MAX_LEN-1];//directions
-reg [`POSITION_WIDTH-1:0] max_position_mem [0:1];//max position
+//reg [`SEQUENCE_ELEMENT_WIDTH-1:0] S_mem [0:`SEQ_MAX_LEN-1];//S
+//reg [`SEQUENCE_ELEMENT_WIDTH-1:0] T_mem [0:`SEQ_MAX_LEN-1];//T
+//reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] S_cascade [0:`PREFETCH_TIMES-1];
+//reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] T_cascade [0:`PREFETCH_TIMES-1];
+//reg [`DIRECTION_WIDTH-1:0] direction_mem [0:`SEQ_MAX_LEN*`SEQ_MAX_LEN-1];//directions
+//reg [`POSITION_WIDTH-1:0] max_position_mem [0:1];//max position
 reg [`BP_WIDTH-1:0] alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer
 //reg [`SEQUENCE_ELEMENT_WIDTH-1:0] S_alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer_s
 //reg [`SEQUENCE_ELEMENT_WIDTH-1:0] T_alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer_t
@@ -129,14 +129,14 @@ integer cal;
 
 /*******/
 
-always@(*)begin
+/*always@(*)begin
 	for(i=0; i<`PREFETCH_TIMES; i=i+1)begin
 		for(j=0; j<`PREFETCH_LENGTH; j=j+1)begin
 			S_cascade[i][j*`SEQUENCE_ELEMENT_WIDTH+:3] = S_mem[i*`PREFETCH_LENGTH+j];
 			T_cascade[i][j*`SEQUENCE_ELEMENT_WIDTH+:3] = T_mem[i*`PREFETCH_LENGTH+j];
 		end
 	end
-end
+end*/
 
 DP DP(.clk_i(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
 	  .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
@@ -219,7 +219,7 @@ memory_block memory_30(.clk(clk), .wen(1'b0), .ren(tb_busy),
 memory_block memory_31(.clk(clk), .wen(1'b0), .ren(tb_busy), 
 					  .q(memory_out[31]), .d(0), .write_address(0), .read_address(row_num));*/
 
-always@(*)begin
+/*always@(*)begin
 	if(mem_block_num==0)begin
 		row_k1 = 0;
 		row_k0 = memory_out[0];
@@ -228,14 +228,14 @@ always@(*)begin
 		row_k1 = memory_out[mem_block_num-1];
 		row_k0 = memory_out[mem_block_num];
 	end
-end
+end*/
 
 
 //initial $sdf_annotate(`SDFFILE, top);
-initial	$readmemh (`S_SEQUENCE, S_mem);
-initial $readmemh (`T_SEQUENCE, T_mem);
-initial	$readmemh (`DIRECTION, direction_mem);
-initial $readmemh (`POSITION, max_position_mem);
+//initial	$readmemh (`S_SEQUENCE, S_mem);
+//initial $readmemh (`T_SEQUENCE, T_mem);
+//initial	$readmemh (`DIRECTION, direction_mem);
+//initial $readmemh (`POSITION, max_position_mem);
 //initial $readmemh (`S_GOLDEN, S_alignment_golden);
 //initial $readmemh (`T_GOLDEN, T_alignment_golden);
 initial $readmemh (`GOLDEN, alignment_golden);
@@ -437,7 +437,7 @@ initial begin
 end  
 
 //giving sequence_in
-always@(negedge clk)begin
+/*always@(negedge clk)begin
 	if(is_preload==1)begin
 		sequence_in = S_cascade[a];
 		a = a+1;
@@ -446,7 +446,7 @@ always@(negedge clk)begin
 		sequence_in = T_cascade[b];
 		b = b+1;
 	end
-end
+end*/
 
 //take the alignment outputs
 always @(negedge clk) begin
@@ -482,11 +482,11 @@ tb_busy = 0;
 mem_block_num = 0;
 row_num = 3;
 /*for tb testing only*/
-# `cycle;     
+# `CYCLE;     
 	rst_n = 0;
-#(`cycle*2);
+#(`CYCLE*2);
 	rst_n = 1;
-#(`cycle/4)
+#(`CYCLE/4)
 
     for (k_DP = 0; k_DP < 8; k_DP = k_DP+2) // how much pair of sequence alignment
     begin
@@ -495,7 +495,7 @@ row_num = 3;
         t_size = seq_len[k_DP+1];
         cal = seq_len[k_DP];
         new_seq = 1;
-        # `cycle;
+        # `CYCLE;
         new_seq = 0;
         if(s_size > `N) //need to be calculated iteratively
         begin
@@ -510,22 +510,22 @@ row_num = 3;
             else PE_end = `N-1;
             for (i_DP = (`N - 1) * 2 ; i_DP >= 0 ; i_DP = i_DP - 2 ) //S signal serial in
             begin
-                # `cycle;
+                # `CYCLE;
                 S = seq[k_DP][(j_DP*2*`N+i_DP)+:2];
             end
             cal = cal - `N;
             ack = 0;
             s_update = 1;
-            # `cycle; 
+            # `CYCLE; 
             s_update = 0;
             ack = 1;
-            # `cycle;
+            # `CYCLE;
 
             for (i_DP = 0 ; i_DP < t_size * 2 ; i_DP = i_DP +2) //T signal serial in
             begin
                 T = seq[k_DP+1][i_DP+:2];
                 valid = 1;
-                # `cycle; 
+                # `CYCLE; 
             end
             valid = 0;
             wait (busy == 0);
