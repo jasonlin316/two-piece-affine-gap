@@ -9,6 +9,7 @@ module systolic(
     reset_i,
     S,
     T,
+    use_s1,
     s_update, // if true, update S value in PE
     PE_end,
     max_o,
@@ -37,6 +38,7 @@ input clk;
 input reset_i;
 input [`BP_WIDTH-1:0] S;
 input [`BP_WIDTH-1:0] T;
+input use_s1;
 input s_update;
 output [`CALC_WIDTH-1:0] max_o;
 output reg busy;
@@ -93,7 +95,8 @@ wire signed [`CALC_WIDTH-1:0] F_hat_ram_read;
 wire [`DIRECTION_WIDTH-1:0] direction_val  [`N-1:0];
 
 wire [`DIRECTION_WIDTH-1:0] write_direction [`N-1:0];
-wire [`DIRECTION_WIDTH-1:0] read_direction  [`N*`MEM_AMOUNT-1:0];
+wire [`DIRECTION_WIDTH-1:0] read_direction_0  [`N*`MEM_AMOUNT-1:0];
+wire [`DIRECTION_WIDTH-1:0] read_direction_1  [`N*`MEM_AMOUNT-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_read_address [`N-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_write_address [`N-1:0];
 wire dir_we [`N-1:0];
@@ -157,9 +160,11 @@ generate
   begin
     assign write_direction[j]   = direction_val[j];
     assign dir_write_address[j] = (write_address[j] > 0)? write_address[j] - `ADDRESS_WIDTH'd1 : 0;
-    assign dir_read_address[j] = row_num;
-    assign row_k0[j*5+:5] = read_direction[mem_block_num*`N + j]; 
-    assign row_k1[j*5+:5] = (mem_block_num > 0)? read_direction[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : 0; 
+    assign dir_read_address[j] = row_num; //actually it's column number
+    assign row_k0[j*5+:5] = (use_s1)? read_direction_0[mem_block_num*`N + j] : read_direction_1[mem_block_num*`N + j]; 
+    assign row_k1[j*5+:5] = (mem_block_num == 0)? 0 : 
+    (use_s1)? read_direction_0[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : read_direction_1[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j];
+     
   end
 endgenerate
 
@@ -207,17 +212,36 @@ generate
   begin
     for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
     begin
-      direction_ram DR(
-        .q(read_direction[BLOCK_WIDTH+BLOCK_NUMBER*`N]),
+      direction_ram DR0(
+        .q(read_direction_0[BLOCK_WIDTH+BLOCK_NUMBER*`N]),
         .d(write_direction[BLOCK_WIDTH]),
         .write_address(dir_write_address[BLOCK_WIDTH]),
         .read_address(dir_read_address[BLOCK_WIDTH]),
-        .we(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH]),
+        .we(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & (!use_s1)),
         .clk(clk)
       );
     end
   end
 endgenerate
+
+generate
+  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
+  begin
+    for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
+    begin
+      direction_ram DR1(
+        .q(read_direction_1[BLOCK_WIDTH+BLOCK_NUMBER*`N]),
+        .d(write_direction[BLOCK_WIDTH]),
+        .write_address(dir_write_address[BLOCK_WIDTH]),
+        .read_address(dir_read_address[BLOCK_WIDTH]),
+        .we(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & use_s1),
+        .clk(clk)
+      );
+    end
+  end
+endgenerate
+
+
 
 ram H(
 .q(H_ram_read),

@@ -60,87 +60,27 @@ reg tb_valid, tb_valid_next;
 reg array_num, array_num_next;
 reg change;
 
-wire s0_valid, s1_valid;
-wire s0_ack, s1_ack;
-wire s0_busy, s1_busy;
-wire s0_update, s1_update;
-wire [`BP_WIDTH-1:0] s0_S, s1_S;
-wire [`BP_WIDTH-1:0] s0_T, s1_T;
-
-wire [`N*`DIRECTION_WIDTH-1:0] s0_row_k0;
-wire [`N*`DIRECTION_WIDTH-1:0] s0_row_k1;
-wire [`N*`DIRECTION_WIDTH-1:0] s1_row_k0;
-wire [`N*`DIRECTION_WIDTH-1:0] s1_row_k1;
-wire [`ADDRESS_WIDTH-1:0] s0_tb_x;
-wire [`ADDRESS_WIDTH-1:0] s0_tb_y;
-wire [`ADDRESS_WIDTH-1:0] s1_tb_x;
-wire [`ADDRESS_WIDTH-1:0] s1_tb_y;
-
-wire [`log_N-1:0] s0_PE_end;
-wire [`log_N-1:0] s1_PE_end;
-
-/* ====================Conti Assign================== */
-
-assign s0_valid = (use_s1)? 0 : valid;
-assign s1_valid = (use_s1)? valid : 0;
-assign s0_ack   = (use_s1)? 0 : ack;
-assign s1_ack   = (use_s1)? ack : 0;
-assign s0_update= (use_s1)? 0 : s_update;
-assign s1_update= (use_s1)? s_update : 0;
-assign s0_S     = (use_s1)? 0 : S;
-assign s1_S     = (use_s1)? S : 0;
-assign s0_T     = (use_s1)? 0 : T;
-assign s1_T     = (use_s1)? T : 0;
-assign busy     = (use_s1)? s1_busy : s0_busy;
-assign s0_PE_end= (use_s1)? 0 : PE_end;
-assign s1_PE_end= (use_s1)? PE_end : 0;
-
-assign row_k0 = (array_num)? s1_row_k0 : s0_row_k0;
-assign row_k1 = (array_num)? s1_row_k1 : s0_row_k1;
-
-assign tb_x = (array_num)? s1_tb_x : s0_tb_x;
-assign tb_y = (array_num)? s1_tb_y : s0_tb_y;
-
 /* ==================== Combinational Part ================== */
 
-systolic s0(
+systolic systolic(
     .clk(clk),
     .reset_i(reset_i),
-    .S(s0_S),
-    .T(s0_T),
-    .s_update(s0_update), // if true, update S value in PE
-    .PE_end(s0_PE_end),
+    .S(S),
+    .T(T),
+    .use_s1(use_s1),
+    .s_update(s_update), // if true, update S value in PE
+    .PE_end(PE_end),
     .max_o(),
-    .busy(s0_busy),
-    .ack(s0_ack),
-    .valid(s0_valid), //input is valid
+    .busy(busy),
+    .ack(ack),
+    .valid(valid), //input is valid
     .new_seq(new_seq),
     .mem_block_num(mem_block_num),
     .row_num(row_num),
-    .row_k0(s0_row_k0),
-    .row_k1(s0_row_k1),
-    .tb_x(s0_tb_x),
-    .tb_y(s0_tb_y)
-);
-
-systolic s1(
-    .clk(clk),
-    .reset_i(reset_i),
-    .S(s1_S),
-    .T(s1_T),
-    .s_update(s1_update), // if true, update S value in PE
-    .PE_end(s1_PE_end),
-    .max_o(),
-    .busy(s1_busy),
-    .ack(s1_ack),
-    .valid(s1_valid), //input is valid
-    .new_seq(new_seq),
-    .mem_block_num(mem_block_num),
-    .row_num(row_num),
-    .row_k0(s1_row_k0),
-    .row_k1(s1_row_k1),
-    .tb_x(s1_tb_x),
-    .tb_y(s1_tb_y)
+    .row_k0(row_k0),
+    .row_k1(row_k1),
+    .tb_x(tb_x),
+    .tb_y(tb_y)
 );
 
 always@(*)
