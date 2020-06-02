@@ -60,9 +60,9 @@ reg array_num_reg;//store which array to access
 integer i, j;
 //instances
 traceback_LUT lut(.in_case(current_direction), .preTrace(preTrace), .outTrace(nowTrace));
-traceback_prefetch_column_dealer dealer(.row_k0(row_k0), .row_k1(row_k1), .prefetch_request(prefetch_request),
-									 .in_block_y_startpoint(in_block_y_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-									 .prefetch_column(prefetch_column));
+traceback_prefetch_column_finder finder(.row_k0(row_k0), .row_k1(row_k1), .prefetch_request(prefetch_request),
+									    .in_block_x_startpoint(in_block_x_startpoint), .prefetch_x_startpoint(prefetch_x_startpoint),
+									    .prefetch_column(prefetch_column));
 //combinational
 //current direction logic
 assign current_direction = (switch)?block_prefetch[prefetch_x_bias*`PREFETCH_LENGTH+prefetch_y_bias]:
@@ -101,15 +101,15 @@ end
 //tb_busy logic
 assign tb_busy = (Q_NOW==IDLE||Q_NOW==DONE)?0:1;
 //mem_block_num logic
-assign mem_block_num = (prefetch_request==2'b10)?prefetch_y_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH]:
-					   							 in_block_y_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH];
+assign mem_block_num = (prefetch_request==2'b10)?prefetch_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH]:
+					   							 in_block_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH];
 //row_num logic
 always@(*)begin
 	if(prefetch_request==2'b10)begin
-		row_num = prefetch_x_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
+		row_num = prefetch_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
 	end
 	else begin
-		row_num = in_block_x_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
+		row_num = in_block_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
 	end
 end
 //sequential
@@ -375,7 +375,7 @@ always @(posedge clk or posedge tb_valid) begin
 				//block_current & block_prefetch input logic
 				if(prefetch_request==2'b01)begin
 					for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-						block_current[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
+						block_current[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 					end
 				end
 				else begin
@@ -385,7 +385,7 @@ always @(posedge clk or posedge tb_valid) begin
 				end
 				if(prefetch_request==2'b10)begin
 					for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-						block_prefetch[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
+						block_prefetch[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 					end
 				end
 				else begin
