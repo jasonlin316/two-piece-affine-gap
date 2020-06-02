@@ -1,9 +1,9 @@
 `include "define.v"
 `include "traceback_LUT.v"
-`include "traceback_prefetch_row_dealer.v"
+`include "traceback_prefetch_column_dealer.v"
 //github
 //2
-module traceback(clk, max_position_x, max_position_y, prefetch_row, sequence_in,
+module traceback(clk, max_position_x, max_position_y, prefetch_column, sequence_in,
 				 alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
 				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, row_num, row_k0, row_k1);
@@ -17,7 +17,7 @@ parameter IDLE = 0, RESET = 1, PRELOAD_QUERY = 2, PRELOAD_TARGET = 5, PRELOAD_BL
 //inputs
 input  clk;
 input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of where the traceback starts
-input  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_row;//prefech block input
+input  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
 input  [0:`PREFETCH_LENGTH*`BP_WIDTH-1] sequence_in;//query sequence and target sequence
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
@@ -60,9 +60,9 @@ reg array_num_reg;//store which array to access
 integer i, j;
 //instances
 traceback_LUT lut(.in_case(current_direction), .preTrace(preTrace), .outTrace(nowTrace));
-traceback_prefetch_row_dealer dealer(.row_k0(row_k0), .row_k1(row_k1), .prefetch_request(prefetch_request),
+traceback_prefetch_column_dealer dealer(.row_k0(row_k0), .row_k1(row_k1), .prefetch_request(prefetch_request),
 									 .in_block_y_startpoint(in_block_y_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-									 .prefetch_row(prefetch_row));
+									 .prefetch_column(prefetch_column));
 //combinational
 //current direction logic
 assign current_direction = (switch)?block_prefetch[prefetch_x_bias*`PREFETCH_LENGTH+prefetch_y_bias]:
@@ -149,47 +149,12 @@ always @(posedge clk or posedge tb_valid) begin
 	end
 	else begin
 		case(Q_NOW)
-			/*PRELOAD_QUERY:begin
-				//set load_done to 1
-				load_done <= (preload_sequence_counter==(`PREFETCH_TIMES-2))?1:0;
-				//preloading query sequence
-				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-					query_sequence_reg[preload_sequence_counter*`PREFETCH_LENGTH+i] <= sequence_in[i*`SEQUENCE_ELEMENT_WIDTH+:3];
-				end
-				//preload_sequence_counter logic
-				preload_sequence_counter <= (preload_sequence_counter==(`PREFETCH_TIMES-1))?0:preload_sequence_counter+1;
-				//preloading max positions
-				current_position_x <= max_position_x;
-				current_position_y <= max_position_y;
-				in_block_x_startpoint <= max_position_x;
-				in_block_y_startpoint <= max_position_y;
-				prefetch_x_startpoint <= max_position_x;
-				prefetch_y_startpoint <= max_position_y;
-				//is_x_zero, is_y_zero
-				is_x_zero <= 0;
-				is_y_zero <= 0;
-				array_num_reg <= array_num_reg;
-			end
-			PRELOAD_TARGET:begin
-				//load_done logic
-				load_done <= (preload_sequence_counter==(`PREFETCH_TIMES-2))?1:0;
-				//preloading target sequence
-				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-					target_sequence_reg[preload_sequence_counter*`PREFETCH_LENGTH+i] <= sequence_in[i*`SEQUENCE_ELEMENT_WIDTH+:3];
-				end
-				//preload_sequence_counter logic
-				preload_sequence_counter <= (preload_sequence_counter==(`PREFETCH_TIMES-1))?0:preload_sequence_counter+1;
-				//preloading max_position
-				current_position_x <= max_position_x;
-				current_position_y <= max_position_y;
-				array_num_reg <= array_num_reg;
-			end*/
 			PRELOAD_BLOCK:begin
 				//load_done logic
 				load_done <= (prefetch_count==(`PREFETCH_LENGTH-2))?1:0;
 				//block logic
 				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-					block_current[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_row[i*`DIRECTION_WIDTH+:5];
+					block_current[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 				end
 				//preload_sequence_counter logic
 				prefetch_count <= prefetch_count+1;
@@ -410,7 +375,7 @@ always @(posedge clk or posedge tb_valid) begin
 				//block_current & block_prefetch input logic
 				if(prefetch_request==2'b01)begin
 					for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-						block_current[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_row[i*`DIRECTION_WIDTH+:5];
+						block_current[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 					end
 				end
 				else begin
@@ -420,7 +385,7 @@ always @(posedge clk or posedge tb_valid) begin
 				end
 				if(prefetch_request==2'b10)begin
 					for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-						block_prefetch[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_row[i*`DIRECTION_WIDTH+:5];
+						block_prefetch[prefetch_count*`PREFETCH_LENGTH+i] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 					end
 				end
 				else begin
