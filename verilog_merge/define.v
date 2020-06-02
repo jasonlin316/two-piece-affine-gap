@@ -13,8 +13,8 @@
 `define E_hat 2
 
 /* Hardware Resources */
-`define N 8 //PE array size
-`define log_N 3
+`define N 16 //PE array size
+`define log_N 4
 `define MEM_SIZE 64 //should be 2048
 `define ADDRESS_WIDTH 6 //log(MEM_SIZE)
 `define MEM_AMOUNT 8 // iteration numbers, aka SEQ_MAX_LEN/N
