@@ -5,12 +5,12 @@
 `define CALC_WIDTH 16
 
 /* score */
-`define MATCH 20
-`define MISMATCH 1
-`define Q 10
-`define E 4
-`define Q_hat 20
-`define E_hat 2
+`define MATCH 2
+`define MISMATCH 4
+`define Q 4
+`define E 2
+`define Q_hat 24
+`define E_hat 1
 
 /* Hardware Resources */
 `define N 16 //PE array size
