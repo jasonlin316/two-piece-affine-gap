@@ -6,7 +6,7 @@
 module traceback(clk, max_position_x, max_position_y, prefetch_column, sequence_in,
 				 alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
-				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, row_num, row_k0, row_k1);
+				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
 //direction params
 parameter THRESHOLD = 32;
 //traceback symbols
@@ -22,7 +22,7 @@ input  [0:`PREFETCH_LENGTH*`BP_WIDTH-1] sequence_in;//query sequence and target 
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use
-input  [`N*`DIRECTION_WIDTH-1:0] row_k0, row_k1;//direction data input
+input  [`N*`DIRECTION_WIDTH-1:0] column_k0, column_k1;//direction data input
 //outputs
 output reg [`BP_WIDTH-1:0] alignment_out;//the alignment results of current traceback stage
 output reg [1:0] prefetch_request;//01==update block_current, 10==update block_prefetch
@@ -34,7 +34,7 @@ output reg [1:0] is_preload;
 //DP interface outputs
 output tb_busy;//whether tb is working
 output [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;//which memory to access
-output reg [`POSITION_WIDTH-1:0] row_num;//which row to access
+output reg [`POSITION_WIDTH-1:0] column_num;//which row to access
 //wires
 wire [`DIRECTION_WIDTH-1:0] current_direction;//direction of current position
 wire [2:0] nowTrace;//this clock's traceback symbol
@@ -60,7 +60,7 @@ reg array_num_reg;//store which array to access
 integer i, j;
 //instances
 traceback_LUT lut(.in_case(current_direction), .preTrace(preTrace), .outTrace(nowTrace));
-traceback_prefetch_column_finder finder(.row_k0(row_k0), .row_k1(row_k1), .prefetch_request(prefetch_request),
+traceback_prefetch_column_finder finder(.column_k0(column_k0), .column_k1(column_k1), .prefetch_request(prefetch_request),
 									    .in_block_x_startpoint(in_block_x_startpoint), .prefetch_x_startpoint(prefetch_x_startpoint),
 									    .prefetch_column(prefetch_column));
 //combinational
@@ -103,13 +103,13 @@ assign tb_busy = (Q_NOW==IDLE||Q_NOW==DONE)?0:1;
 //mem_block_num logic
 assign mem_block_num = (prefetch_request==2'b10)?prefetch_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH]:
 					   							 in_block_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH];
-//row_num logic
+//column_num logic
 always@(*)begin
 	if(prefetch_request==2'b10)begin
-		row_num = prefetch_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
+		column_num = prefetch_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
 	end
 	else begin
-		row_num = in_block_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
+		column_num = in_block_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
 	end
 end
 //sequential

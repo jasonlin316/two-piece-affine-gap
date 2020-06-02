@@ -19,7 +19,7 @@ module DP(
     array_num, // which array to be traced
     tb_busy, // tb module is doing traceback
     mem_block_num, // which memory block to read
-    row_num, // which row to read
+    column_num, // which row to read
     column_k0, // read row from memory block K
     column_k1, // read row from memory block K-1
     tb_x,
@@ -42,7 +42,7 @@ output tb_valid;
 output array_num;
 input  tb_busy;
 input  [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
-input  [`ADDRESS_WIDTH-1:0] row_num;
+input  [`ADDRESS_WIDTH-1:0] column_num;
 output [`N*`DIRECTION_WIDTH-1:0] column_k0;
 output [`N*`DIRECTION_WIDTH-1:0] column_k1;
 output [`ADDRESS_WIDTH-1:0] tb_x;
@@ -76,7 +76,7 @@ systolic systolic(
     .valid(valid), //input is valid
     .new_seq(new_seq),
     .mem_block_num(mem_block_num),
-    .row_num(row_num),
+    .column_num(column_num),
     .column_k0(column_k0),
     .column_k1(column_k1),
     .tb_x(tb_x),

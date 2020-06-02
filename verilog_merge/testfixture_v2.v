@@ -56,7 +56,7 @@ parameter IDLE = 0, RESET = 1, PRELOAD_BLOCK = 6, PROCESS = 3, DONE = 4;//PRELOA
 reg clk;
 //reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] sequence_in;
 wire tb_valid, array_num;
-wire [`DIRECTION_WIDTH*`N-1:0] row_k0, row_k1;
+wire [`DIRECTION_WIDTH*`N-1:0] column_k0, column_k1;
 //outputs
 wire [`BP_WIDTH-1:0] alignment_out;
 wire [1:0] prefetch_request;
@@ -70,7 +70,7 @@ wire switch;
 
 wire tb_busy;
 wire [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
-wire [`POSITION_WIDTH-1:0] row_num;
+wire [`POSITION_WIDTH-1:0] column_num;
 
 
 integer a, b, i, j, k, l, m, n, err, aux;
@@ -105,13 +105,13 @@ reg ack;
 reg new_seq;
 //wire array_num;
 //wire tb_valid;
-//wire [`N*`DIRECTION_WIDTH-1:0] row_k0;
-//wire [`N*`DIRECTION_WIDTH-1:0] row_k1;
+//wire [`N*`DIRECTION_WIDTH-1:0] column_k0;
+//wire [`N*`DIRECTION_WIDTH-1:0] column_k1;
 wire [`ADDRESS_WIDTH-1:0] tb_x;
 wire [`ADDRESS_WIDTH-1:0] tb_y;
 //reg tb_busy;
 //reg [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
-//reg [`ADDRESS_WIDTH-1:0] row_num;
+//reg [`ADDRESS_WIDTH-1:0] column_num;
 reg [`log_N-1:0] PE_end;
 
 
@@ -141,7 +141,7 @@ end*/
 DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
 	  .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
 	  .tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), 
-	  .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1), .tb_x(tb_x), .tb_y(tb_y) );
+	  .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
 traceback DUT(.clk(clk), .max_position_x(tb_y), .max_position_y(tb_x), 
 			  .prefetch_row(prefetch_row), .alignment_out(alignment_out), .alignment_valid(alignment_valid),
@@ -149,84 +149,84 @@ traceback DUT(.clk(clk), .max_position_x(tb_y), .max_position_y(tb_x),
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 			  .prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
 			  .done(done), .is_preload(is_preload), .tb_valid(tb_valid), .array_num(array_num), 
-			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .row_num(row_num), .row_k0(row_k0), .row_k1(row_k1));
+			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1));
 
 wire [`N*`DIRECTION_WIDTH-1:0] memory_out [0:`MEM_AMOUNT-1];
 
 
 memory_block memory_0(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[0]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[0]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_1(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[1]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[1]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_2(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[2]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[2]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_3(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[3]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[3]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_4(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[4]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[4]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_5(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[5]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[5]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_6(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[6]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[6]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_7(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[7]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[7]), .d(0), .write_address(0), .read_address(column_num));
 /*memory_block memory_8(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[8]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[8]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_9(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[9]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[9]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_10(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[10]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[10]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_11(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[11]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[11]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_12(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[12]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[12]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_13(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[13]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[13]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_14(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[14]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[14]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_15(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[15]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[15]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_16(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[16]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[16]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_17(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[17]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[17]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_18(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[18]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[18]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_19(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[19]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[19]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_20(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[20]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[20]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_21(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[21]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[21]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_22(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[22]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[22]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_23(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[23]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[23]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_24(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[24]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[24]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_25(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[25]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[25]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_26(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[26]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[26]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_27(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[27]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[27]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_28(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[28]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[28]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_29(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[29]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[29]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_30(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[30]), .d(0), .write_address(0), .read_address(row_num));
+					  .q(memory_out[30]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_31(.clk(clk), .wen(1'b0), .ren(tb_busy), 
-					  .q(memory_out[31]), .d(0), .write_address(0), .read_address(row_num));*/
+					  .q(memory_out[31]), .d(0), .write_address(0), .read_address(column_num));*/
 
 /*always@(*)begin
 	if(mem_block_num==0)begin
-		row_k1 = 0;
-		row_k0 = memory_out[0];
+		column_k1 = 0;
+		column_k0 = memory_out[0];
 	end
 	else begin
-		row_k1 = memory_out[mem_block_num-1];
-		row_k0 = memory_out[mem_block_num];
+		column_k1 = memory_out[mem_block_num-1];
+		column_k0 = memory_out[mem_block_num];
 	end
 end*/
 
