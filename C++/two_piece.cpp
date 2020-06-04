@@ -11,12 +11,12 @@ using namespace std;
 #include <fstream>
 #include <sstream> 
 //Programmable Factors
-int match = 20;
-int penalty = -1;
-int alpha = 14;
-int beta = 4;
-int alpha_hat = 22;
-int beta_hat  = 2;
+int match = 2;
+int penalty = -4;
+int alpha = 6;
+int beta = 2;
+int alpha_hat = 25;
+int beta_hat  = 1;
 //Scoring Functions
 int similarity(char a,char b);
 int score(vector<vector<int> >& dp,int row,int col,vector<vector<int> >&,vector<vector<int> >&,vector<vector<int> >&,vector<vector<int> >&,vector<vector<int> >&);
