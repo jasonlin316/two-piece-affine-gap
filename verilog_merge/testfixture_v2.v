@@ -154,7 +154,7 @@ traceback DUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y),
 wire [`N*`DIRECTION_WIDTH-1:0] memory_out [0:`MEM_AMOUNT-1];
 
 
-memory_block memory_0(.clk(clk), .wen(1'b0), .ren(tb_busy), 
+/*memory_block memory_0(.clk(clk), .wen(1'b0), .ren(tb_busy), 
 					  .q(memory_out[0]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_1(.clk(clk), .wen(1'b0), .ren(tb_busy), 
 					  .q(memory_out[1]), .d(0), .write_address(0), .read_address(column_num));
@@ -170,7 +170,7 @@ memory_block memory_6(.clk(clk), .wen(1'b0), .ren(tb_busy),
 					  .q(memory_out[6]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_7(.clk(clk), .wen(1'b0), .ren(tb_busy), 
 					  .q(memory_out[7]), .d(0), .write_address(0), .read_address(column_num));
-/*memory_block memory_8(.clk(clk), .wen(1'b0), .ren(tb_busy), 
+memory_block memory_8(.clk(clk), .wen(1'b0), .ren(tb_busy), 
 					  .q(memory_out[8]), .d(0), .write_address(0), .read_address(column_num));
 memory_block memory_9(.clk(clk), .wen(1'b0), .ren(tb_busy), 
 					  .q(memory_out[9]), .d(0), .write_address(0), .read_address(column_num));
@@ -245,7 +245,7 @@ $fsdbDumpfile("traceback.fsdb");
 $fsdbDumpvars(0, test, "+mda");
 end
 //initialize memory_blocks
-initial #1 begin
+/*initial #1 begin
 	for(j=0; j<`SEQ_MAX_LEN; j=j+1)begin
 		for(k=0; k<`N; k=k+1)begin
 			memory_0.mem[j][(`DIRECTION_WIDTH*`N-1-k*`DIRECTION_WIDTH)-:5] = direction_mem[j*`SEQ_MAX_LEN+k];
@@ -286,7 +286,7 @@ initial #1 begin
 			memory_7.mem[j][(`DIRECTION_WIDTH*`N-1-k*`DIRECTION_WIDTH)-:5] = direction_mem[j*`SEQ_MAX_LEN+7*`N+k];
 		end
 	end
-	/*for(j=0; j<`SEQ_MAX_LEN; j=j+1)begin
+	for(j=0; j<`SEQ_MAX_LEN; j=j+1)begin
 		for(k=0; k<`N; k=k+1)begin
 			memory_8.mem[j][(`DIRECTION_WIDTH*`N-1-k*`DIRECTION_WIDTH)-:5] = direction_mem[j*`SEQ_MAX_LEN+8*`N+k];
 		end
@@ -405,8 +405,8 @@ initial #1 begin
 		for(k=0; k<`N; k=k+1)begin
 			memory_31.mem[j][(`DIRECTION_WIDTH*`N-1-k*`DIRECTION_WIDTH)-:5] = direction_mem[j*`SEQ_MAX_LEN+31*`N+k];
 		end
-	end*/
-end
+	end
+end*/
 
 initial #(`TIME_OUT)begin
 	$display("-------------------------------------------------");
