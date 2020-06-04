@@ -143,7 +143,7 @@ DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .
 	  .tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), 
 	  .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
-traceback DUT(.clk(clk), .max_position_x(tb_y), .max_position_y(tb_x), 
+traceback DUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y), 
 			  .prefetch_column(prefetch_column), .alignment_out(alignment_out), .alignment_valid(alignment_valid),
 			  .prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
