@@ -62,7 +62,7 @@ wire [`BP_WIDTH-1:0] alignment_out;
 wire [1:0] prefetch_request;
 wire [`PREFETCH_WIDTH-1:0] prefetch_count;
 wire [`POSITION_WIDTH-1:0] in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint;
-wire [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_row;
+wire [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;
 wire alignment_valid;
 wire [1:0] is_preload;
 wire done;
@@ -144,7 +144,7 @@ DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .
 	  .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
 traceback DUT(.clk(clk), .max_position_x(tb_y), .max_position_y(tb_x), 
-			  .prefetch_row(prefetch_row), .alignment_out(alignment_out), .alignment_valid(alignment_valid),
+			  .prefetch_column(prefetch_column), .alignment_out(alignment_out), .alignment_valid(alignment_valid),
 			  .prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 			  .prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
