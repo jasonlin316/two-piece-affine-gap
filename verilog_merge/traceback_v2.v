@@ -1,6 +1,6 @@
 `include "define.v"
 `include "traceback_LUT.v"
-`include "traceback_prefetch_column_dealer.v"
+`include "traceback_prefetch_column_finder.v"
 //github
 //2
 module traceback(clk, max_position_x, max_position_y, prefetch_column, sequence_in,

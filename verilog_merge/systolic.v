@@ -18,9 +18,9 @@ module systolic(
     valid, //input is valid
     new_seq,
     mem_block_num,
-    row_num,
-    row_k0,
-    row_k1,
+    column_num,
+    column_k0,
+    column_k1,
     tb_x,
     tb_y
 );
@@ -48,9 +48,9 @@ input new_seq;
 input [`log_N-1:0] PE_end;
 
 input  [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
-input  [`ADDRESS_WIDTH-1:0] row_num;
-output [`N*`DIRECTION_WIDTH-1:0] row_k0;
-output [`N*`DIRECTION_WIDTH-1:0] row_k1;
+input  [`ADDRESS_WIDTH-1:0] column_num;
+output [`N*`DIRECTION_WIDTH-1:0] column_k0;
+output [`N*`DIRECTION_WIDTH-1:0] column_k1;
 output [`ADDRESS_WIDTH-1:0] tb_x;
 output [`ADDRESS_WIDTH-1:0] tb_y;
 
@@ -160,9 +160,9 @@ generate
   begin
     assign write_direction[j]   = direction_val[j];
     assign dir_write_address[j] = (write_address[j] > 0)? write_address[j] - `ADDRESS_WIDTH'd1 : 0;
-    assign dir_read_address[j] = row_num; //actually it's column number
-    assign row_k0[j*5+:5] = (use_s1)? read_direction_0[mem_block_num*`N + j] : read_direction_1[mem_block_num*`N + j]; 
-    assign row_k1[j*5+:5] = (mem_block_num == 0)? 0 : 
+    assign dir_read_address[j] = column_num; //actually it's column number
+    assign column_k0[j*5+:5] = (use_s1)? read_direction_0[mem_block_num*`N + j] : read_direction_1[mem_block_num*`N + j]; 
+    assign column_k1[j*5+:5] = (mem_block_num == 0)? 0 : 
     (use_s1)? read_direction_0[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : read_direction_1[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j];
      
   end
