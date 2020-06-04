@@ -541,7 +541,7 @@ always@(posedge done)begin
 	end*/
 	//over=1'b1;
 
-	if (err === 0 &&  aux>=4  )  begin
+	if (err === 0 &&  aux>=3  )  begin
 	            $display("All data have been generated successfully!\n");
 	            $display("Your alignment is:");
 	            for(i=0; i<l; i=i+1)begin
