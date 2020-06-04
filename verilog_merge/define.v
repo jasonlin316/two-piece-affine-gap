@@ -17,8 +17,8 @@
 `define log_N 4
 `define MEM_SIZE 64 //should be 2048
 `define ADDRESS_WIDTH 6 //log(MEM_SIZE)
-`define MEM_AMOUNT 8 // iteration numbers, aka SEQ_MAX_LEN/N
-`define MEM_AMOUNT_WIDTH 3 //log(MEM_AMOUNT)
+`define MEM_AMOUNT 4 // iteration numbers, aka SEQ_MAX_LEN/N
+`define MEM_AMOUNT_WIDTH 2 //log(MEM_AMOUNT)
 
 `define SEQ_MAX_LEN 64//should be 2048, this var is for testbench only
 
