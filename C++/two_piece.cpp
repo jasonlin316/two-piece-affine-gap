@@ -11,12 +11,12 @@ using namespace std;
 #include <fstream>
 #include <sstream> 
 //Programmable Factors
-int match = 2;
-int penalty = -4;
-int alpha = 6;
-int beta = 2;
-int alpha_hat = 25;
-int beta_hat  = 1;
+int match = 20;
+int penalty = -1;
+int alpha = 14;
+int beta = 4;
+int alpha_hat = 22;
+int beta_hat  = 2;
 //Scoring Functions
 int similarity(char a,char b);
 int score(vector<vector<int> >& dp,int row,int col,vector<vector<int> >&,vector<vector<int> >&,vector<vector<int> >&,vector<vector<int> >&,vector<vector<int> >&);
@@ -46,19 +46,11 @@ void printMatrix(vector<vector<int> >& dp, string file_location)
      myfile<<"";
     int ROW = dp.size();
     int COL = dp[0].size();
-    /*
     for (int i=1; i< ROW; i++) 
     { 
         for (int j=1; j<COL; j++)myfile << dp[i][j] << "," ;
         myfile << "\n"; 
-    } */
-
-    for (int i=1; i< COL; i++) 
-    { 
-        for (int j=1; j< ROW; j++)myfile << dp[j][i] << "," ;
-        myfile << "\n"; 
     } 
-
     myfile.close();
 } 
 
@@ -76,6 +68,9 @@ int main(){
     ofstream myfile2;
     myfile2.open ("../dat/data_size.dat",ios::out | ios::trunc);
     myfile2.close();
+    ofstream myfile3;
+    myfile3.open ("../dat/start_pt.dat",ios::out | ios::trunc);
+    myfile3.close();
 
     ifstream file("../dat/input.dat");
     string str,token;
@@ -111,6 +106,11 @@ int main(){
         vector<vector<int> > F_hat_matrix(dp.size(),vector<int>(dp[0].size()));
         vector<vector<int> > d_matrix(dp.size(),vector<int>(dp[0].size()));
         calculation(dp,E_matrix,F_matrix,d_matrix,E_hat_matrix,F_hat_matrix);
+        ofstream myfile3;
+        myfile3.open ("../dat/start_pt.dat",ios::out | ios::app);
+        myfile3 << x << endl;
+        myfile3 << y << endl;
+        myfile3.close();
         printMatrix(E_matrix,"../dat/E.csv");
         printMatrix(F_matrix,"../dat/F.csv");
         printMatrix(E_hat_matrix,"../dat/E_hat.csv");
@@ -119,6 +119,7 @@ int main(){
         printMatrix(dp,"../dat/H.csv");
         cout<<"--------Finish----------"<<endl;
         cout<<"score: "<<biggest<<endl;
+        cout<<"x:"<<x<<"; y:"<< y<<endl;
     }
     
     //std::cout << "Tooked " << (time_span.count()*1000000)  << " us.";
@@ -178,10 +179,10 @@ int score(vector<vector<int> >& dp,int row,int col,vector<vector<int> >& E,vecto
 
     tmp_max = max(a,max( max(F[row][col],F_hat[row][col]),max(E[row][col],E_hat[row][col]) ));
     if(tmp_max == a) source = 16;
-    else if (tmp_max == F[row][col]) source = 3;
-    else if (tmp_max == F_hat[row][col]) source = 11;
-    else if (tmp_max == E[row][col]) source = 7;
-    else if (tmp_max == E_hat[row][col]) source = 15;
+    else if (tmp_max == F[row][col]) source = 7;
+    else if (tmp_max == F_hat[row][col]) source = 15;
+    else if (tmp_max == E[row][col]) source = 3;
+    else if (tmp_max == E_hat[row][col]) source = 11;
     else source = -1; //error
     if(source == 16)
     {
@@ -314,6 +315,7 @@ void convertToBinary(string s)
     myfile2.open ("../dat/data_size.dat",ios::out | ios::app);
     myfile2 << dest << endl;
     myfile2.close();
+
 }
 
 
