@@ -3,7 +3,7 @@
 `include "traceback_prefetch_column_finder.v"
 //github
 //2
-module traceback(clk, max_position_x, max_position_y, prefetch_column, sequence_in,
+module traceback(clk, max_position_x, max_position_y, prefetch_column,
 				 alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
 				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
@@ -18,7 +18,6 @@ parameter IDLE = 0, RESET = 1, PRELOAD_QUERY = 2, PRELOAD_TARGET = 5, PRELOAD_BL
 input  clk;
 input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of where the traceback starts
 input  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
-input  [0:`PREFETCH_LENGTH*`BP_WIDTH-1] sequence_in;//query sequence and target sequence
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use
@@ -42,9 +41,6 @@ wire [2:0] nowTrace;//this clock's traceback symbol
 reg [`DIRECTION_WIDTH-1:0] block_prefetch[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==1
 reg [`DIRECTION_WIDTH-1:0] block_current[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==0
 reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
-reg [`BP_WIDTH-1:0] query_sequence_reg[0:`SEQ_MAX_LEN-1];//storing query
-reg [`BP_WIDTH-1:0] target_sequence_reg[0:`SEQ_MAX_LEN-1];//storing target
-reg [`PRELOAD_COUNT_WIDTH-1:0] preload_sequence_counter;//counter for preloading sequences
 //when prefetching new block, indexing is no more consistent, hence need extra FF to record in-block positions
 reg [`PREFETCH_WIDTH-1:0] in_block_x_bias, in_block_y_bias, prefetch_x_bias, prefetch_y_bias;
 reg overlap;//whether in_block_bias and prefetch_bias need to move together
@@ -106,10 +102,10 @@ assign mem_block_num = (prefetch_request==2'b10)?prefetch_x_startpoint[`POSITION
 //column_num logic
 always@(*)begin
 	if(prefetch_request==2'b10)begin
-		column_num = prefetch_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
+		column_num = (prefetch_y_startpoint+1+prefetch_count>=`PREFETCH_LENGTH)?prefetch_y_startpoint-`PREFETCH_LENGTH+1+prefetch_count:0;
 	end
 	else begin
-		column_num = in_block_y_startpoint - `PREFETCH_LENGTH + 1 + prefetch_count;
+		column_num = (in_block_y_startpoint+1+prefetch_count>=`PREFETCH_LENGTH)?in_block_y_startpoint-`PREFETCH_LENGTH+1+prefetch_count:0;
 	end
 end
 //sequential
@@ -125,7 +121,6 @@ always @(posedge clk or posedge tb_valid) begin
 		prefetch_x_startpoint <= max_position_x;
 		prefetch_y_startpoint <= max_position_y;
 		prefetch_count <= 0;
-		preload_sequence_counter <= 0;
 		preTrace <= M;
 		alignment_valid <= 0;
 		load_done <= 0;
@@ -137,10 +132,6 @@ always @(posedge clk or posedge tb_valid) begin
 		for(i=0; i<`PREFETCH_LENGTH*`PREFETCH_LENGTH; i=i+1)begin
 			block_prefetch[i] <= 0;
 			block_current[i] <= 0; 
-		end
-		for(j=0; j<`SEQ_MAX_LEN; j=j+1)begin
-			query_sequence_reg[j] <= 0;
-			target_sequence_reg[j] <= 0;
 		end
 		is_x_zero <= 0;
 		is_y_zero <= 0;
@@ -156,7 +147,6 @@ always @(posedge clk or posedge tb_valid) begin
 				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
 					block_current[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 				end
-				//preload_sequence_counter logic
 				prefetch_count <= prefetch_count+1;
 				array_num_reg <= array_num_reg;
 			end
@@ -412,7 +402,6 @@ always @(posedge clk or posedge tb_valid) begin
 				prefetch_count <= prefetch_count;
 				preTrace <= preTrace;
 				alignment_valid <= alignment_valid;
-				//preload_sequence_counter <= preload_sequence_counter;
 				load_done <= load_done;
 				in_block_x_bias <= in_block_x_bias;
 				in_block_y_bias <= in_block_y_bias;
@@ -422,10 +411,6 @@ always @(posedge clk or posedge tb_valid) begin
 				for(i=0; i<`PREFETCH_LENGTH*`PREFETCH_LENGTH; i=i+1)begin
 					block_prefetch[i] <= block_prefetch[i];
 					block_current[i] <= block_current[i]; 
-				end
-				for(j=0; j<`SEQ_MAX_LEN; j=j+1)begin
-					query_sequence_reg[j] <= query_sequence_reg[j];
-					target_sequence_reg[j] <= target_sequence_reg[j];
 				end
 				is_x_zero <= is_x_zero;
 				is_y_zero <= is_y_zero;
