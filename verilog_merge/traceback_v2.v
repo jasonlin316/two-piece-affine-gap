@@ -3,8 +3,7 @@
 `include "traceback_prefetch_column_finder.v"
 //github
 //2
-module traceback(clk, max_position_x, max_position_y,
-				 alignment_out, alignment_valid, prefetch_request, prefetch_count, 
+module traceback(clk, max_position_x, max_position_y, alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
 				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
 //direction params
@@ -17,7 +16,6 @@ parameter IDLE = 0, RESET = 1, PRELOAD_QUERY = 2, PRELOAD_TARGET = 5, PRELOAD_BL
 //inputs
 input  clk;
 input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of where the traceback starts
-wire  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use
@@ -36,6 +34,7 @@ output [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;//which memory to access
 output reg [`POSITION_WIDTH-1:0] column_num;//which row to access
 //wires
 wire [`DIRECTION_WIDTH-1:0] current_direction;//direction of current position
+wire [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
 wire [2:0] nowTrace;//this clock's traceback symbol
 //regs
 reg [`DIRECTION_WIDTH-1:0] block_prefetch[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==1
