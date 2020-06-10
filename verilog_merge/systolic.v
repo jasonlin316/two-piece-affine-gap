@@ -337,6 +337,7 @@ begin
   PE_rst_next = 1'b1;
   first_row_next = 1'b1;
   iter_next = iter;
+  state_next = state;
   if(new_seq == 1'b1) iter_next = 0;
   case(state)
     IDLE:

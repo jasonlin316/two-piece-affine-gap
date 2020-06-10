@@ -136,6 +136,7 @@ assign y_out   = y_reg;
 
 always@(*)
 begin
+    direction_next = 0;
     if(H_out == match_result) // max value from diagonal H
     begin
         direction_next[4] = 1'b1;
