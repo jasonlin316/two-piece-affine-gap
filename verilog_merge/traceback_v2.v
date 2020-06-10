@@ -3,7 +3,7 @@
 `include "traceback_prefetch_column_finder.v"
 //github
 //2
-module traceback(clk, max_position_x, max_position_y, prefetch_column,
+module traceback(clk, max_position_x, max_position_y,
 				 alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
 				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
@@ -17,7 +17,7 @@ parameter IDLE = 0, RESET = 1, PRELOAD_QUERY = 2, PRELOAD_TARGET = 5, PRELOAD_BL
 //inputs
 input  clk;
 input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of where the traceback starts
-input  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
+wire  [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use

@@ -2,7 +2,7 @@
 `include "systolic.v"
 
 module DP(
-    /* I/O from offchjip */
+    /* I/O from offchip */
     clk,
     reset_i,
     S,
