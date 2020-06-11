@@ -49,7 +49,6 @@ reg switch;//the block_current indicator, 0==block_current, 1==block_prefetch
 reg [3:0] Q_NOW, Q_NEXT;//FSM
 //aux
 reg process_done;//indicate the process is done
-reg load_done;//is preload done
 reg is_x_zero, is_y_zero;//indicate whether x, y are zero
 reg halt;//halt=1 when prefetching
 reg array_num_reg;//store which array to access
@@ -113,17 +112,16 @@ always @(posedge clk or posedge tb_valid) begin
 	if(tb_valid)begin
 		// reset
 		alignment_out <= 0;
-		prefetch_request <= 2'b11;
+		prefetch_request <= 2'b01;
 		current_position_x <= max_position_x;
 		current_position_y <= max_position_y;
 		in_block_x_startpoint <= max_position_x;
 		in_block_y_startpoint <= max_position_y;
 		prefetch_x_startpoint <= max_position_x;
 		prefetch_y_startpoint <= max_position_y;
-		prefetch_count <= 0;
+		prefetch_count <= {`PREFETCH_WIDTH{1'b1}};
 		preTrace <= M;
 		alignment_valid <= 0;
-		load_done <= 0;
 		in_block_x_bias <= {`PREFETCH_WIDTH{1'b1}};
 		in_block_y_bias <= {`PREFETCH_WIDTH{1'b1}};
 		prefetch_x_bias <= {`PREFETCH_WIDTH{1'b1}};
@@ -141,20 +139,17 @@ always @(posedge clk or posedge tb_valid) begin
 	else begin
 		case(Q_NOW)
 			PRELOAD_BLOCK:begin
-				//load_done logic
-				load_done <= (prefetch_count==(`PREFETCH_LENGTH-2))?1:0;
 				//block logic
 				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
 					block_current[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 				end
-				prefetch_count <= prefetch_count+1;
+				prefetch_count <= (prefetch_count==0)?0:prefetch_count-1;
+				prefetch_request <= prefetch_request;
 				array_num_reg <= array_num_reg;
 			end
 			PROCESS:begin
 				//set alignment_valid high
 				//alignment_valid <= 1;
-				//set load_done to 0
-				load_done <= 0;
 				//current position & sequence alignmentlogic
 				//important!! I = move "left", D = move "up"
 				if(halt)begin
@@ -402,7 +397,6 @@ always @(posedge clk or posedge tb_valid) begin
 				prefetch_count <= prefetch_count;
 				preTrace <= preTrace;
 				alignment_valid <= alignment_valid;
-				load_done <= load_done;
 				in_block_x_bias <= in_block_x_bias;
 				in_block_y_bias <= in_block_y_bias;
 				prefetch_x_bias <= prefetch_x_bias;
@@ -431,11 +425,8 @@ always @(*)begin
 		case(Q_NOW)
 			IDLE:           Q_NEXT = (tb_valid)?RESET:IDLE;
 			RESET:          Q_NEXT = (~tb_valid)?PRELOAD_BLOCK:RESET;
-			//PRELOAD_QUERY:  Q_NEXT = (load_done)?PRELOAD_TARGET:PRELOAD_QUERY;
-			//PRELOAD_TARGET: Q_NEXT = (load_done)?PRELOAD_BLOCK:PRELOAD_TARGET;
-			PRELOAD_BLOCK:  Q_NEXT = (load_done)?PROCESS:PRELOAD_BLOCK;
+			PRELOAD_BLOCK:  Q_NEXT = PROCESS;
 			PROCESS:        Q_NEXT = (process_done)?DONE:PROCESS;
-			//LOAD:    Q_NEXT = (~halt)?PROCESS:LOAD;
 			DONE:           Q_NEXT = IDLE;
 			default:        Q_NEXT = IDLE;
 		endcase
