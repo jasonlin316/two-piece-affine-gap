@@ -268,15 +268,15 @@ always @(posedge clk or posedge tb_valid) begin
 					end
 					else begin
 						if(nowTrace==M)begin
-							prefetch_x_startpoint <= current_position_x-1;
-							prefetch_y_startpoint <= current_position_y-1;
+							prefetch_x_startpoint <= (current_position_x==0)?0:current_position_x-1;
+							prefetch_y_startpoint <= (current_position_y==0)?0:current_position_y-1;
 						end
 						else if(nowTrace==I||nowTrace==I_TILTA)begin
 							prefetch_x_startpoint <= current_position_x;
-							prefetch_y_startpoint <= current_position_y-1;
+							prefetch_y_startpoint <= (current_position_y==0)?0:current_position_y-1;
 						end
 						else if(nowTrace==D||nowTrace==D_TILTA)begin
-							prefetch_x_startpoint <= current_position_x-1;
+							prefetch_x_startpoint <= (current_position_x==0)?0:current_position_x-1;
 							prefetch_y_startpoint <= current_position_y;
 						end
 						else begin
@@ -300,15 +300,15 @@ always @(posedge clk or posedge tb_valid) begin
 					end
 					else begin
 						if(nowTrace==M)begin
-							in_block_x_startpoint <= current_position_x-1;
-							in_block_y_startpoint <= current_position_y-1;
+							in_block_x_startpoint <= (current_position_x==0)?0:current_position_x-1;
+							in_block_y_startpoint <= (current_position_y==0)?0:current_position_y-1;
 						end
 						else if(nowTrace==I||nowTrace==I_TILTA)begin
 							in_block_x_startpoint <= current_position_x;
-							in_block_y_startpoint <= current_position_y-1;
+							in_block_y_startpoint <= (current_position_y==0)?0:current_position_y-1;
 						end
 						else if(nowTrace==D||nowTrace==D_TILTA)begin
-							in_block_x_startpoint <= current_position_x-1;
+							in_block_x_startpoint <= (current_position_x==0)?0:current_position_x-1;
 							in_block_y_startpoint <= current_position_y;
 						end
 						else begin
