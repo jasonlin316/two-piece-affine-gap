@@ -2,7 +2,7 @@
 `include "systolic.v"
 
 module DP(
-    /* I/O from offchjip */
+    /* I/O from offchip */
     clk,
     reset_i,
     S,
@@ -87,7 +87,7 @@ always@(*)
 begin
     use_s1_next = use_s1;
     tb_valid_next = tb_valid;
-    //state_next = state;
+    state_next = state;
     array_num_next = array_num;
     case(state)
         IDLE:

@@ -138,6 +138,16 @@ integer cal;
 	end
 end*/
 
+top top(
+    .clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
+	.ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
+  	.alignment_out(alignment_out), .alignment_valid(alignment_valid),
+	.prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
+	.in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
+	.prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
+	.done(done), .is_preload(is_preload)
+);
+/*
 DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
 	  .ack(ack), .valid(valid), .new_seq(new_seq), .PE_end(PE_end),
 	  .tb_valid(tb_valid), .array_num(array_num), .tb_busy(tb_busy), 
@@ -150,7 +160,7 @@ traceback DUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y),
 			  .prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
 			  .done(done), .is_preload(is_preload), .tb_valid(tb_valid), .array_num(array_num), 
 			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1));
-
+*/
 wire [`N*`DIRECTION_WIDTH-1:0] memory_out [0:`MEM_AMOUNT-1];
 
 
