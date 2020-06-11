@@ -155,10 +155,10 @@ begin
         else if (De_hat >  Ie_hat && Ie_hat >  Ho_hat) direction_next[1:0] = 2'b11;
 
     end
-    else if (H_out == F_out)        direction_next = `DIRECTION_WIDTH'b00011;
-    else if (H_out == F_hat_out)    direction_next = `DIRECTION_WIDTH'b01011;
-    else if (H_out == E_out)        direction_next = `DIRECTION_WIDTH'b00111;
-    else if (H_out == E_hat_out)    direction_next = `DIRECTION_WIDTH'b01111;
+    else if (H_out == F_out)        direction_next = `DIRECTION_WIDTH'b00111;
+    else if (H_out == F_hat_out)    direction_next = `DIRECTION_WIDTH'b01111;
+    else if (H_out == E_out)        direction_next = `DIRECTION_WIDTH'b00011;
+    else if (H_out == E_hat_out)    direction_next = `DIRECTION_WIDTH'b01011;
     else                            direction_next = 0;
 end
 

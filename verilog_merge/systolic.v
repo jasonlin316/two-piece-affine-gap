@@ -368,8 +368,8 @@ begin
       Y_reg = (iter_flag && (!first_row))? Y_ram_read : 0 ;
       Col_reg = (iter_flag && (!first_row))? col_ram_read : 0 ;
       max_reg = (iter_flag && (!first_row))? max_ram_read : 0 ;
-      if(valid_o[PE_end] == 1'b1) busy_detect_next = 1'b1;
-      if(valid_o[PE_end] == 0 && busy_detect == 1'b1)
+      if(valid_o[`N-1] == 1'b1) busy_detect_next = 1'b1;
+      if(valid_o[`N-1] == 0 && busy_detect == 1'b1)
       begin
         state_next = IDLE;
         PE_rst_next = 1'b0;
