@@ -100,10 +100,12 @@ assign mem_block_num = (prefetch_request==2'b10)?prefetch_x_startpoint[`POSITION
 //column_num logic
 always@(*)begin
 	if(prefetch_request==2'b10)begin
-		column_num = (prefetch_y_startpoint+1+prefetch_count>=`PREFETCH_LENGTH)?prefetch_y_startpoint-`PREFETCH_LENGTH+1+prefetch_count:0;
+		column_num = (prefetch_y_startpoint+1+prefetch_count>=`PREFETCH_LENGTH)?
+					  prefetch_y_startpoint-`PREFETCH_LENGTH+1+prefetch_count:0;
 	end
 	else begin
-		column_num = (in_block_y_startpoint+1+prefetch_count>=`PREFETCH_LENGTH)?in_block_y_startpoint-`PREFETCH_LENGTH+1+prefetch_count:0;
+		column_num = (in_block_y_startpoint+1+prefetch_count>=`PREFETCH_LENGTH)?
+					  in_block_y_startpoint-`PREFETCH_LENGTH+1+prefetch_count:0;
 	end
 end
 //sequential
