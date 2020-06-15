@@ -5,7 +5,7 @@
 //2
 module traceback(clk, max_position_x, max_position_y, alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
-				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
+				 done, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
 //direction params
 parameter THRESHOLD = 32;
 //traceback symbols
@@ -27,7 +27,6 @@ output reg [`PREFETCH_WIDTH-1:0] prefetch_count;//auxiliary reg for prefetch inp
 output reg [`POSITION_WIDTH-1:0] in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint;//the most down-right point while prefetching
 output reg alignment_valid;//whether the alignment_out signals should be taken by the host
 output done;//done
-output reg [1:0] is_preload;
 //DP interface outputs
 output tb_busy;//whether tb is working
 output [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;//which memory to access
@@ -41,7 +40,7 @@ reg [`DIRECTION_WIDTH-1:0] block_prefetch[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1]
 reg [`DIRECTION_WIDTH-1:0] block_current[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==0
 reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
 //when prefetching new block, indexing is no more consistent, hence need extra FF to record in-block positions
-reg [`PREFETCH_WIDTH-1:0] in_block_x_bias, in_block_y_bias, prefetch_x_bias, prefetch_y_bias;
+reg [`PREFETCH_WIDTH-1:0] in_block_x_bias, in_block_y_bias, prefetch_x_bias, prefetch_y_bias, prefetch_count_buf;
 reg overlap;//whether in_block_bias and prefetch_bias need to move together
 reg [2:0] preTrace;//last traceback, M==0, I==1, D==2
 reg switch;//the block_current indicator, 0==block_current, 1==block_prefetch
@@ -49,7 +48,7 @@ reg [3:0] Q_NOW, Q_NEXT;//FSM
 //aux
 reg process_done;//indicate the process is done
 reg is_x_zero, is_y_zero;//indicate whether x, y are zero
-reg halt;//halt=1 when prefetching
+reg halt, halt_buf;//halt=1 when prefetching
 reg array_num_reg;//store which array to access
 integer i, j;
 //instances
@@ -63,12 +62,6 @@ assign current_direction = (switch)?block_prefetch[prefetch_x_bias*`PREFETCH_LEN
 									block_current[in_block_x_bias*`PREFETCH_LENGTH+in_block_y_bias];
 //done logic
 assign done = (Q_NOW==DONE)?1:0;
-//is_preload logic
-always@(*)begin
-	if(Q_NOW==PRELOAD_QUERY) is_preload = 1;
-	else if(Q_NOW==PRELOAD_TARGET) is_preload = 2;
-	else is_preload = 0;
-end
 //process_done logic
 always@(*)begin
 	if(halt) process_done=0;
@@ -121,6 +114,7 @@ always @(posedge clk or posedge tb_valid) begin
 		prefetch_x_startpoint <= max_position_x;
 		prefetch_y_startpoint <= max_position_y;
 		prefetch_count <= {`PREFETCH_WIDTH{1'b1}};
+		prefetch_count_buf <= {`PREFETCH_WIDTH{1'b1}};
 		preTrace <= M;
 		alignment_valid <= 0;
 		in_block_x_bias <= {`PREFETCH_WIDTH{1'b1}};
@@ -135,6 +129,7 @@ always @(posedge clk or posedge tb_valid) begin
 		is_x_zero <= 0;
 		is_y_zero <= 0;
 		halt <= 0;
+		halt_buf <= 0;
 		array_num_reg <= array_num;
 	end
 	else begin
@@ -142,11 +137,13 @@ always @(posedge clk or posedge tb_valid) begin
 			PRELOAD_BLOCK:begin
 				//block logic
 				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-					block_current[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
+					block_current[i*`PREFETCH_LENGTH+prefetch_count_buf] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 				end
 				prefetch_count <= (prefetch_count==0)?0:prefetch_count-1;
+				prefetch_count_buf <= prefetch_count;
 				prefetch_request <= prefetch_request;
 				array_num_reg <= array_num_reg;
+				halt_buf <= ~halt_buf;
 			end
 			PROCESS:begin
 				//set alignment_valid high
@@ -334,34 +331,42 @@ always @(posedge clk or posedge tb_valid) begin
 					if(((in_block_x_bias==4&&(nowTrace==M||nowTrace==D||nowTrace==D_TILTA))||(in_block_y_bias==4&&(nowTrace==M||nowTrace==I||nowTrace==I_TILTA))))begin
 						prefetch_request <= 2'b10;
 						prefetch_count <= {`PREFETCH_WIDTH{1'b1}};
+						prefetch_count_buf <= {`PREFETCH_WIDTH{1'b1}};
 						halt <= 1;
+						halt_buf <= 1;
 						alignment_valid <= 0;
 					end
 					else begin
 						prefetch_count <= (prefetch_count==0)?0:prefetch_count-1;
+						prefetch_count_buf <= prefetch_count;
 						prefetch_request <= (prefetch_count==0)?2'b00:prefetch_request;
-						halt <= 0;
-						alignment_valid <= 1;
+						halt <= halt_buf;
+						halt_buf <= 0;
+						alignment_valid <= ~halt_buf;
 					end
 				end
 				else begin
 					if(((prefetch_x_bias==4&&(nowTrace==M||nowTrace==D||nowTrace==D_TILTA))||(prefetch_y_bias==4&&(nowTrace==M||nowTrace==I||nowTrace==I_TILTA))))begin
 						prefetch_request <= 2'b01;
 						prefetch_count <= {`PREFETCH_WIDTH{1'b1}};
+						prefetch_count_buf <= {`PREFETCH_WIDTH{1'b1}};
 						halt <= 1;
+						halt_buf <= 1;
 						alignment_valid <= 0;
 					end
 					else begin
 						prefetch_count <= (prefetch_count==0)?0:prefetch_count-1;
+						prefetch_count_buf <= prefetch_count;
 						prefetch_request <= (prefetch_count==0)?2'b00:prefetch_request;
-						halt <= 0;
-						alignment_valid <= 1;
+						halt <= halt_buf;
+						halt_buf <= 0;
+						alignment_valid <= ~halt_buf;
 					end
 				end
 				//block_current & block_prefetch input logic
 				if(prefetch_request==2'b01)begin
 					for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-						block_current[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
+						block_current[i*`PREFETCH_LENGTH+prefetch_count_buf] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 					end
 				end
 				else begin
@@ -371,7 +376,7 @@ always @(posedge clk or posedge tb_valid) begin
 				end
 				if(prefetch_request==2'b10)begin
 					for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
-						block_prefetch[i*`PREFETCH_LENGTH+prefetch_count] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
+						block_prefetch[i*`PREFETCH_LENGTH+prefetch_count_buf] <= prefetch_column[i*`DIRECTION_WIDTH+:5];
 					end
 				end
 				else begin
@@ -396,6 +401,7 @@ always @(posedge clk or posedge tb_valid) begin
 				prefetch_x_startpoint <= prefetch_x_startpoint;
 				prefetch_y_startpoint <= prefetch_y_startpoint;
 				prefetch_count <= prefetch_count;
+				prefetch_count_buf <= prefetch_count_buf;
 				preTrace <= preTrace;
 				alignment_valid <= alignment_valid;
 				in_block_x_bias <= in_block_x_bias;
@@ -410,6 +416,7 @@ always @(posedge clk or posedge tb_valid) begin
 				is_x_zero <= is_x_zero;
 				is_y_zero <= is_y_zero;
 				halt <= halt;
+				halt_buf <= halt_buf;
 				array_num_reg <= array_num_reg;
 			end
 		endcase
@@ -426,7 +433,7 @@ always @(*)begin
 		case(Q_NOW)
 			IDLE:           Q_NEXT = (tb_valid)?RESET:IDLE;
 			RESET:          Q_NEXT = (~tb_valid)?PRELOAD_BLOCK:RESET;
-			PRELOAD_BLOCK:  Q_NEXT = PROCESS;
+			PRELOAD_BLOCK:  Q_NEXT = (halt_buf)?PROCESS:PRELOAD_BLOCK;
 			PROCESS:        Q_NEXT = (process_done)?DONE:PROCESS;
 			DONE:           Q_NEXT = IDLE;
 			default:        Q_NEXT = IDLE;

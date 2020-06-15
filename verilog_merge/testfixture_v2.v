@@ -108,7 +108,7 @@ top top(
 	.prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 	.in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 	.prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-	.done(done), .is_preload(is_preload), .tb_valid(tb_valid)
+	.done(done), .tb_valid(tb_valid)
 );
 /*
 DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
@@ -128,9 +128,9 @@ wire [`N*`DIRECTION_WIDTH-1:0] memory_out [0:`MEM_AMOUNT-1];
 
 
 
-
+`ifdef SDF
 initial $sdf_annotate(`SDFFILE, top);
-
+`endif
 initial begin
 $fsdbDumpfile("traceback.fsdb");
 $fsdbDumpvars(0, test, "+mda");

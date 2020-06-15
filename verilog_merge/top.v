@@ -22,8 +22,7 @@ module top(
     in_block_y_startpoint, 
     prefetch_x_startpoint, 
     prefetch_y_startpoint,
-	done, 
-    is_preload,
+	done,
     tb_valid
 );
 
@@ -57,7 +56,6 @@ output [`PREFETCH_WIDTH-1:0] prefetch_count;//auxiliary for prefetch input, when
 output [`POSITION_WIDTH-1:0] in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint;//the most down-right point while prefetching
 output alignment_valid;//whether the alignment_out signals should be taken by the host
 output done;//done
-output [1:0] is_preload;
 output tb_valid;
 
 assign tb_valid = tb_valid_wire;
@@ -73,7 +71,7 @@ traceback DUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y),
 			  .prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 			  .prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-			  .done(done), .is_preload(is_preload), .tb_valid(tb_valid_wire), .array_num(array_num), 
+			  .done(done), .tb_valid(tb_valid_wire), .array_num(array_num), 
 			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1));
 
 
