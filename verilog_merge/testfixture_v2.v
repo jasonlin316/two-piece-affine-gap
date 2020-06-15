@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-`define CYCLE    10           	        // Modify your clock period here
+`define CYCLE    5           	        // Modify your clock period here
 `define TIME_OUT 10000
 
 `ifdef SDF
@@ -128,8 +128,9 @@ wire [`N*`DIRECTION_WIDTH-1:0] memory_out [0:`MEM_AMOUNT-1];
 
 
 
-
+`ifdef SDF
 initial $sdf_annotate(`SDFFILE, top);
+`endif
 
 initial begin
 $fsdbDumpfile("traceback.fsdb");
