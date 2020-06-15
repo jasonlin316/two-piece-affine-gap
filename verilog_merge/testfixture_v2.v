@@ -3,7 +3,7 @@
 `define TIME_OUT 10000
 
 `ifdef SDF
-  `define SDFFILE  "./layout/lcd_ctrl_APR.sdf"	// Modify your sdf file name
+  `define SDFFILE  "core_syn.sdf"	// Modify your sdf file name
 `endif
 
 `define sequence "../dat/BinaryInput.dat"

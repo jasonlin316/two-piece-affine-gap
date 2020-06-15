@@ -9,7 +9,7 @@ input we, clk
 
 reg [`DIRECTION_WIDTH-1:0] mem [`MEM_SIZE-1:0];
 
-always@(negedge clk)
+always@(posedge clk)
 begin
     if (we) mem[write_address] <= d;
     q <= mem[read_address]; // q doesn't get d in this clock cycle
