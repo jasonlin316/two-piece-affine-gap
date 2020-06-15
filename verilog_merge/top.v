@@ -74,5 +74,4 @@ traceback DUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y),
 			  .done(done), .tb_valid(tb_valid_wire), .array_num(array_num), 
 			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1));
 
-
 endmodule
