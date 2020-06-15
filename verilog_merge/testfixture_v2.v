@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-`define CYCLE    5           	        // Modify your clock period here
+`define CYCLE    10           	        // Modify your clock period here
 `define TIME_OUT 10000
 
 `ifdef SDF
