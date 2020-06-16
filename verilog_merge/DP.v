@@ -56,11 +56,13 @@ parameter DPS1 = 2'b10;
 /* ======================= REG & wire ================================ */
 reg [1:0] state, state_next;
 reg use_s1, use_s1_next;
-reg tb_valid, tb_valid_next;
+reg tb_internal_valid, tb_internal_valid_next;
 reg array_num, array_num_next;
 reg change;
+reg [1:0] tb_valid_cnt, tb_valid_cnt_next;
 
 /* ==================== Combinational Part ================== */
+assign tb_valid = (tb_valid_cnt != 0)? 1'b1 : 0 ;
 
 systolic systolic(
     .clk(clk),
@@ -82,38 +84,48 @@ systolic systolic(
     .tb_x(tb_x),
     .tb_y(tb_y)
 );
+always@(*)
+begin
+    if(tb_internal_valid_next != 0 || tb_valid_cnt > 0)
+    begin
+        tb_valid_cnt_next = tb_valid_cnt + 2'd1;
+    end
+    else tb_valid_cnt_next = 0;
+end
 
 always@(*)
 begin
     use_s1_next = use_s1;
-    tb_valid_next = tb_valid;
+    tb_internal_valid_next = tb_internal_valid;
     state_next = state;
     array_num_next = array_num;
     case(state)
         IDLE:
         begin
-            tb_valid_next = 0;
+            tb_internal_valid_next = 0;
             if(change == 1'b1) state_next = DPS0;
             else state_next = state;
         end
         DPS0:
         begin
-            tb_valid_next = 0;
-            if(change == 1'b1 && tb_busy == 0)
+            tb_internal_valid_next = 0;
+            //if(change == 1'b1 && tb_busy == 0)
+            if(change == 1'b1)
             begin
                 use_s1_next = 1'b1;
-                tb_valid_next = 1'b1;
+                tb_internal_valid_next = 1'b1;
                 state_next = DPS1;
                 array_num_next = 0;
             end
         end
         DPS1:
         begin
-            tb_valid_next = 0;
-            if(change == 1'b1 && tb_busy == 0)
+            tb_internal_valid_next = 0;
+            //if(change == 1'b1 && tb_busy == 0)
+            if(change == 1'b1)
             begin
                 use_s1_next = 0;
-                tb_valid_next = 1'b1;
+                tb_internal_valid_next = 1'b1;
                 state_next = DPS0;
                 array_num_next = 1'b1;
             end
@@ -128,17 +140,19 @@ begin
     begin
         state <= IDLE;
         use_s1 <= 0;
-        tb_valid <= 0;
+        tb_internal_valid <= 0;
         array_num <= 0;
         change <= 0;
+        tb_valid_cnt <= 0;
     end
     else
     begin
         state <= state_next;
         use_s1 <= use_s1_next;
-        tb_valid <= tb_valid_next;
+        tb_internal_valid <= tb_internal_valid_next;
         array_num <= array_num_next;
         change <= new_seq;
+        tb_valid_cnt <= tb_valid_cnt_next;
     end
 end
 
