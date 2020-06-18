@@ -5,7 +5,7 @@
 module traceback(clk, max_position_x, max_position_y, prefetch_row, sequence_in,
 				 query_alignment_out, target_alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
-				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, row_num, row_k0, row_k1);
+				 done, is_preload, tb_valid, array_num, tb_busy, mem_block_num, row_num, row_k0, row_k1,current_position_x, current_position_y);
 //direction params
 parameter THRESHOLD = 32;
 //traceback symbols
@@ -40,7 +40,7 @@ wire [2:0] nowTrace;//this clock's traceback symbol
 //regs
 reg [`DIRECTION_WIDTH-1:0] block_prefetch[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==1
 reg [`DIRECTION_WIDTH-1:0] block_current[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==0
-reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
+output reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
 reg [`SEQUENCE_ELEMENT_WIDTH-1:0] query_sequence_reg[0:`SEQ_MAX_LEN-1];//storing query
 reg [`SEQUENCE_ELEMENT_WIDTH-1:0] target_sequence_reg[0:`SEQ_MAX_LEN-1];//storing target
 reg [`PRELOAD_COUNT_WIDTH-1:0] preload_sequence_counter;//counter for preloading sequences

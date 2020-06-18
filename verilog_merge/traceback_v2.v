@@ -5,7 +5,7 @@
 //2
 module traceback(clk, max_position_x, max_position_y, alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
-				 done, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1);
+				 done, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1, current_position_x, current_position_y);
 //direction params
 parameter THRESHOLD = 32;
 //traceback symbols
@@ -38,7 +38,7 @@ wire [2:0] nowTrace;//this clock's traceback symbol
 //regs
 reg [`DIRECTION_WIDTH-1:0] block_prefetch[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==1
 reg [`DIRECTION_WIDTH-1:0] block_current[0:`PREFETCH_LENGTH*`PREFETCH_LENGTH-1];//block where traceback is performing when switch==0
-reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
+output reg [`POSITION_WIDTH-1:0] current_position_x, current_position_y;//where the traceback is going on now
 //when prefetching new block, indexing is no more consistent, hence need extra FF to record in-block positions
 reg [`PREFETCH_WIDTH-1:0] in_block_x_bias, in_block_y_bias, prefetch_x_bias, prefetch_y_bias, prefetch_count_buf;
 reg overlap;//whether in_block_bias and prefetch_bias need to move together
