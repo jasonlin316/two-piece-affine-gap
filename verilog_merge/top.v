@@ -23,7 +23,9 @@ module top(
     prefetch_x_startpoint, 
     prefetch_y_startpoint,
 	done,
-    tb_valid
+    tb_valid,
+    c_p_x,
+    c_p_y
 );
 
 input clk;
@@ -38,7 +40,7 @@ input valid;
 input new_seq;
 input [`log_N-1:0] PE_end;
 
-wire [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
+output [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
 //DP interface inputs
 wire  tb_valid_wire;//can traceback work, which serves as reset
 wire  array_num;//which memory block can traceback use

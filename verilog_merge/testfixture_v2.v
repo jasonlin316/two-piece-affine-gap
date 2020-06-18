@@ -76,7 +76,7 @@ wire [`ADDRESS_WIDTH-1:0] tb_y;
 //reg [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
 //reg [`ADDRESS_WIDTH-1:0] column_num;
 reg [`log_N-1:0] PE_end;
-
+wire [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
 
 reg [`SEQ_MAX_LEN*2-1:0] seq [0:7];
 reg [11:0] seq_len [0:7]; //sequence length
@@ -108,7 +108,7 @@ top top(
 	.prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 	.in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 	.prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-	.done(done), .tb_valid(tb_valid)
+	.done(done), .tb_valid(tb_valid), .c_p_x(c_p_x), .c_p_y(c_p_y)
 );
 /*
 DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
