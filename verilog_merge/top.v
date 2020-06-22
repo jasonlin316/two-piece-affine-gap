@@ -68,7 +68,7 @@ DP DP(.clk(clk), .reset_i(reset_i), .S(S), .T(T), .s_update(s_update), .max_o(),
 	  .tb_valid(tb_valid_wire), .array_num(array_num), .tb_busy(tb_busy), 
 	  .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1), .tb_x(tb_x), .tb_y(tb_y) );
 
-traceback AUT(.clk(clk), .max_position_x(tb_x), .max_position_y(tb_y), 
+traceback AUT(.clk(clk), .rst_n(rst_n), .max_position_x(tb_x), .max_position_y(tb_y), 
 			  .alignment_out(alignment_out), .alignment_valid(alignment_valid),
 			  .prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 			  .in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),

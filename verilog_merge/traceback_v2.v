@@ -3,7 +3,7 @@
 `include "traceback_prefetch_column_finder.v"
 //github
 //2
-module traceback(clk, max_position_x, max_position_y, alignment_out, alignment_valid, prefetch_request, prefetch_count, 
+module traceback(clk, rst_n, max_position_x, max_position_y, alignment_out, alignment_valid, prefetch_request, prefetch_count, 
 				 in_block_x_startpoint, in_block_y_startpoint, prefetch_x_startpoint, prefetch_y_startpoint,
 				 done, tb_valid, array_num, tb_busy, mem_block_num, column_num, column_k0, column_k1, current_position_x, current_position_y);
 //direction params
@@ -11,10 +11,10 @@ parameter THRESHOLD = 32;
 //traceback symbols
 parameter M = 0, I = 1, D = 2, STOP = 3, I_TILTA=4, D_TILTA=5, GAP = 4;
 //FSM param
-parameter IDLE = 0, RESET = 1, PRELOAD_QUERY = 2, PRELOAD_TARGET = 5, PRELOAD_BLOCK = 6, 
+parameter IDLE = 0, RESET = 1, INITIAL = 2, TB_VALID = 5, PRELOAD_BLOCK = 6, 
 		  PROCESS = 3, DONE = 4;//PRELOAD==preload query, target sequence in
 //inputs
-input  clk;
+input  clk, rst_n;
 input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of where the traceback starts
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
@@ -102,25 +102,25 @@ always@(*)begin
 	end
 end
 //sequential
-always @(posedge clk or posedge tb_valid) begin
-	if(tb_valid)begin
+always @(posedge clk or negedge rst_n) begin
+	if(~rst_n)begin
 		// reset
 		alignment_out <= 0;
-		prefetch_request <= 2'b01;
-		current_position_x <= max_position_x;
-		current_position_y <= max_position_y;
-		in_block_x_startpoint <= max_position_x;
-		in_block_y_startpoint <= max_position_y;
-		prefetch_x_startpoint <= max_position_x;
-		prefetch_y_startpoint <= max_position_y;
-		prefetch_count <= {`PREFETCH_WIDTH{1'b1}};
-		prefetch_count_buf <= {`PREFETCH_WIDTH{1'b1}};
+		prefetch_request <= 2'b00;
+		current_position_x <= 0;
+		current_position_y <= 0;
+		in_block_x_startpoint <= 0;
+		in_block_y_startpoint <= 0;
+		prefetch_x_startpoint <= 0;
+		prefetch_y_startpoint <= 0;
+		prefetch_count <= 0;
+		prefetch_count_buf <= 0;
 		preTrace <= M;
 		alignment_valid <= 0;
-		in_block_x_bias <= {`PREFETCH_WIDTH{1'b1}};
-		in_block_y_bias <= {`PREFETCH_WIDTH{1'b1}};
-		prefetch_x_bias <= {`PREFETCH_WIDTH{1'b1}};
-		prefetch_y_bias <= {`PREFETCH_WIDTH{1'b1}};
+		in_block_x_bias <= 0;
+		in_block_y_bias <= 0;
+		prefetch_x_bias <= 0;
+		prefetch_y_bias <= 0;
 		switch <= 0;
 		for(i=0; i<`PREFETCH_LENGTH*`PREFETCH_LENGTH; i=i+1)begin
 			block_prefetch[i] <= 0;
@@ -130,10 +130,39 @@ always @(posedge clk or posedge tb_valid) begin
 		is_y_zero <= 0;
 		halt <= 0;
 		halt_buf <= 0;
-		array_num_reg <= array_num;
+		array_num_reg <= 0;
 	end
 	else begin
 		case(Q_NOW)
+			TB_VALID:begin
+				// reset
+				alignment_out <= 0;
+				prefetch_request <= 2'b01;
+				current_position_x <= max_position_x;
+				current_position_y <= max_position_y;
+				in_block_x_startpoint <= max_position_x;
+				in_block_y_startpoint <= max_position_y;
+				prefetch_x_startpoint <= max_position_x;
+				prefetch_y_startpoint <= max_position_y;
+				prefetch_count <= {`PREFETCH_WIDTH{1'b1}};
+				prefetch_count_buf <= {`PREFETCH_WIDTH{1'b1}};
+				preTrace <= M;
+				alignment_valid <= 0;
+				in_block_x_bias <= {`PREFETCH_WIDTH{1'b1}};
+				in_block_y_bias <= {`PREFETCH_WIDTH{1'b1}};
+				prefetch_x_bias <= {`PREFETCH_WIDTH{1'b1}};
+				prefetch_y_bias <= {`PREFETCH_WIDTH{1'b1}};
+				switch <= 0;
+				for(i=0; i<`PREFETCH_LENGTH*`PREFETCH_LENGTH; i=i+1)begin
+					block_prefetch[i] <= 0;
+					block_current[i] <= 0; 
+				end
+				is_x_zero <= 0;
+				is_y_zero <= 0;
+				halt <= 0;
+				halt_buf <= 0;
+				array_num_reg <= array_num;
+			end
 			PRELOAD_BLOCK:begin
 				//block logic
 				for(i=0; i<`PREFETCH_LENGTH; i=i+1)begin
@@ -428,11 +457,14 @@ always @(posedge clk) begin
 end
 
 always @(*)begin
-	if(tb_valid) Q_NEXT = RESET;
+	if(tb_valid) Q_NEXT = TB_VALID;
+	else if(~rst_n) Q_NEXT = RESET;
 	else begin
 		case(Q_NOW)
-			IDLE:           Q_NEXT = (tb_valid)?RESET:IDLE;
-			RESET:          Q_NEXT = (~tb_valid)?PRELOAD_BLOCK:RESET;
+			INITIAL:        Q_NEXT = (~rst_n)?RESET:INITIAL;
+			RESET:          Q_NEXT = (rst_n)?IDLE:RESET;
+			IDLE:           Q_NEXT = (tb_valid)?TB_VALID:IDLE;
+			TB_VALID:       Q_NEXT = (~tb_valid)?PRELOAD_BLOCK:TB_VALID;
 			PRELOAD_BLOCK:  Q_NEXT = (halt_buf)?PROCESS:PRELOAD_BLOCK;
 			PROCESS:        Q_NEXT = (process_done)?DONE:PROCESS;
 			DONE:           Q_NEXT = IDLE;
