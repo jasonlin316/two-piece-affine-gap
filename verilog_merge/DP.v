@@ -109,8 +109,8 @@ begin
         DPS0:
         begin
             tb_internal_valid_next = 0;
-            //if(change == 1'b1 && tb_busy == 0)
-            if(change == 1'b1)
+            if(change == 1'b1 && tb_busy == 0)
+            //if(change == 1'b1)
             begin
                 use_s1_next = 1'b1;
                 tb_internal_valid_next = 1'b1;
@@ -121,8 +121,8 @@ begin
         DPS1:
         begin
             tb_internal_valid_next = 0;
-            //if(change == 1'b1 && tb_busy == 0)
-            if(change == 1'b1)
+            if(change == 1'b1 && tb_busy == 0)
+            //if(change == 1'b1)
             begin
                 use_s1_next = 0;
                 tb_internal_valid_next = 1'b1;
