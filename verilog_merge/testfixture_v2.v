@@ -193,7 +193,7 @@ new_seq = 0;
 	rst_n = 1;
 #(`CYCLE/4)
 
-    for (k_DP = 0; k_DP < 8; k_DP = k_DP+2) // how much pair of sequence alignment
+    for (k_DP = 0; k_DP < 2; k_DP = k_DP+2) // how much pair of sequence alignment
     begin
         @(negedge clk);
         s_size = seq_len[k_DP];
@@ -207,6 +207,7 @@ new_seq = 0;
             iter = s_size/`N;
             if(s_size%`N != 0) iter = iter + 1;
         end
+		else iter = 1;
         ack = 1;
         for (j_DP = 0 ; j_DP < iter ; j_DP = j_DP + 1 )
         begin
@@ -225,7 +226,6 @@ new_seq = 0;
             s_update = 0;
             ack = 1;
             # `CYCLE;
-
             for (i_DP = 0 ; i_DP < t_size * 2 ; i_DP = i_DP +2) //T signal serial in
             begin
                 T = seq[k_DP+1][i_DP+:2];

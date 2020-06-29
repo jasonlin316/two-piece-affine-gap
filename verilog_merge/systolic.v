@@ -3,6 +3,7 @@
 `include "ram.v"
 `include "direction_ram.v"
 `include "pos_ram.v"
+`include "sram_sp_hde.v"
 
 module systolic(
     clk,
@@ -97,8 +98,11 @@ wire [`DIRECTION_WIDTH-1:0] direction_val  [`N-1:0];
 wire [`DIRECTION_WIDTH-1:0] write_direction [`N-1:0];
 wire [`DIRECTION_WIDTH-1:0] read_direction_0  [`N*`MEM_AMOUNT-1:0];
 wire [`DIRECTION_WIDTH-1:0] read_direction_1  [`N*`MEM_AMOUNT-1:0];
+wire [`DIRECTION_WIDTH-1:0] read_direction_t0  [`N*`MEM_AMOUNT-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_read_address [`N-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_write_address [`N-1:0];
+wire [`ADDRESS_WIDTH-1:0]  dir_address_0     [`N-1:0];
+
 wire dir_we [`N-1:0];
 
 reg [`MEM_AMOUNT-1:0] block_we ;
@@ -138,6 +142,7 @@ assign ColIn[0] = Col_reg;
 assign MaxIn[0] = max_reg;
 assign tb_x = tb_x_reg;
 assign tb_y = tb_y_reg;
+ 
 
 generate
   for(j=1;j<`N;j=j+1)begin
@@ -165,6 +170,7 @@ generate
     assign column_k1[j*5+:5] = (mem_block_num == 0)? 0 : 
     (use_s1)? read_direction_0[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : read_direction_1[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j];
      
+    assign dir_address_0[j] = (use_s1)? dir_read_address[j] : dir_write_address[j] ;//dp s1, so can s0 will be read
   end
 endgenerate
 
@@ -240,6 +246,41 @@ generate
     end
   end
 endgenerate
+
+generate
+  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
+  begin
+    for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
+    begin
+      sram_sp_hde sram1 (
+        .CENY(),
+        .WENY(), 
+        .AY(), 
+        .DY(),
+        .Q(read_direction_t0[BLOCK_WIDTH+BLOCK_NUMBER*`N]), //Data Output (Q[0] = LSB)
+        .CLK(clk), 
+        .CEN(0), //Chip Enable (active low)
+        //.WEN(!(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & use_s1)), //Write Enable (active low)
+        .WEN(!(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & !(use_s1))), //Write Enable (active low)
+        .A({dir_address_0[BLOCK_WIDTH]}), //Address (A[0] = LSB)
+        .D(write_direction[BLOCK_WIDTH]), //Data Input
+        .EMA(3'b000), 
+        .EMAW(2'b00), 
+        .EMAS(0), 
+        .TEN(1),
+        .BEN(1), 
+        .TCEN(1), 
+        .TWEN(1), 
+        .TA(0), 
+        .TD(0), 
+        .TQ(0), 
+        .RET1N(1), 
+        .STOV(0)
+        );
+    end
+  end
+endgenerate
+
 
 
 
