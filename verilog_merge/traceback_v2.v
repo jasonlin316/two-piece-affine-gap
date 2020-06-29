@@ -30,7 +30,7 @@ output done;//done
 //DP interface outputs
 output tb_busy;//whether tb is working
 output [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;//which memory to access
-output reg [`POSITION_WIDTH-1:0] column_num;//which row to access
+output reg [`POSITION_WIDTH-1:0] column_num;//which column to access
 //wires
 wire [`DIRECTION_WIDTH-1:0] current_direction;//direction of current position
 wire [0:`PREFETCH_LENGTH*`DIRECTION_WIDTH-1] prefetch_column;//prefech block input
