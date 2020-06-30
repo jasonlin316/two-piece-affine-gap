@@ -4,6 +4,7 @@
 `include "direction_ram.v"
 `include "pos_ram.v"
 `include "sram_sp_hde.v"
+`include "shift_register.v"
 
 module systolic(
     clk,
@@ -29,6 +30,7 @@ module systolic(
 genvar    j;
 genvar    BLOCK_NUMBER;
 genvar    BLOCK_WIDTH;
+genvar    k;
 integer i;
 
 parameter IDLE = 2'b00;
@@ -48,10 +50,10 @@ input valid;
 input new_seq;
 input [`log_N-1:0] PE_end;
 
-input  [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
+input  [`MEM_BLOCK_WIDTH-1:0] mem_block_num;
 input  [`ADDRESS_WIDTH-1:0] column_num;
-output [`N*`DIRECTION_WIDTH-1:0] column_k0;
-output [`N*`DIRECTION_WIDTH-1:0] column_k1;
+output [79:0] column_k0;
+output [79:0] column_k1;
 output [`ADDRESS_WIDTH-1:0] tb_x;
 output [`ADDRESS_WIDTH-1:0] tb_y;
 
@@ -98,12 +100,20 @@ wire [`DIRECTION_WIDTH-1:0] direction_val  [`N-1:0];
 wire [`DIRECTION_WIDTH-1:0] write_direction [`N-1:0];
 wire [`DIRECTION_WIDTH-1:0] read_direction_0  [`N*`MEM_AMOUNT-1:0];
 wire [`DIRECTION_WIDTH-1:0] read_direction_1  [`N*`MEM_AMOUNT-1:0];
-wire [`DIRECTION_WIDTH-1:0] read_direction_t0  [`N*`MEM_AMOUNT-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_read_address [`N-1:0];
 wire [`ADDRESS_WIDTH-1:0]  dir_write_address [`N-1:0];
-wire [`ADDRESS_WIDTH-1:0]  dir_address_0     [`N-1:0];
 
-wire dir_we [`N-1:0];
+wire [79:0] shift_reg_input  [0:`RAM_NUM-1];
+wire [79:0] shift_reg_output [0:`RAM_NUM-1];
+wire [79:0] sram_data_output_0 [0:`RAM_NUM-1][0:`MEM_AMOUNT-1];
+wire [79:0] sram_data_output_1 [0:`RAM_NUM-1][0:`MEM_AMOUNT-1];
+wire [7:0] SRAM_addr [0:`RAM_NUM-1];
+wire sram_we_0 [0:`RAM_NUM-1];
+wire sram_we_1 [0:`RAM_NUM-1];
+reg sram_valid_d1 [0:`RAM_NUM-1];
+reg sram_valid_d2 [0:`RAM_NUM-1];
+reg [`ADDRESS_WIDTH-1:0] sram_addr_d1 [0:`RAM_NUM-1];
+reg [`ADDRESS_WIDTH-1:0] sram_addr_d2 [0:`RAM_NUM-1];
 
 reg [`MEM_AMOUNT-1:0] block_we ;
 reg  signed [`CALC_WIDTH-1:0]  H_reg;
@@ -166,17 +176,36 @@ generate
     assign write_direction[j]   = direction_val[j];
     assign dir_write_address[j] = (write_address[j] > 0)? write_address[j] - `ADDRESS_WIDTH'd1 : 0;
     assign dir_read_address[j] = column_num; //actually it's column number
-    assign column_k0[j*5+:5] = (use_s1)? read_direction_0[mem_block_num*`N + j] : read_direction_1[mem_block_num*`N + j]; 
+    /*assign column_k0[j*5+:5] = (use_s1)? read_direction_0[mem_block_num*`N + j] : read_direction_1[mem_block_num*`N + j]; 
     assign column_k1[j*5+:5] = (mem_block_num == 0)? 0 : 
     (use_s1)? read_direction_0[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : read_direction_1[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j];
-     
-    assign dir_address_0[j] = (use_s1)? dir_read_address[j] : dir_write_address[j] ;//dp s1, so can s0 will be read
+     */
   end
 endgenerate
 
 
+assign column_k0 = (use_s1)? sram_data_output_0[mem_block_num % `RAM_NUM][mem_block_num >> `log_N] : sram_data_output_1[mem_block_num % `RAM_NUM][mem_block_num >> `log_N];
+assign column_k1 = (mem_block_num == 0) ? 0 :
+(use_s1)? sram_data_output_0[mem_block_num % `RAM_NUM][mem_block_num >> `log_N] : sram_data_output_1[mem_block_num % `RAM_NUM][mem_block_num >> `log_N];
 
+generate
+  for(k=0;k<`RAM_NUM;k=k+1)
+  begin
+    for(j=1;j<=16;j=j+1)
+    begin
+        assign shift_reg_input[k][(j*5-1)-:5] = direction_val[(16*(k+1)-j)];
+    end
+  end
+endgenerate
 
+generate
+  for(j=0;j<`RAM_NUM;j=j+1)
+  begin
+    assign SRAM_addr[j] = (use_s1)? column_num : sram_addr_d2[j];
+    assign sram_we_0[j] = !(sram_valid_d2[j] && (!use_s1));
+    assign sram_we_1[j] = !(sram_valid_d2[j] && (use_s1));
+  end
+endgenerate
 /* ====================Combinational Part================== */
 
 generate
@@ -210,6 +239,17 @@ generate
      .write_address_out(write_address[j]),
      .direction_out(direction_val[j])
     );
+  end
+endgenerate
+
+generate
+  for(j=0;j<`RAM_NUM;j=j+1)
+  begin
+    shift_register sr(
+    .clk(clk),
+    .data_in(shift_reg_input[j]),
+    .data_out(shift_reg_output[j])
+  );
   end
 endgenerate
 
@@ -250,39 +290,68 @@ endgenerate
 generate
   for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
   begin
-    for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
+    for(j=0; j < `RAM_NUM ; j = j + 1)
     begin
-      sram_sp_hde sram1 (
-        .CENY(),
-        .WENY(), 
-        .AY(), 
-        .DY(),
-        .Q(read_direction_t0[BLOCK_WIDTH+BLOCK_NUMBER*`N]), //Data Output (Q[0] = LSB)
-        .CLK(clk), 
-        .CEN(0), //Chip Enable (active low)
-        //.WEN(!(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & use_s1)), //Write Enable (active low)
-        .WEN(!(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & !(use_s1))), //Write Enable (active low)
-        .A({dir_address_0[BLOCK_WIDTH]}), //Address (A[0] = LSB)
-        .D(write_direction[BLOCK_WIDTH]), //Data Input
-        .EMA(3'b000), 
-        .EMAW(2'b00), 
-        .EMAS(0), 
-        .TEN(1),
-        .BEN(1), 
-        .TCEN(1), 
-        .TWEN(1), 
-        .TA(0), 
-        .TD(0), 
-        .TQ(0), 
-        .RET1N(1), 
-        .STOV(0)
-        );
+      sram_sp_hde sram0 (
+          .CENY(),
+          .WENY(), 
+          .AY(), 
+          .DY(),
+          .Q(sram_data_output_0[j][BLOCK_NUMBER]), //Data Output (Q[0] = LSB)
+          .CLK(clk), 
+          .CEN(0), //Chip Enable (active low)
+          .WEN(sram_we_0[j] | (!block_we[BLOCK_NUMBER]) ), //Write Enable (active low)
+          .A(SRAM_addr[j]), //Address (A[0] = LSB)
+          .D(shift_reg_output[j]), //Data Input
+          .EMA(3'b000), 
+          .EMAW(2'b00), 
+          .EMAS(0), 
+          .TEN(1),
+          .BEN(1), 
+          .TCEN(1), 
+          .TWEN(1), 
+          .TA(0), 
+          .TD(0), 
+          .TQ(0), 
+          .RET1N(1), 
+          .STOV(0)
+      );
     end
   end
 endgenerate
 
-
-
+generate
+  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
+  begin
+    for(j=0; j < `RAM_NUM ; j = j + 1)
+    begin
+      sram_sp_hde sram1 (
+          .CENY(),
+          .WENY(), 
+          .AY(), 
+          .DY(),
+          .Q(sram_data_output_1[j][BLOCK_NUMBER]), //Data Output (Q[0] = LSB)
+          .CLK(clk), 
+          .CEN(0), //Chip Enable (active low)
+          .WEN(sram_we_1[j] | (!block_we[BLOCK_NUMBER])), //Write Enable (active low)
+          .A(SRAM_addr[j]), //Address (A[0] = LSB)
+          .D(shift_reg_output[j]), //Data Input
+          .EMA(3'b000), 
+          .EMAW(2'b00), 
+          .EMAS(0), 
+          .TEN(1),
+          .BEN(1), 
+          .TCEN(1), 
+          .TWEN(1), 
+          .TA(0), 
+          .TD(0), 
+          .TQ(0), 
+          .RET1N(1), 
+          .STOV(0)
+      );
+    end
+  end
+endgenerate
 
 ram H(
 .q(H_ram_read),
@@ -449,6 +518,14 @@ begin
       begin
         direction_valid[i] = 0;
       end
+      
+      for(i = 0; i < `RAM_NUM; i = i+1)
+      begin
+        sram_valid_d1[i] <= 0;
+        sram_valid_d2[i] <= 0;
+        sram_addr_d1[i] <= 0;
+        sram_addr_d2[i] <= 0;
+      end
     end
     else
     begin
@@ -472,6 +549,14 @@ begin
       for(i = 0; i < `N; i = i+1)
       begin
         direction_valid[i] = valid_o[i];
+      end
+
+      for(i = 0; i < `RAM_NUM; i = i+1)
+      begin
+        sram_valid_d1[i] <= valid_o[15+i*16];
+        sram_valid_d2[i] <= sram_valid_d1[i];
+        sram_addr_d1[i] <= write_address[15+i*16];
+        sram_addr_d2[i] <= sram_addr_d1[i];
       end
     end
 end

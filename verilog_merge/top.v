@@ -49,7 +49,7 @@ wire [`ADDRESS_WIDTH-1:0] tb_x;
 wire [`ADDRESS_WIDTH-1:0] tb_y;
 //DP interface outputs
 wire tb_busy;//whether tb is working
-wire [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;//which memory to access
+wire [`MEM_BLOCK_WIDTH-1:0] mem_block_num;//which memory to access
 wire [`POSITION_WIDTH-1:0] column_num;//which row to access
 //outputs
 output [`BP_WIDTH-1:0] alignment_out;//the alignment results of current traceback stage
