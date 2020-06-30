@@ -32,7 +32,7 @@ wire done;
 wire switch;
 
 wire tb_busy;
-wire [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;
+wire [`MEM_BLOCK_WIDTH-1:0] mem_block_num;
 wire [`POSITION_WIDTH-1:0] column_num;
 
 

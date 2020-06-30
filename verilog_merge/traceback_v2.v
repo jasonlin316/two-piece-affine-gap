@@ -29,7 +29,7 @@ output reg alignment_valid;//whether the alignment_out signals should be taken b
 output done;//done
 //DP interface outputs
 output tb_busy;//whether tb is working
-output [`MEM_AMOUNT_WIDTH-1:0] mem_block_num;//which memory to access
+output [`MEM_BLOCK_WIDTH-1:0] mem_block_num;//which memory to access
 output reg [`POSITION_WIDTH-1:0] column_num;//which column to access
 //wires
 wire [`DIRECTION_WIDTH-1:0] current_direction;//direction of current position
@@ -88,8 +88,8 @@ end
 //tb_busy logic
 assign tb_busy = (Q_NOW==IDLE||Q_NOW==DONE)?0:1;
 //mem_block_num logic
-assign mem_block_num = (prefetch_request==2'b10)?prefetch_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH]:
-					   							 in_block_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_AMOUNT_WIDTH];
+assign mem_block_num = (prefetch_request==2'b10)?prefetch_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_BLOCK_WIDTH]:
+					   							 in_block_x_startpoint[`POSITION_WIDTH-1:`POSITION_WIDTH-`MEM_BLOCK_WIDTH];
 //column_num logic
 always@(*)begin
 	if(prefetch_request==2'b10)begin

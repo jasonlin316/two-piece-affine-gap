@@ -44,7 +44,7 @@ output [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
 //DP interface inputs
 wire  tb_valid_wire;//can traceback work, which serves as reset
 wire  array_num;//which memory block can traceback use
-wire  [`N*`DIRECTION_WIDTH-1:0] column_k0, column_k1;//direction data input
+wire  [`MEM_WIDTH*`DIRECTION_WIDTH-1:0] column_k0, column_k1;//direction data input
 wire [`ADDRESS_WIDTH-1:0] tb_x;
 wire [`ADDRESS_WIDTH-1:0] tb_y;
 //DP interface outputs
