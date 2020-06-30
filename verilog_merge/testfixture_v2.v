@@ -193,7 +193,7 @@ new_seq = 0;
 	rst_n = 1;
 #(`CYCLE/4)
 
-    for (k_DP = 0; k_DP < 2; k_DP = k_DP+2) // how much pair of sequence alignment
+    for (k_DP = 0; k_DP < 8; k_DP = k_DP+2) // how much pair of sequence alignment
     begin
         @(negedge clk);
         s_size = seq_len[k_DP];

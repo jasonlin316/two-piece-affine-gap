@@ -16,7 +16,7 @@
 `define N 64 //PE array size
 `define log_N 6
 `define MEM_SIZE 128 //should be 2048
-`define ADDRESS_WIDTH 6 //log(MEM_SIZE)
+`define ADDRESS_WIDTH 7 //log(MEM_SIZE)
 `define MEM_AMOUNT 2 // iteration numbers, aka SEQ_MAX_LEN/N
 `define MEM_AMOUNT_WIDTH 1 //log(MEM_AMOUNT)
 
