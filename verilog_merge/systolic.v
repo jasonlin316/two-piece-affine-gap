@@ -185,8 +185,8 @@ endgenerate
 
 
 assign column_k0 = (use_s1)? sram_data_output_0[mem_block_num % `RAM_NUM][mem_block_num >> `log_N] : sram_data_output_1[mem_block_num % `RAM_NUM][mem_block_num >> `log_N];
-assign column_k1 = (mem_block_num == 0) ? 0 :
-(use_s1)? sram_data_output_0[mem_block_num % `RAM_NUM][mem_block_num >> `log_N] : sram_data_output_1[mem_block_num % `RAM_NUM][mem_block_num >> `log_N];
+assign column_k1 = (mem_block_num == 0) ? 0 : (use_s1)? sram_data_output_0[(mem_block_num-`MEM_BLOCK_WIDTH'd1) % `RAM_NUM][(mem_block_num-`MEM_BLOCK_WIDTH'd1) >> `log_N] 
+: sram_data_output_1[(mem_block_num-`MEM_BLOCK_WIDTH'd1) % `RAM_NUM][(mem_block_num-`MEM_BLOCK_WIDTH'd1) >> `log_N];
 
 generate
   for(k=0;k<`RAM_NUM;k=k+1)
@@ -252,7 +252,7 @@ generate
   );
   end
 endgenerate
-
+/*
 generate
   for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
   begin
@@ -286,7 +286,7 @@ generate
     end
   end
 endgenerate
-
+*/
 generate
   for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
   begin
