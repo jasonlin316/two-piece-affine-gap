@@ -107,13 +107,23 @@ wire [79:0] shift_reg_input  [0:`RAM_NUM-1];
 wire [79:0] shift_reg_output [0:`RAM_NUM-1];
 wire [79:0] sram_data_output_0 [0:`RAM_NUM-1][0:`MEM_AMOUNT-1];
 wire [79:0] sram_data_output_1 [0:`RAM_NUM-1][0:`MEM_AMOUNT-1];
-wire [7:0] SRAM_addr [0:`RAM_NUM-1];
+wire [`ADDRESS_WIDTH-1:0] SRAM_addr [0:`RAM_NUM-1];
 wire sram_we_0 [0:`RAM_NUM-1];
 wire sram_we_1 [0:`RAM_NUM-1];
 reg sram_valid_d1 [0:`RAM_NUM-1];
 reg sram_valid_d2 [0:`RAM_NUM-1];
 reg [`ADDRESS_WIDTH-1:0] sram_addr_d1 [0:`RAM_NUM-1];
 reg [`ADDRESS_WIDTH-1:0] sram_addr_d2 [0:`RAM_NUM-1];
+wire [`ADDRESS_WIDTH-1:0] ring_ram_address;
+wire [79:0] ring_ram_output;
+wire [79:0] pos_ram_output;
+wire signed [`CALC_WIDTH-1:0] H_ram_read_mock;
+wire signed [`CALC_WIDTH-1:0] F_ram_read_mock;
+wire signed [`CALC_WIDTH-1:0] F_hat_ram_read_mock;
+wire signed [`CALC_WIDTH-1:0] max_ram_read_mock;
+wire [`ADDRESS_WIDTH-1:0] X_ram_read_mock;
+wire [`ADDRESS_WIDTH-1:0] Y_ram_read_mock;
+wire [`ADDRESS_WIDTH-1:0] col_ram_read_mock;
 
 reg [`MEM_AMOUNT-1:0] block_we ;
 reg  signed [`CALC_WIDTH-1:0]  H_reg;
@@ -125,7 +135,7 @@ reg [`ADDRESS_WIDTH-1:0]  X_reg;
 reg [`ADDRESS_WIDTH-1:0]  Y_reg;
 reg iter_flag, iter_flag_next;
 reg valid_delay, valid_delay_2;
-reg busy_detect, busy_detect_next; // detect valid_o[N-1] goes 0 -> 1 -> 0
+reg busy_detect, busy_detect_next, valid_delay1; // detect valid_o[N-1] goes 0 -> 1 -> 0
 reg PE_rst, PE_rst_next;
 reg [`log_N-1:0] s_update_cnt, s_update_cnt_next;
 reg [`ADDRESS_WIDTH-1:0] mem_cnt, mem_cnt_next;
@@ -152,7 +162,15 @@ assign ColIn[0] = Col_reg;
 assign MaxIn[0] = max_reg;
 assign tb_x = tb_x_reg;
 assign tb_y = tb_y_reg;
- 
+
+assign ring_ram_address = (valid_o[`N-1])? write_address[`N-1] : mem_cnt;
+assign H_ram_read_mock = ring_ram_output[79:64];
+assign F_ram_read_mock = ring_ram_output[63:48];
+assign F_hat_ram_read_mock = ring_ram_output[47:32];
+assign max_ram_read_mock = ring_ram_output[31:16];
+assign X_ram_read_mock = pos_ram_output[`ADDRESS_WIDTH-1:0];
+assign Y_ram_read_mock = pos_ram_output[2*`ADDRESS_WIDTH-1:`ADDRESS_WIDTH];
+assign col_ram_read_mock = pos_ram_output[3*`ADDRESS_WIDTH-1:2*`ADDRESS_WIDTH];
 
 generate
   for(j=1;j<`N;j=j+1)begin
@@ -184,9 +202,9 @@ generate
 endgenerate
 
 
-assign column_k0 = (use_s1)? sram_data_output_0[mem_block_num % `RAM_NUM][mem_block_num >> `log_N] : sram_data_output_1[mem_block_num % `RAM_NUM][mem_block_num >> `log_N];
-assign column_k1 = (mem_block_num == 0) ? 0 : (use_s1)? sram_data_output_0[(mem_block_num-`MEM_BLOCK_WIDTH'd1) % `RAM_NUM][(mem_block_num-`MEM_BLOCK_WIDTH'd1) >> `log_N] 
-: sram_data_output_1[(mem_block_num-`MEM_BLOCK_WIDTH'd1) % `RAM_NUM][(mem_block_num-`MEM_BLOCK_WIDTH'd1) >> `log_N];
+assign column_k0 = (use_s1)? sram_data_output_0[mem_block_num % `RAM_NUM][mem_block_num >> `log_RAM_NUM] : sram_data_output_1[mem_block_num % `RAM_NUM][mem_block_num >> `log_RAM_NUM];
+assign column_k1 = (mem_block_num == 0) ? 0 : (use_s1)? sram_data_output_0[(mem_block_num-`MEM_BLOCK_WIDTH'd1) % `RAM_NUM][(mem_block_num-`MEM_BLOCK_WIDTH'd1) >> `log_RAM_NUM] 
+: sram_data_output_1[(mem_block_num-`MEM_BLOCK_WIDTH'd1) % `RAM_NUM][(mem_block_num-`MEM_BLOCK_WIDTH'd1) >> `log_RAM_NUM];
 
 generate
   for(k=0;k<`RAM_NUM;k=k+1)
@@ -288,9 +306,9 @@ generate
 endgenerate
 */
 generate
-  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
+  for(j=0; j < `RAM_NUM ; j = j + 1)
   begin
-    for(j=0; j < `RAM_NUM ; j = j + 1)
+    for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
     begin
       sram_sp_hde sram0 (
           .CENY(),
@@ -321,9 +339,9 @@ generate
 endgenerate
 
 generate
-  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
+  for(j=0; j < `RAM_NUM ; j = j + 1)
   begin
-    for(j=0; j < `RAM_NUM ; j = j + 1)
+    for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
     begin
       sram_sp_hde sram1 (
           .CENY(),
@@ -352,6 +370,57 @@ generate
     end
   end
 endgenerate
+
+sram_sp_hde RING_RAM (
+          .CENY(),
+          .WENY(), 
+          .AY(), 
+          .DY(),
+          .Q(ring_ram_output), //Data Output (Q[0] = LSB)
+          .CLK(clk), 
+          .CEN(0), //Chip Enable (active low)
+          .WEN(!valid_o[`N-1]), //Write Enable (active low)
+          .A(ring_ram_address), //Address (A[0] = LSB)
+          .D({Ho[`N-1],Fo[`N-1],Fo_h[`N-1],MaxOu[`N-1],16'd0}), //Data Input
+          .EMA(3'b000),
+          .EMAW(2'b00), 
+          .EMAS(0), 
+          .TEN(1),
+          .BEN(1), 
+          .TCEN(1), 
+          .TWEN(1), 
+          .TA(0), 
+          .TD(0), 
+          .TQ(0), 
+          .RET1N(1), 
+          .STOV(0)
+          );
+
+sram_sp_hde POSITION_RAM (
+          .CENY(),
+          .WENY(), 
+          .AY(), 
+          .DY(),
+          .Q(pos_ram_output), //Data Output (Q[0] = LSB)
+          .CLK(clk), 
+          .CEN(0), //Chip Enable (active low)
+          .WEN(!valid_o[`N-1]), //Write Enable (active low)
+          .A(ring_ram_address), //Address (A[0] = LSB)
+          .D({`LZA'd0,ColOut[`N-1],YOut[`N-1],XOut[`N-1]}), //Data Input
+          .EMA(3'b000),
+          .EMAW(2'b00), 
+          .EMAS(0), 
+          .TEN(1),
+          .BEN(1), 
+          .TCEN(1), 
+          .TWEN(1), 
+          .TA(0), 
+          .TD(0), 
+          .TQ(0), 
+          .RET1N(1), 
+          .STOV(0)
+          );
+
 
 ram H(
 .q(H_ram_read),
@@ -479,7 +548,7 @@ begin
       Col_reg = (iter_flag && (!first_row))? col_ram_read : 0 ;
       max_reg = (iter_flag && (!first_row))? max_ram_read : 0 ;
       if(valid_o[`N-1] == 1'b1) busy_detect_next = 1'b1;
-      if(valid_o[`N-1] == 0 && busy_detect == 1'b1)
+      if(valid_delay1 == 0 && busy_detect == 1'b1)
       begin
         state_next = IDLE;
         PE_rst_next = 1'b0;
@@ -509,6 +578,7 @@ begin
       mem_cnt <= 0;
       ack_reg <= 0;
       busy_detect <= 0;
+      valid_delay1 <= 0;
       PE_rst <= 1'b1;
       first_row <= 1'b1;
       iter <= 0;
@@ -541,6 +611,7 @@ begin
       mem_cnt <= mem_cnt_next;
       ack_reg <= ack;
       busy_detect <= busy_detect_next;
+      valid_delay1 <= valid_o[`N-1];
       PE_rst <= PE_rst_next;
       first_row <= first_row_next;
       iter <= iter_next;

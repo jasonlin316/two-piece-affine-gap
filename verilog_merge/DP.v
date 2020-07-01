@@ -75,7 +75,7 @@ systolic systolic(
     .max_o(),
     .busy(busy),
     .ack(ack),
-    .valid(valid), //input is valid
+    .valid(valid),
     .new_seq(new_seq),
     .mem_block_num(mem_block_num),
     .column_num(column_num),
