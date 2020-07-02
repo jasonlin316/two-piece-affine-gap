@@ -43,8 +43,8 @@ output array_num;
 input  tb_busy;
 input  [`MEM_BLOCK_WIDTH-1:0] mem_block_num;
 input  [`ADDRESS_WIDTH-1:0] column_num;
-output [`N*`DIRECTION_WIDTH-1:0] column_k0;
-output [`N*`DIRECTION_WIDTH-1:0] column_k1;
+output [`MEM_WIDTH*`DIRECTION_WIDTH-1:0] column_k0;
+output [`MEM_WIDTH*`DIRECTION_WIDTH-1:0] column_k1;
 output [`ADDRESS_WIDTH-1:0] tb_x;
 output [`ADDRESS_WIDTH-1:0] tb_y;
 

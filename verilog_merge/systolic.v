@@ -1,10 +1,10 @@
 `include "PE_new.v"
 `include "define.v"
-`include "ram.v"
-`include "direction_ram.v"
-`include "pos_ram.v"
-`include "sram_sp_hde.v"
-`include "sram_dp_hde.v"
+//`include "ram.v"
+//`include "direction_ram.v"
+//`include "pos_ram.v"
+//`include "sram_sp_2048.v"
+//`include "sram_dp_2048.v"
 `include "shift_register.v"
 
 module systolic(
@@ -266,29 +266,29 @@ generate
   begin
     for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
     begin
-      sram_sp_hde sram0 (
+      sram_sp_2048 sram0 (
           .CENY(),
           .WENY(), 
           .AY(), 
           .DY(),
           .Q(sram_data_output_0[j][BLOCK_NUMBER]), //Data Output (Q[0] = LSB)
           .CLK(clk), 
-          .CEN(0), //Chip Enable (active low)
+          .CEN(1'b0), //Chip Enable (active low)
           .WEN(sram_we_0[j] | (!block_we[BLOCK_NUMBER]) ), //Write Enable (active low)
           .A(SRAM_addr[j]), //Address (A[0] = LSB)
           .D(shift_reg_output[j]), //Data Input
           .EMA(3'b000), 
           .EMAW(2'b00), 
-          .EMAS(0), 
-          .TEN(1),
-          .BEN(1), 
-          .TCEN(1), 
-          .TWEN(1), 
-          .TA(0), 
-          .TD(0), 
-          .TQ(0), 
-          .RET1N(1), 
-          .STOV(0)
+          .EMAS(1'b0), 
+          .TEN(1'b1),
+          .BEN(1'b1), 
+          .TCEN(1'b1), 
+          .TWEN(1'b1), 
+          .TA(11'd0), 
+          .TD(80'd0), 
+          .TQ(80'd0), 
+          .RET1N(1'b1), 
+          .STOV(1'b0)
       );
     end
   end
@@ -299,47 +299,47 @@ generate
   begin
     for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
     begin
-      sram_sp_hde sram1 (
+      sram_sp_2048 sram1 (
           .CENY(),
           .WENY(), 
           .AY(), 
           .DY(),
           .Q(sram_data_output_1[j][BLOCK_NUMBER]), //Data Output (Q[0] = LSB)
           .CLK(clk), 
-          .CEN(0), //Chip Enable (active low)
+          .CEN(1'b0), //Chip Enable (active low)
           .WEN(sram_we_1[j] | (!block_we[BLOCK_NUMBER])), //Write Enable (active low)
           .A(SRAM_addr[j]), //Address (A[0] = LSB)
           .D(shift_reg_output[j]), //Data Input
           .EMA(3'b000), 
           .EMAW(2'b00), 
-          .EMAS(0), 
-          .TEN(1),
-          .BEN(1), 
-          .TCEN(1), 
-          .TWEN(1), 
-          .TA(0), 
-          .TD(0), 
-          .TQ(0), 
-          .RET1N(1), 
-          .STOV(0)
+          .EMAS(1'b0), 
+          .TEN(1'b1),
+          .BEN(1'b1), 
+          .TCEN(1'b1), 
+          .TWEN(1'b1), 
+          .TA(11'd0), 
+          .TD(80'd0), 
+          .TQ(80'd0), 
+          .RET1N(1'b1), 
+          .STOV(1'b0)
       );
     end
   end
 endgenerate
 
-sram_dp_hde RING_RAM(.CENYA(), .WENYA(), .AYA(), .DYA(), .CENYB(), .WENYB(), .AYB(), .DYB(),
- .QA(), .QB(ring_ram_output), .CLKA(clk), .CENA(0), .WENA(!valid_o[`N-1]), .AA(write_address[`N-1]), .DA({Ho[`N-1],Fo[`N-1],Fo_h[`N-1],MaxOu[`N-1],16'd0}),
-  .CLKB(clk), .CENB(0), .WENB(1), .AB(mem_cnt), .DB(0),
- .EMAA(3'b000), .EMAWA(2'b00), .EMASA(0), .EMAB(3'b000), .EMAWB(2'b00), .EMASB(0), .TENA(1), .BENA(1), .TCENA(1), .TWENA(1),
-.TAA(0), .TDA(0), .TQA(0), .TENB(1), .BENB(1), .TCENB(1), .TWENB(1), .TAB(0), .TDB(0), .TQB(0),
-.RET1N(1), .STOVA(0), .STOVB(0), .COLLDISN(1));
+sram_dp_2048 RING_RAM(.CENYA(), .WENYA(), .AYA(), .DYA(), .CENYB(), .WENYB(), .AYB(), .DYB(),
+ .QA(), .QB(ring_ram_output), .CLKA(clk), .CENA(1'b0), .WENA(!valid_o[`N-1]), .AA(write_address[`N-1]), .DA({Ho[`N-1],Fo[`N-1],Fo_h[`N-1],MaxOu[`N-1],16'd0}),
+  .CLKB(clk), .CENB(1'b0), .WENB(1'b1), .AB(mem_cnt), .DB(80'd0),
+ .EMAA(3'b000), .EMAWA(2'b00), .EMASA(1'b0), .EMAB(3'b000), .EMAWB(2'b00), .EMASB(1'b0), .TENA(1'b1), .BENA(1'b1), .TCENA(1'b1), .TWENA(1'b1),
+.TAA(11'd0), .TDA(80'd0), .TQA(80'd0), .TENB(1'b1), .BENB(1'b1), .TCENB(1'b1), .TWENB(1'b1), .TAB(11'd0), .TDB(80'd0), .TQB(80'd0),
+.RET1N(1'b1), .STOVA(1'b0), .STOVB(1'b0), .COLLDISN(1'b1));
 
- sram_dp_hde POS_RAM(.CENYA(), .WENYA(), .AYA(), .DYA(), .CENYB(), .WENYB(), .AYB(), .DYB(),
- .QA(), .QB(pos_ram_output), .CLKA(clk), .CENA(0), .WENA(!valid_o[`N-1]), .AA(write_address[`N-1]), .DA({`LZA'd0,ColOut[`N-1],YOut[`N-1],XOut[`N-1]}),
-  .CLKB(clk), .CENB(0), .WENB(1), .AB(mem_cnt), .DB(0),
- .EMAA(3'b000), .EMAWA(2'b00), .EMASA(0), .EMAB(3'b000), .EMAWB(2'b00), .EMASB(0), .TENA(1), .BENA(1), .TCENA(1), .TWENA(1),
-.TAA(0), .TDA(0), .TQA(0), .TENB(1), .BENB(1), .TCENB(1), .TWENB(1), .TAB(0), .TDB(0), .TQB(0),
-.RET1N(1), .STOVA(0), .STOVB(0), .COLLDISN(1));
+ sram_dp_2048 POS_RAM(.CENYA(), .WENYA(), .AYA(), .DYA(), .CENYB(), .WENYB(), .AYB(), .DYB(),
+ .QA(), .QB(pos_ram_output), .CLKA(clk), .CENA(1'b0), .WENA(!valid_o[`N-1]), .AA(write_address[`N-1]), .DA({`LZA'd0,ColOut[`N-1],YOut[`N-1],XOut[`N-1]}),
+  .CLKB(clk), .CENB(1'b0), .WENB(1'b1), .AB(mem_cnt), .DB(80'd0),
+ .EMAA(3'b000), .EMAWA(2'b00), .EMASA(1'b0), .EMAB(3'b000), .EMAWB(2'b00), .EMASB(1'b0), .TENA(1'b1), .BENA(1'b1), .TCENA(1'b1), .TWENA(1'b1),
+.TAA(11'd0), .TDA(80'd0), .TQA(80'd0), .TENB(1'b1), .BENB(1'b1), .TCENB(1'b1), .TWENB(1'b1), .TAB(11'd0), .TDB(80'd0), .TQB(80'd0),
+.RET1N(1'b1), .STOVA(1'b0), .STOVB(1'b0), .COLLDISN(1'b1));
 //A write B read
 
 always@(*)

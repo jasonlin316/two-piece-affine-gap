@@ -19,7 +19,7 @@ input  [`POSITION_WIDTH-1:0] max_position_x, max_position_y;//initial inputs of 
 //DP interface inputs
 input  tb_valid;//can traceback work, which serves as reset
 input  array_num;//which memory block can traceback use
-input  [`N*`DIRECTION_WIDTH-1:0] column_k0, column_k1;//direction data input
+input  [`MEM_WIDTH*`DIRECTION_WIDTH-1:0] column_k0, column_k1;//direction data input
 //outputs
 output reg [`BP_WIDTH-1:0] alignment_out;//the alignment results of current traceback stage
 output reg [1:0] prefetch_request;//01==update block_current, 10==update block_prefetch
