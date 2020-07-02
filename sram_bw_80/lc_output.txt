@@ -1,0 +1,901 @@
+
+Initializing...
+lc_shell> read_lib ****.lib
+Error: The '****.lib' library source file is not found. (UIL-4)
+0
+lc_shell> read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Technology library 'USERLIB_nldm_ff_0p99v_0p99v_125c' read successfully
+1
+lc_shell> write_lib -format db sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn -output sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.db
+Warning: The 'sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> write_lib -format db read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib -output read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.db
+Error: extra positional option 'sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib' (CMD-012)
+Error: extra positional option 'sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.db' (CMD-012)
+lc_shell> write_lib -format db read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib -output sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.db
+Error: extra positional option 'sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib' (CMD-012)
+lc_shell> write_lib -format db read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn -output sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.db
+Error: extra positional option 'sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn' (CMD-012)
+lc_shell> ls
+.
+..
+ACI.log
+lc_command.log
+lc_output.txt
+sram_sp_hde.lef
+sram_sp_hde.v
+sram_sp_hde_antenna.clf
+sram_sp_hde_ff_0p99v_0p99v_125c.ps
+sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+sram_sp_hde_ss_0p81v_0p81v_125c.ps
+sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+sram_sp_hde_tt_0p90v_0p90v_25c.ps
+lc_shell> read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Warning: Overwriting an old technology library '/home/b05054/sram_bw_80/USERLIB_nldm_ff_0p99v_0p99v_125c.db' file with a new one. (UIL-2)
+1
+lc_shell> write_lib -format db sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn -output sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.db
+Warning: The 'sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> ls
+.
+..
+ACI.log
+lc_command.log
+lc_output.txt
+sram_sp_hde.lef
+sram_sp_hde.v
+sram_sp_hde_antenna.clf
+sram_sp_hde_ff_0p99v_0p99v_125c.ps
+sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+sram_sp_hde_ss_0p81v_0p81v_125c.ps
+sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+sram_sp_hde_tt_0p90v_0p90v_25c.ps
+lc_shell> read_lib sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Technology library 'USERLIB_nldm_ff_0p99v_0p99v_m40c' read successfully
+1
+lc_shell> write_lib -format db sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn -output sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.db
+Warning: The 'sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> ls
+.
+..
+ACI.log
+lc_command.log
+lc_output.txt
+sram_sp_hde.lef
+sram_sp_hde.v
+sram_sp_hde_antenna.clf
+sram_sp_hde_ff_0p99v_0p99v_125c.ps
+sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+sram_sp_hde_ss_0p81v_0p81v_125c.ps
+sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+sram_sp_hde_tt_0p90v_0p90v_25c.ps
+lc_shell> read_lib sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Technology library 'USERLIB_nldm_ffg_0p99v_0p99v_125c' read successfully
+1
+lc_shell> write_lib -formate db sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn -output sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.db
+Error: unknown option '-formate' (CMD-010)
+Error: extra positional option 'sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn' (CMD-012)
+lc_shell> write_lib -format db sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn -output sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.db
+Warning: The 'sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> ls
+.
+..
+ACI.log
+lc_command.log
+lc_output.txt
+sram_sp_hde.lef
+sram_sp_hde.v
+sram_sp_hde_antenna.clf
+sram_sp_hde_ff_0p99v_0p99v_125c.ps
+sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+sram_sp_hde_ss_0p81v_0p81v_125c.ps
+sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+sram_sp_hde_tt_0p90v_0p90v_25c.ps
+lc_shell> read_lib sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Technology library 'USERLIB_nldm_ss_0p81v_0p81v_125c' read successfully
+1
+lc_shell> write_lib -formate db sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn -output sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.db
+Error: unknown option '-formate' (CMD-010)
+Error: extra positional option 'sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn' (CMD-012)
+lc_shell> write_lib -format db sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn -output sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.db
+Warning: The 'sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> ls
+.
+..
+ACI.log
+lc_command.log
+lc_output.txt
+sram_sp_hde.lef
+sram_sp_hde.v
+sram_sp_hde_antenna.clf
+sram_sp_hde_ff_0p99v_0p99v_125c.ps
+sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+sram_sp_hde_ss_0p81v_0p81v_125c.ps
+sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+sram_sp_hde_tt_0p90v_0p90v_25c.ps
+lc_shell> read_lib sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Technology library 'USERLIB_nldm_ss_0p81v_0p81v_m40c' read successfully
+1
+lc_shell> write_lib -format db sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn -output sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.db
+Warning: The 'sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> ls
+.
+..
+ACI.log
+lc_command.log
+lc_output.txt
+sram_sp_hde.lef
+sram_sp_hde.v
+sram_sp_hde_antenna.clf
+sram_sp_hde_ff_0p99v_0p99v_125c.ps
+sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+sram_sp_hde_ss_0p81v_0p81v_125c.ps
+sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+sram_sp_hde_tt_0p90v_0p90v_25c.ps
+lc_shell> read_lib sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+Reading '/home/b05054/sram_bw_80/sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib' ...
+Warning: Line 65, The 'internal_power_calculation' attribute in char_config group is required for NLPM library. 
+        No default can be applied to this attribute. (LBDB-366)
+Warning: Line 330, Cell 'sram_sp_hde', pin 'CENY', The pin 'CENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 568, Cell 'sram_sp_hde', pin 'WENY', The pin 'WENY' does not have a internal_power group. (LBDB-607)
+Warning: Line 928, Cell 'sram_sp_hde', pin 'AY[10]', The pin 'AY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1046, Cell 'sram_sp_hde', pin 'AY[9]', The pin 'AY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1164, Cell 'sram_sp_hde', pin 'AY[8]', The pin 'AY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1282, Cell 'sram_sp_hde', pin 'AY[7]', The pin 'AY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1400, Cell 'sram_sp_hde', pin 'AY[6]', The pin 'AY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1518, Cell 'sram_sp_hde', pin 'AY[5]', The pin 'AY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1636, Cell 'sram_sp_hde', pin 'AY[4]', The pin 'AY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1754, Cell 'sram_sp_hde', pin 'AY[3]', The pin 'AY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1872, Cell 'sram_sp_hde', pin 'AY[2]', The pin 'AY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 1990, Cell 'sram_sp_hde', pin 'AY[1]', The pin 'AY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2108, Cell 'sram_sp_hde', pin 'AY[0]', The pin 'AY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2349, Cell 'sram_sp_hde', pin 'DY[79]', The pin 'DY[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2467, Cell 'sram_sp_hde', pin 'DY[78]', The pin 'DY[78]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2585, Cell 'sram_sp_hde', pin 'DY[77]', The pin 'DY[77]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2703, Cell 'sram_sp_hde', pin 'DY[76]', The pin 'DY[76]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2821, Cell 'sram_sp_hde', pin 'DY[75]', The pin 'DY[75]' does not have a internal_power group. (LBDB-607)
+Warning: Line 2939, Cell 'sram_sp_hde', pin 'DY[74]', The pin 'DY[74]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3057, Cell 'sram_sp_hde', pin 'DY[73]', The pin 'DY[73]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3175, Cell 'sram_sp_hde', pin 'DY[72]', The pin 'DY[72]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3293, Cell 'sram_sp_hde', pin 'DY[71]', The pin 'DY[71]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3411, Cell 'sram_sp_hde', pin 'DY[70]', The pin 'DY[70]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3529, Cell 'sram_sp_hde', pin 'DY[69]', The pin 'DY[69]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3647, Cell 'sram_sp_hde', pin 'DY[68]', The pin 'DY[68]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3765, Cell 'sram_sp_hde', pin 'DY[67]', The pin 'DY[67]' does not have a internal_power group. (LBDB-607)
+Warning: Line 3883, Cell 'sram_sp_hde', pin 'DY[66]', The pin 'DY[66]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4001, Cell 'sram_sp_hde', pin 'DY[65]', The pin 'DY[65]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4119, Cell 'sram_sp_hde', pin 'DY[64]', The pin 'DY[64]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4237, Cell 'sram_sp_hde', pin 'DY[63]', The pin 'DY[63]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4355, Cell 'sram_sp_hde', pin 'DY[62]', The pin 'DY[62]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4473, Cell 'sram_sp_hde', pin 'DY[61]', The pin 'DY[61]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4591, Cell 'sram_sp_hde', pin 'DY[60]', The pin 'DY[60]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4709, Cell 'sram_sp_hde', pin 'DY[59]', The pin 'DY[59]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4827, Cell 'sram_sp_hde', pin 'DY[58]', The pin 'DY[58]' does not have a internal_power group. (LBDB-607)
+Warning: Line 4945, Cell 'sram_sp_hde', pin 'DY[57]', The pin 'DY[57]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5063, Cell 'sram_sp_hde', pin 'DY[56]', The pin 'DY[56]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5181, Cell 'sram_sp_hde', pin 'DY[55]', The pin 'DY[55]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5299, Cell 'sram_sp_hde', pin 'DY[54]', The pin 'DY[54]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5417, Cell 'sram_sp_hde', pin 'DY[53]', The pin 'DY[53]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5535, Cell 'sram_sp_hde', pin 'DY[52]', The pin 'DY[52]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5653, Cell 'sram_sp_hde', pin 'DY[51]', The pin 'DY[51]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5771, Cell 'sram_sp_hde', pin 'DY[50]', The pin 'DY[50]' does not have a internal_power group. (LBDB-607)
+Warning: Line 5889, Cell 'sram_sp_hde', pin 'DY[49]', The pin 'DY[49]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6007, Cell 'sram_sp_hde', pin 'DY[48]', The pin 'DY[48]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6125, Cell 'sram_sp_hde', pin 'DY[47]', The pin 'DY[47]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6243, Cell 'sram_sp_hde', pin 'DY[46]', The pin 'DY[46]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6361, Cell 'sram_sp_hde', pin 'DY[45]', The pin 'DY[45]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6479, Cell 'sram_sp_hde', pin 'DY[44]', The pin 'DY[44]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6597, Cell 'sram_sp_hde', pin 'DY[43]', The pin 'DY[43]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6715, Cell 'sram_sp_hde', pin 'DY[42]', The pin 'DY[42]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6833, Cell 'sram_sp_hde', pin 'DY[41]', The pin 'DY[41]' does not have a internal_power group. (LBDB-607)
+Warning: Line 6951, Cell 'sram_sp_hde', pin 'DY[40]', The pin 'DY[40]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7069, Cell 'sram_sp_hde', pin 'DY[39]', The pin 'DY[39]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7187, Cell 'sram_sp_hde', pin 'DY[38]', The pin 'DY[38]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7305, Cell 'sram_sp_hde', pin 'DY[37]', The pin 'DY[37]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7423, Cell 'sram_sp_hde', pin 'DY[36]', The pin 'DY[36]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7541, Cell 'sram_sp_hde', pin 'DY[35]', The pin 'DY[35]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7659, Cell 'sram_sp_hde', pin 'DY[34]', The pin 'DY[34]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7777, Cell 'sram_sp_hde', pin 'DY[33]', The pin 'DY[33]' does not have a internal_power group. (LBDB-607)
+Warning: Line 7895, Cell 'sram_sp_hde', pin 'DY[32]', The pin 'DY[32]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8013, Cell 'sram_sp_hde', pin 'DY[31]', The pin 'DY[31]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8131, Cell 'sram_sp_hde', pin 'DY[30]', The pin 'DY[30]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8249, Cell 'sram_sp_hde', pin 'DY[29]', The pin 'DY[29]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8367, Cell 'sram_sp_hde', pin 'DY[28]', The pin 'DY[28]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8485, Cell 'sram_sp_hde', pin 'DY[27]', The pin 'DY[27]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8603, Cell 'sram_sp_hde', pin 'DY[26]', The pin 'DY[26]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8721, Cell 'sram_sp_hde', pin 'DY[25]', The pin 'DY[25]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8839, Cell 'sram_sp_hde', pin 'DY[24]', The pin 'DY[24]' does not have a internal_power group. (LBDB-607)
+Warning: Line 8957, Cell 'sram_sp_hde', pin 'DY[23]', The pin 'DY[23]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9075, Cell 'sram_sp_hde', pin 'DY[22]', The pin 'DY[22]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9193, Cell 'sram_sp_hde', pin 'DY[21]', The pin 'DY[21]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9311, Cell 'sram_sp_hde', pin 'DY[20]', The pin 'DY[20]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9429, Cell 'sram_sp_hde', pin 'DY[19]', The pin 'DY[19]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9547, Cell 'sram_sp_hde', pin 'DY[18]', The pin 'DY[18]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9665, Cell 'sram_sp_hde', pin 'DY[17]', The pin 'DY[17]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9783, Cell 'sram_sp_hde', pin 'DY[16]', The pin 'DY[16]' does not have a internal_power group. (LBDB-607)
+Warning: Line 9901, Cell 'sram_sp_hde', pin 'DY[15]', The pin 'DY[15]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10019, Cell 'sram_sp_hde', pin 'DY[14]', The pin 'DY[14]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10137, Cell 'sram_sp_hde', pin 'DY[13]', The pin 'DY[13]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10255, Cell 'sram_sp_hde', pin 'DY[12]', The pin 'DY[12]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10373, Cell 'sram_sp_hde', pin 'DY[11]', The pin 'DY[11]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10491, Cell 'sram_sp_hde', pin 'DY[10]', The pin 'DY[10]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10609, Cell 'sram_sp_hde', pin 'DY[9]', The pin 'DY[9]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10727, Cell 'sram_sp_hde', pin 'DY[8]', The pin 'DY[8]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10845, Cell 'sram_sp_hde', pin 'DY[7]', The pin 'DY[7]' does not have a internal_power group. (LBDB-607)
+Warning: Line 10963, Cell 'sram_sp_hde', pin 'DY[6]', The pin 'DY[6]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11081, Cell 'sram_sp_hde', pin 'DY[5]', The pin 'DY[5]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11199, Cell 'sram_sp_hde', pin 'DY[4]', The pin 'DY[4]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11317, Cell 'sram_sp_hde', pin 'DY[3]', The pin 'DY[3]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11435, Cell 'sram_sp_hde', pin 'DY[2]', The pin 'DY[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11553, Cell 'sram_sp_hde', pin 'DY[1]', The pin 'DY[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 11671, Cell 'sram_sp_hde', pin 'DY[0]', The pin 'DY[0]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30513, Cell 'sram_sp_hde', pin 'EMA[2]', The pin 'EMA[2]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30586, Cell 'sram_sp_hde', pin 'EMAW[1]', The pin 'EMAW[1]' does not have a internal_power group. (LBDB-607)
+Warning: Line 30659, Cell 'sram_sp_hde', pin 'EMAS', The pin 'EMAS' does not have a internal_power group. (LBDB-607)
+Warning: Line 31223, Cell 'sram_sp_hde', pin 'TQ[79]', The pin 'TQ[79]' does not have a internal_power group. (LBDB-607)
+Warning: Line 31230, Cell 'sram_sp_hde', pin 'RET1N', is a 'save_restore' class retention pin but is missing all recommended attributes. (LBDB-982)
+Warning: Line 31395, Cell 'sram_sp_hde', pin 'STOV', The pin 'STOV' does not have a internal_power group. (LBDB-607)
+Technology library 'USERLIB_nldm_tt_0p90v_0p90v_25c' read successfully
+1
+lc_shell> write_lib -format db sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn -output sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.db
+Warning: The 'sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn' library has not been read in yet. (UIL-3)
+0
+lc_shell> 

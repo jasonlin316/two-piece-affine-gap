@@ -1,0 +1,43 @@
+4:13:55 PM - ARM Physical IP, Inc.
+4:13:55 PM - Linux wolverine 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+4:13:55 PM - Version r11p2
+4:13:55 PM - GUI version 7.0.18
+4:13:55 PM - 
+4:13:55 PM - CONFIDENTIAL AND PROPRIETARY SOFTWARE OF ARM PHYSICAL IP, INC.
+4:13:55 PM - 
+4:13:55 PM - Copyright (c) 1993 - 2020 ARM Physical IP, Inc.  All Rights Reserved.
+4:13:55 PM - 
+4:13:55 PM - Use of this Software is subject to the terms and conditions of the
+4:13:55 PM - applicable license agreement with ARM Physical IP, Inc. 
+4:13:55 PM - In addition, this Software is protected by patents, copyright law 
+4:13:55 PM - and international treaties.
+4:13:55 PM - 
+4:13:55 PM - The copyright notice(s) in this Software does not indicate actual or
+4:13:55 PM - intended publication of this Software.
+4:13:55 PM - 
+4:13:55 PM - High Density Single Port SRAM RVT-HVT-RVT Compiler, CLN40G 40nm Process, 256 Rows Per Bank, 0.299um^2 Bit Cell
+4:13:55 PM - 
+4:13:55 PM - Log file is ACI.log
+4:13:55 PM - 
+4:14:43 PM - ASCII Datatable updated
+4:14:55 PM - ASCII Datatable updated
+4:16:26 PM - command: /cad/cell_library/CBDK_TSMC40_Arm_f2.0/CIC/Memory/sram_sp_hde_rvt_hvt_rvt/r11p2/bin/sram_sp_hde_rvt_hvt_rvt synopsys -instname "sram_sp_hde" -words 2048 -bits 80 -frequency 1 -mux 8 -pipeline off -write_mask off -wp_size 1 -write_thru on -top_layer "m5-m9" -power_type otc -redundancy off -rcols 2 -rrows 4 -bmux on -ser none -power_gating off -retention on -ema on -atf off -cust_comment "" -bus_notation on -left_bus_delim "[" -right_bus_delim "]" -pwr_gnd_rename "vddpe:VDDPE,vddce:VDDCE,vsse:VSSE" -prefix "" -name_case upper -rows_p_bl 256 -check_instname on -diodes on -drive 6 -dnw off -libname USERLIB -nldm on -ccs off -ecsm off -corners tt_0p90v_0p90v_25c,ss_0p81v_0p81v_m40c,ss_0p81v_0p81v_125c,ffg_0p99v_0p99v_125c,ff_0p99v_0p99v_m40c,ff_0p99v_0p99v_125c
+4:19:39 PM - Synopsys Model generator succeeded, created:
+4:19:39 PM -    sram_sp_hde_nldm_tt_0p90v_0p90v_25c_syn.lib
+4:19:39 PM -    sram_sp_hde_nldm_ss_0p81v_0p81v_m40c_syn.lib
+4:19:39 PM -    sram_sp_hde_nldm_ss_0p81v_0p81v_125c_syn.lib
+4:19:39 PM -    sram_sp_hde_nldm_ffg_0p99v_0p99v_125c_syn.lib
+4:19:39 PM -    sram_sp_hde_nldm_ff_0p99v_0p99v_m40c_syn.lib
+4:19:39 PM -    sram_sp_hde_nldm_ff_0p99v_0p99v_125c_syn.lib
+4:22:03 PM - command: /cad/cell_library/CBDK_TSMC40_Arm_f2.0/CIC/Memory/sram_sp_hde_rvt_hvt_rvt/r11p2/bin/sram_sp_hde_rvt_hvt_rvt verilog -instname "sram_sp_hde" -words 2048 -bits 80 -frequency 1 -mux 8 -pipeline off -write_mask off -wp_size 1 -write_thru on -top_layer "m5-m9" -power_type otc -redundancy off -rcols 2 -rrows 4 -bmux on -ser none -power_gating off -retention on -ema on -atf off -cust_comment "" -bus_notation on -left_bus_delim "[" -right_bus_delim "]" -pwr_gnd_rename "vddpe:VDDPE,vddce:VDDCE,vsse:VSSE" -prefix "" -name_case upper -rows_p_bl 256 -check_instname on -diodes on -drive 6 -dnw off -corners tt_0p90v_0p90v_25c,ss_0p81v_0p81v_m40c,ss_0p81v_0p81v_125c,ffg_0p99v_0p99v_125c,ff_0p99v_0p99v_m40c,ff_0p99v_0p99v_125c
+4:22:04 PM - Verilog Model generator succeeded, created: sram_sp_hde.v
+4:22:10 PM - command: /cad/cell_library/CBDK_TSMC40_Arm_f2.0/CIC/Memory/sram_sp_hde_rvt_hvt_rvt/r11p2/bin/sram_sp_hde_rvt_hvt_rvt lef-fp -instname "sram_sp_hde" -words 2048 -bits 80 -frequency 1 -mux 8 -pipeline off -write_mask off -wp_size 1 -write_thru on -top_layer "m5-m9" -power_type otc -redundancy off -rcols 2 -rrows 4 -bmux on -ser none -power_gating off -retention on -ema on -atf off -cust_comment "" -bus_notation on -left_bus_delim "[" -right_bus_delim "]" -pwr_gnd_rename "vddpe:VDDPE,vddce:VDDCE,vsse:VSSE" -prefix "" -name_case upper -rows_p_bl 256 -check_instname on -diodes on -drive 6 -dnw off -site_def on -corners tt_0p90v_0p90v_25c,ss_0p81v_0p81v_m40c,ss_0p81v_0p81v_125c,ffg_0p99v_0p99v_125c,ff_0p99v_0p99v_m40c,ff_0p99v_0p99v_125c
+4:22:20 PM - LEF Footprint generator succeeded, created: sram_sp_hde.lef
+4:22:28 PM - command: /cad/cell_library/CBDK_TSMC40_Arm_f2.0/CIC/Memory/sram_sp_hde_rvt_hvt_rvt/r11p2/bin/sram_sp_hde_rvt_hvt_rvt postscript -instname "sram_sp_hde" -words 2048 -bits 80 -frequency 1 -mux 8 -pipeline off -write_mask off -wp_size 1 -write_thru on -top_layer "m5-m9" -power_type otc -redundancy off -rcols 2 -rrows 4 -bmux on -ser none -power_gating off -retention on -ema on -atf off -cust_comment "" -bus_notation on -left_bus_delim "[" -right_bus_delim "]" -pwr_gnd_rename "vddpe:VDDPE,vddce:VDDCE,vsse:VSSE" -prefix "" -name_case upper -rows_p_bl 256 -check_instname on -diodes on -drive 6 -dnw off -corners tt_0p90v_0p90v_25c,ss_0p81v_0p81v_m40c,ss_0p81v_0p81v_125c,ffg_0p99v_0p99v_125c,ff_0p99v_0p99v_m40c,ff_0p99v_0p99v_125c
+4:22:38 PM - PostScript Datasheet generator succeeded, created:
+4:22:38 PM -    sram_sp_hde_tt_0p90v_0p90v_25c.ps
+4:22:38 PM -    sram_sp_hde_ss_0p81v_0p81v_m40c.ps
+4:22:38 PM -    sram_sp_hde_ss_0p81v_0p81v_125c.ps
+4:22:38 PM -    sram_sp_hde_ffg_0p99v_0p99v_125c.ps
+4:22:38 PM -    sram_sp_hde_ff_0p99v_0p99v_m40c.ps
+4:22:38 PM -    sram_sp_hde_ff_0p99v_0p99v_125c.ps
