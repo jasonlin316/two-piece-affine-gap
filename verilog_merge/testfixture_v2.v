@@ -1,6 +1,6 @@
 `timescale 1ns/10ps
 `define CYCLE    10           	        // Modify your clock period here
-`define TIME_OUT 500000//500000
+`define TIME_OUT 8000000//500000
 
 `ifdef SDF
   `define SDFFILE  "core_syn.sdf"	// Modify your sdf file name
@@ -78,8 +78,8 @@ wire [`ADDRESS_WIDTH-1:0] tb_y;
 reg [`log_N-1:0] PE_end;
 wire [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
 
-reg [`SEQ_MAX_LEN*2-1:0] seq [0:7];
-reg [11:0] seq_len [0:7]; //sequence length
+reg [`SEQ_MAX_LEN*2-1:0] seq [0:27];
+reg [11:0] seq_len [0:27]; //sequence length
 
 integer err_cnt;
 integer k_DP;
@@ -193,7 +193,7 @@ new_seq = 0;
 	rst_n = 1;
 #(`CYCLE/4)
 
-    for (k_DP = 0; k_DP < 8; k_DP = k_DP+2) // how much pair of sequence alignment
+    for (k_DP = 0; k_DP < 28; k_DP = k_DP+2) // how much pair of sequence alignment
     begin
         @(negedge clk);
         s_size = seq_len[k_DP];
@@ -258,7 +258,7 @@ always@(posedge done)begin
 	end*/
 	//over=1'b1;
 
-	if (err === 0 &&  aux>=3  )  begin
+	if (err === 0 &&  aux>=13  )  begin
 	            $display("All data have been generated successfully!\n");
 	            $display("Your alignment is:");
 	            for(i=0; i<l; i=i+1)begin

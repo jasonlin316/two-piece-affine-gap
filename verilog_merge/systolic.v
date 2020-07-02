@@ -118,13 +118,6 @@ reg [`ADDRESS_WIDTH-1:0] sram_addr_d2 [0:`RAM_NUM-1];
 wire [`ADDRESS_WIDTH-1:0] ring_ram_address;
 wire [79:0] ring_ram_output;
 wire [79:0] pos_ram_output;
-wire signed [`CALC_WIDTH-1:0] H_ram_read_mock;
-wire signed [`CALC_WIDTH-1:0] F_ram_read_mock;
-wire signed [`CALC_WIDTH-1:0] F_hat_ram_read_mock;
-wire signed [`CALC_WIDTH-1:0] max_ram_read_mock;
-wire [`ADDRESS_WIDTH-1:0] X_ram_read_mock;
-wire [`ADDRESS_WIDTH-1:0] Y_ram_read_mock;
-wire [`ADDRESS_WIDTH-1:0] col_ram_read_mock;
 
 reg [`MEM_AMOUNT-1:0] block_we ;
 reg  signed [`CALC_WIDTH-1:0]  H_reg;
@@ -165,13 +158,13 @@ assign tb_x = tb_x_reg;
 assign tb_y = tb_y_reg;
 
 assign ring_ram_address = (valid_o[`N-1])? write_address[`N-1] : mem_cnt;
-assign H_ram_read_mock = ring_ram_output[79:64];
-assign F_ram_read_mock = ring_ram_output[63:48];
-assign F_hat_ram_read_mock = ring_ram_output[47:32];
-assign max_ram_read_mock = ring_ram_output[31:16];
-assign X_ram_read_mock = pos_ram_output[`ADDRESS_WIDTH-1:0];
-assign Y_ram_read_mock = pos_ram_output[2*`ADDRESS_WIDTH-1:`ADDRESS_WIDTH];
-assign col_ram_read_mock = pos_ram_output[3*`ADDRESS_WIDTH-1:2*`ADDRESS_WIDTH];
+assign H_ram_read = ring_ram_output[79:64];
+assign F_ram_read = ring_ram_output[63:48];
+assign F_hat_ram_read = ring_ram_output[47:32];
+assign max_ram_read = ring_ram_output[31:16];
+assign X_ram_read = pos_ram_output[`ADDRESS_WIDTH-1:0];
+assign Y_ram_read = pos_ram_output[2*`ADDRESS_WIDTH-1:`ADDRESS_WIDTH];
+assign col_ram_read = pos_ram_output[3*`ADDRESS_WIDTH-1:2*`ADDRESS_WIDTH];
 
 generate
   for(j=1;j<`N;j=j+1)begin
@@ -195,10 +188,6 @@ generate
     assign write_direction[j]   = direction_val[j];
     assign dir_write_address[j] = (write_address[j] > 0)? write_address[j] - `ADDRESS_WIDTH'd1 : 0;
     assign dir_read_address[j] = column_num; //actually it's column number
-    /*assign column_k0[j*5+:5] = (use_s1)? read_direction_0[mem_block_num*`N + j] : read_direction_1[mem_block_num*`N + j]; 
-    assign column_k1[j*5+:5] = (mem_block_num == 0)? 0 : 
-    (use_s1)? read_direction_0[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j] : read_direction_1[(mem_block_num-`MEM_AMOUNT_WIDTH'd1)*`N + j];
-     */
   end
 endgenerate
 
@@ -271,41 +260,7 @@ generate
   );
   end
 endgenerate
-/*
-generate
-  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
-  begin
-    for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
-    begin
-      direction_ram DR0(
-        .q(read_direction_0[BLOCK_WIDTH+BLOCK_NUMBER*`N]),
-        .d(write_direction[BLOCK_WIDTH]),
-        .write_address(dir_write_address[BLOCK_WIDTH]),
-        .read_address(dir_read_address[BLOCK_WIDTH]),
-        .we(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & (!use_s1)),
-        .clk(clk)
-      );
-    end
-  end
-endgenerate
 
-generate
-  for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
-  begin
-    for(BLOCK_WIDTH=0 ; BLOCK_WIDTH < `N ; BLOCK_WIDTH = BLOCK_WIDTH + 1)
-    begin
-      direction_ram DR1(
-        .q(read_direction_1[BLOCK_WIDTH+BLOCK_NUMBER*`N]),
-        .d(write_direction[BLOCK_WIDTH]),
-        .write_address(dir_write_address[BLOCK_WIDTH]),
-        .read_address(dir_read_address[BLOCK_WIDTH]),
-        .we(block_we[BLOCK_NUMBER] & direction_valid[BLOCK_WIDTH] & use_s1),
-        .clk(clk)
-      );
-    end
-  end
-endgenerate
-*/
 generate
   for(j=0; j < `RAM_NUM ; j = j + 1)
   begin
@@ -386,121 +341,7 @@ sram_dp_hde RING_RAM(.CENYA(), .WENYA(), .AYA(), .DYA(), .CENYB(), .WENYB(), .AY
 .TAA(0), .TDA(0), .TQA(0), .TENB(1), .BENB(1), .TCENB(1), .TWENB(1), .TAB(0), .TDB(0), .TQB(0),
 .RET1N(1), .STOVA(0), .STOVB(0), .COLLDISN(1));
 //A write B read
-/*
-sram_sp_hde RING_RAM (
-          .CENY(),
-          .WENY(), 
-          .AY(), 
-          .DY(),
-          .Q(ring_ram_output), //Data Output (Q[0] = LSB)
-          .CLK(clk), 
-          .CEN(0), //Chip Enable (active low)
-          .WEN(!valid_o[`N-1]), //Write Enable (active low)
-          .A(ring_ram_address), //Address (A[0] = LSB)
-          .D({Ho[`N-1],Fo[`N-1],Fo_h[`N-1],MaxOu[`N-1],16'd0}), //Data Input
-          .EMA(3'b000),
-          .EMAW(2'b00), 
-          .EMAS(0), 
-          .TEN(1),
-          .BEN(1), 
-          .TCEN(1), 
-          .TWEN(1), 
-          .TA(0), 
-          .TD(0), 
-          .TQ(0), 
-          .RET1N(1), 
-          .STOV(0)
-          );
 
-sram_sp_hde POSITION_RAM (
-          .CENY(),
-          .WENY(), 
-          .AY(), 
-          .DY(),
-          .Q(pos_ram_output), //Data Output (Q[0] = LSB)
-          .CLK(clk), 
-          .CEN(0), //Chip Enable (active low)
-          .WEN(!valid_o[`N-1]), //Write Enable (active low)
-          .A(ring_ram_address), //Address (A[0] = LSB)
-          .D({`LZA'd0,ColOut[`N-1],YOut[`N-1],XOut[`N-1]}), //Data Input
-          .EMA(3'b000),
-          .EMAW(2'b00), 
-          .EMAS(0), 
-          .TEN(1),
-          .BEN(1), 
-          .TCEN(1), 
-          .TWEN(1), 
-          .TA(0), 
-          .TD(0), 
-          .TQ(0), 
-          .RET1N(1), 
-          .STOV(0)
-          );
-*/
-/*
-ram H(
-.q(H_ram_read),
-.d(Ho[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt),
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-
-ram F(
-.q(F_ram_read),
-.d(Fo[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt), 
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-
-ram F_hat(
-.q(F_hat_ram_read),
-.d(Fo_h[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt), 
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-
-ram max(
-.q(max_ram_read),
-.d(MaxOu[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt), 
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-
-pos_ram X_val(
-.q(X_ram_read),
-.d(XOut[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt), 
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-
-pos_ram Y_val(
-.q(Y_ram_read),
-.d(YOut[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt), 
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-
-pos_ram col_val(
-.q(col_ram_read),
-.d(ColOut[`N-1]),
-.write_address(write_address[`N-1]),
-.read_address(mem_cnt), 
-.we(valid_o[`N-1]), 
-.clk(clk)
-);
-*/
 always@(*)
 begin
   block_we = 0;
@@ -556,13 +397,13 @@ begin
       if(ack_reg) mem_cnt_next = mem_cnt + `ADDRESS_WIDTH'd1;
       else mem_cnt_next = mem_cnt;
       first_row_next = 0;
-      H_reg = (iter_flag && (!first_row))? H_ram_read_mock : 0 ;
-      Fi_reg = (iter_flag && (!first_row))? F_ram_read_mock : $signed(-`CALC_WIDTH'd`MIN);
-      Fi_h_reg = (iter_flag && (!first_row))? F_hat_ram_read_mock : $signed(-`CALC_WIDTH'd`MIN);
-      X_reg = (iter_flag && (!first_row))? X_ram_read_mock : 0 ;
-      Y_reg = (iter_flag && (!first_row))? Y_ram_read_mock : 0 ;
-      Col_reg = (iter_flag && (!first_row))? col_ram_read_mock : 0 ;
-      max_reg = (iter_flag && (!first_row))? max_ram_read_mock : 0 ;
+      H_reg = (iter_flag && (!first_row))? H_ram_read : 0 ;
+      Fi_reg = (iter_flag && (!first_row))? F_ram_read : $signed(-`CALC_WIDTH'd`MIN);
+      Fi_h_reg = (iter_flag && (!first_row))? F_hat_ram_read : $signed(-`CALC_WIDTH'd`MIN);
+      X_reg = (iter_flag && (!first_row))? X_ram_read : 0 ;
+      Y_reg = (iter_flag && (!first_row))? Y_ram_read : 0 ;
+      Col_reg = (iter_flag && (!first_row))? col_ram_read : 0 ;
+      max_reg = (iter_flag && (!first_row))? max_ram_read : 0 ;
       if(valid_o[`N-1] == 1'b1) busy_detect_next = 1'b1;
       if(valid_delay1 == 0 && busy_detect == 1'b1)
       begin
