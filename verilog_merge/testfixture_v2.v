@@ -1,6 +1,6 @@
 `timescale 1ns/10ps
 `define CYCLE    10           	        // Modify your clock period here
-`define TIME_OUT 50000//500000
+`define TIME_OUT 500000//500000
 
 `ifdef SDF
   `define SDFFILE  "core_syn.sdf"	// Modify your sdf file name
