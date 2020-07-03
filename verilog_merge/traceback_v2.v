@@ -414,7 +414,7 @@ always @(posedge clk or negedge rst_n) begin
 					end
 				end
 				//renewing preTrace
-				preTrace <= nowTrace;
+				preTrace <= (halt_buf)?preTrace:nowTrace;
 				//is_x_zero, is_y_zero
 				is_x_zero <= (halt)?is_x_zero:(current_position_x==0)?1:0;
 				is_y_zero <= (halt)?is_y_zero:(current_position_y==0)?1:0;
