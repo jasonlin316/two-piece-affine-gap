@@ -4,6 +4,7 @@
 module PE(
         clk,
         reset_i,
+        PE_rst,
         s_in,
         t_in,
         s_update_in,
@@ -33,6 +34,7 @@ module PE(
 
 input             clk;
 input             reset_i;
+input PE_rst;
 input      [`BP_WIDTH-1:0]  s_in;
 input      [`BP_WIDTH-1:0]  t_in;
 input                       s_update_in;
@@ -241,32 +243,63 @@ begin
     end
     else
     begin
-        E_out <= E_in;
-        E_hat_out <= E_hat_in;
-        t_out <= t_in;
-        s_reg <= s_signal;
-        t_reg <= t_signal;
-        H_diag <= (read_address_cnt_next == 0)? 0 : H_in ;
-        H_out_reg <= (flag || valid_in)? result : 0;
-        F_out <= F_result;
-        F_hat_out <= F_hat_result;
-        flag <= flag_next;
-        //s_update_PE  <= s_update_in;
-        s_update_out <= s_update_in;
-        write_address_cnt <= write_address_cnt_next;
-        write_address_out <= write_address_cnt;
-        read_address_cnt <= read_address_cnt_next;
-        //read_address_out <= read_address_cnt_next;
-        valid_out   <= valid_in;
-        s_out <= s_in;
-        is_first_cycle <= is_first_cycle_next;
-        direction <= direction_next;
-        match_result <= $signed(H_diag + LuT_data_o);
-        //max_out <= (valid_out)? max_reg : 0 ;
-        col_reg <= col_in + `ADDRESS_WIDTH'd1;
-        max_reg <= max_reg_next;
-        x_reg <= x_reg_next;
-        y_reg <= y_reg_next;
+        if (!PE_rst)
+        begin
+            E_out <= 0;
+            E_hat_out <= 0;
+            t_out <= 0;
+            s_update_PE <= 0;
+            s_update_out <= 0;
+            s_reg <= 0;
+            t_reg <= 0;
+            H_diag <= 0;
+            H_out_reg <= 0;
+            F_out <= 0;
+            F_hat_out <= 0;
+            flag <= 0;
+            write_address_cnt <= 0;
+            write_address_out <= 0;
+            read_address_cnt <= 0;
+            //read_address_out <= 0;
+            valid_out   <= 0;
+            s_out   <= 0;
+            is_first_cycle <= 1'b1;
+            direction <= 0;
+            match_result <= 0;
+            col_reg <= 0;
+            max_reg <= 0;
+            x_reg <= 0;
+            y_reg <= 0;
+        end
+        else
+        begin
+            E_out <= E_in;
+            E_hat_out <= E_hat_in;
+            t_out <= t_in;
+            s_reg <= s_signal;
+            t_reg <= t_signal;
+            H_diag <= (read_address_cnt_next == 0)? 0 : H_in ;
+            H_out_reg <= (flag || valid_in)? result : 0;
+            F_out <= F_result;
+            F_hat_out <= F_hat_result;
+            flag <= flag_next;
+            //s_update_PE  <= s_update_in;
+            s_update_out <= s_update_in;
+            write_address_cnt <= write_address_cnt_next;
+            write_address_out <= write_address_cnt;
+            read_address_cnt <= read_address_cnt_next;
+            //read_address_out <= read_address_cnt_next;
+            valid_out   <= valid_in;
+            s_out <= s_in;
+            is_first_cycle <= is_first_cycle_next;
+            direction <= direction_next;
+            match_result <= $signed(H_diag + LuT_data_o);
+            //max_out <= (valid_out)? max_reg : 0 ;
+            col_reg <= col_in + `ADDRESS_WIDTH'd1;
+            max_reg <= max_reg_next;
+            x_reg <= x_reg_next;
+            y_reg <= y_reg_next;
+        end  
     end
 end
 endmodule

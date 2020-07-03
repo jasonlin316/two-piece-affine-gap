@@ -3,8 +3,8 @@
 //`include "ram.v"
 //`include "direction_ram.v"
 //`include "pos_ram.v"
-//`include "sram_sp_2048.v"
-//`include "sram_dp_2048.v"
+//`include "sram_sp_hde.v"
+//`include "sram_dp_hde.v"
 `include "shift_register.v"
 
 module systolic(
@@ -220,7 +220,8 @@ generate
   for( j=0 ; j < `N ; j=j+1)begin
     PE P(
      .clk(clk),
-     .reset_i(reset_i & PE_rst),
+     .reset_i(reset_i),
+     .PE_rst(PE_rst),
      .s_in(Si[j]),
      .t_in(Ti[j]),
      .s_update_in(s_update_i[j]),
