@@ -108,7 +108,8 @@ wire [79:0] shift_reg_input  [0:`RAM_NUM-1];
 wire [79:0] shift_reg_output [0:`RAM_NUM-1];
 wire [79:0] sram_data_output_0 [0:`RAM_NUM-1][0:`MEM_AMOUNT-1];
 wire [79:0] sram_data_output_1 [0:`RAM_NUM-1][0:`MEM_AMOUNT-1];
-wire [`ADDRESS_WIDTH-1:0] SRAM_addr [0:`RAM_NUM-1];
+wire [`ADDRESS_WIDTH-1:0] SRAM_addr_0 [0:`RAM_NUM-1];
+wire [`ADDRESS_WIDTH-1:0] SRAM_addr_1 [0:`RAM_NUM-1];
 wire sram_we_0 [0:`RAM_NUM-1];
 wire sram_we_1 [0:`RAM_NUM-1];
 reg sram_valid_d1 [0:`RAM_NUM-1];
@@ -209,7 +210,8 @@ endgenerate
 generate
   for(j=0;j<`RAM_NUM;j=j+1)
   begin
-    assign SRAM_addr[j] = (use_s1)? column_num : sram_addr_d2[j];
+    assign SRAM_addr_0[j] = (use_s1)? column_num : sram_addr_d2[j];
+    assign SRAM_addr_1[j] = (!use_s1)? column_num : sram_addr_d2[j];
     assign sram_we_0[j] = !(sram_valid_d2[j] && (!use_s1));
     assign sram_we_1[j] = !(sram_valid_d2[j] && (use_s1));
   end
@@ -267,7 +269,7 @@ generate
   begin
     for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
     begin
-      sram_sp_2048 sram0 (
+      sram_sp_hde sram0 (
           .CENY(),
           .WENY(), 
           .AY(), 
@@ -276,7 +278,7 @@ generate
           .CLK(clk), 
           .CEN(1'b0), //Chip Enable (active low)
           .WEN(sram_we_0[j] | (!block_we[BLOCK_NUMBER]) ), //Write Enable (active low)
-          .A(SRAM_addr[j]), //Address (A[0] = LSB)
+          .A(SRAM_addr_0[j]), //Address (A[0] = LSB)
           .D(shift_reg_output[j]), //Data Input
           .EMA(3'b000), 
           .EMAW(2'b00), 
@@ -309,7 +311,7 @@ generate
           .CLK(clk), 
           .CEN(1'b0), //Chip Enable (active low)
           .WEN(sram_we_1[j] | (!block_we[BLOCK_NUMBER])), //Write Enable (active low)
-          .A(SRAM_addr[j]), //Address (A[0] = LSB)
+          .A(SRAM_addr_1[j]), //Address (A[0] = LSB)
           .D(shift_reg_output[j]), //Data Input
           .EMA(3'b000), 
           .EMAW(2'b00), 

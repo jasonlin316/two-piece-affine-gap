@@ -261,7 +261,7 @@ always@(posedge done_reg)begin
 	end*/
 	//over=1'b1;
 
-	if (err === 0 &&  aux>=14  )  begin
+	if (err === 0 &&  aux>=2  )  begin
 	            $display("All data have been generated successfully!\n");
 	            $display("Your alignment is:");
 	            for(i=0; i<l; i=i+1)begin
