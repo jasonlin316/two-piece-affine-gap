@@ -432,7 +432,7 @@ always @(posedge clk or negedge rst_n) begin
 				prefetch_count <= prefetch_count;
 				prefetch_count_buf <= prefetch_count_buf;
 				preTrace <= preTrace;
-				alignment_valid <= alignment_valid;
+				alignment_valid <= 0;
 				in_block_x_bias <= in_block_x_bias;
 				in_block_y_bias <= in_block_y_bias;
 				prefetch_x_bias <= prefetch_x_bias;
