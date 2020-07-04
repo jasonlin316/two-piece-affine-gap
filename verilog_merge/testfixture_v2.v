@@ -46,7 +46,6 @@ reg over;
 //reg [`SEQUENCE_ELEMENT_WIDTH-1:0] T_mem [0:`SEQ_MAX_LEN-1];//T
 //reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] S_cascade [0:`PREFETCH_TIMES-1];
 //reg [0:`PREFETCH_LENGTH*`SEQUENCE_ELEMENT_WIDTH-1] T_cascade [0:`PREFETCH_TIMES-1];
-reg [`DIRECTION_WIDTH-1:0] direction_mem [0:`SEQ_MAX_LEN*`SEQ_MAX_LEN-1];//directions
 //reg [`POSITION_WIDTH-1:0] max_position_mem [0:1];//max position
 reg [`BP_WIDTH-1:0] alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer
 //reg [`SEQUENCE_ELEMENT_WIDTH-1:0] S_alignment_golden [0:`SEQ_MAX_LEN*2-1];//answer_s
@@ -79,8 +78,8 @@ wire [`ADDRESS_WIDTH-1:0] tb_y;
 reg [`log_N-1:0] PE_end;
 wire [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
 
-reg [`SEQ_MAX_LEN*2-1:0] seq [0:27];
-reg [11:0] seq_len [0:27]; //sequence length
+reg [`SEQ_MAX_LEN*2-1:0] seq [0:29];
+reg [11:0] seq_len [0:29]; //sequence length
 
 integer err_cnt;
 integer k_DP;
@@ -197,7 +196,7 @@ new_seq = 0;
 	rst_n = 1;
 #(`CYCLE/4)
 
-    for (k_DP = 0; k_DP < 28; k_DP = k_DP+2) // how much pair of sequence alignment
+    for (k_DP = 0; k_DP < 30; k_DP = k_DP+2) // how much pair of sequence alignment
     begin
         @(negedge clk);
         s_size = seq_len[k_DP];
@@ -262,7 +261,7 @@ always@(posedge done_reg)begin
 	end*/
 	//over=1'b1;
 
-	if (err === 0 &&  aux>=1  )  begin
+	if (err === 0 &&  aux>=14  )  begin
 	            $display("All data have been generated successfully!\n");
 	            $display("Your alignment is:");
 	            for(i=0; i<l; i=i+1)begin
