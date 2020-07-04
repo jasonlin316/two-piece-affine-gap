@@ -269,7 +269,7 @@ generate
   begin
     for(BLOCK_NUMBER =0 ; BLOCK_NUMBER  < `MEM_AMOUNT ; BLOCK_NUMBER  = BLOCK_NUMBER + 1)
     begin
-      sram_sp_hde sram0 (
+      sram_sp_2048 sram0 (
           .CENY(),
           .WENY(), 
           .AY(), 
