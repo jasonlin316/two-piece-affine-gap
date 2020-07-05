@@ -23,9 +23,7 @@ module top(
     prefetch_x_startpoint, 
     prefetch_y_startpoint,
 	done,
-    tb_valid,
-    c_p_x,
-    c_p_y
+    tb_valid
 );
 
 input clk;
@@ -40,7 +38,6 @@ input valid;
 input new_seq;
 input [`log_N-1:0] PE_end;
 
-output [`POSITION_WIDTH-1:0] c_p_x, c_p_y;
 //DP interface inputs
 wire  tb_valid_wire;//can traceback work, which serves as reset
 wire  array_num;//which memory block can traceback use
@@ -75,6 +72,6 @@ traceback AUT(.clk(clk), .rst_n(reset_i), .max_position_x(tb_x), .max_position_y
 			  .prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
 			  .done(done), .tb_valid(tb_valid_wire), .array_num(array_num), 
 			  .tb_busy(tb_busy), .mem_block_num(mem_block_num), .column_num(column_num), .column_k0(column_k0), .column_k1(column_k1), 
-              .current_position_x(c_p_x), .current_position_y(c_p_y) );
+              );
 
 endmodule

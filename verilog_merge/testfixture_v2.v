@@ -108,7 +108,7 @@ top top(
 	.prefetch_request(prefetch_request), .prefetch_count(prefetch_count), 
 	.in_block_x_startpoint(in_block_x_startpoint), .in_block_y_startpoint(in_block_y_startpoint),
 	.prefetch_x_startpoint(prefetch_x_startpoint), .prefetch_y_startpoint(prefetch_y_startpoint),
-	.done(done), .tb_valid(tb_valid), .c_p_x(c_p_x), .c_p_y(c_p_y)
+	.done(done), .tb_valid(tb_valid)
 );
 /*
 DP DP(.clk(clk), .reset_i(rst_n), .S(S), .T(T), .s_update(s_update), .max_o(), .busy(busy), 
