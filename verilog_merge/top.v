@@ -8,7 +8,6 @@ module top(
     S,
     T,
     s_update,
-    max_o,
     busy,
     ack,
     valid, //input, indicate T signal is valid
@@ -31,7 +30,6 @@ input reset_i;
 input [`BP_WIDTH-1:0] S;
 input [`BP_WIDTH-1:0] T;
 input s_update;
-output [`CALC_WIDTH-1:0] max_o;
 output busy;
 input ack;
 input valid;
